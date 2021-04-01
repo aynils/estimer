@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    {% for message in errors.values %}
+        <p style="color:red;">
+            {{ message }}
+        </p>
+    {% endfor %}
+
+    <button type="submit">Me connecter</button>
+
+</form>
+</body>
+</html>

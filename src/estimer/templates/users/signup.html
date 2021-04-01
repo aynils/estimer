@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>S'inscrire</title>
+</head>
+<body>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    {% for message in errors.values %}
+        <p style="color:red;">
+            {{ message }}
+        </p>
+    {% endfor %}
+
+    <button type="submit">M'inscrire</button>
+
+</form>
+
+
+</body>
+</html>
