@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estimer-app
+  labels:
+    app: estimer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: estimer
+  template:
+    metadata:
+      labels:
+        app: estimer
+    spec:
+      containers:
+      - image: ghcr.io/svandegar/estimer:v0.2
+        name: estimer
+        imagePullPolicy: Always
+        envFrom:
+        - secretRef:
+            name: estimer-secret
+        - configMapRef:
+            name: estimer-config
+        ports:
+          - containerPort: 8000
+            name: gunicorn
+      imagePullSecrets:
+        - name: github-registery-secret
