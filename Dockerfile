@@ -1,19 +1,12 @@
-FROM python:3.9-alpine3.13
+FROM python:3.9-slim-buster
 
 ADD requirements.txt /app/requirements.txt
 
-RUN set -ex \
-    && apk add --no-cache --virtual .build-deps postgresql-dev build-base \
-    && python -m venv /env \
-    && /env/bin/pip install --upgrade pip \
-    && /env/bin/pip install --no-cache-dir -r /app/requirements.txt \
-    && runDeps="$(scanelf --needed --nobanner --recursive /env \
-        | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
-        | sort -u \
-        | xargs -r apk info --installed \
-        | sort -u)" \
-    && apk add --virtual rundeps $runDeps \
-    && apk del .build-deps
+RUN pip install --upgrade pip
+# packages required for setting up WSGI
+RUN apt-get update \
+&& apt-get install -y --no-install-recommends gcc libc-dev libpq-dev python3-dev \
+&& pip install -r /app/requirements.txt
 
 ADD src /app
 WORKDIR /app

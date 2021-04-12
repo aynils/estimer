@@ -49,5 +49,6 @@ class ValeursFoncieres(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['date_mutation','code_commune','type_local'])
+            models.Index(fields=['date_mutation','code_commune','type_local']),
+            models.Index(fields=['date_mutation'])
         ]
