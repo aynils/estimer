@@ -1,6 +1,5 @@
 import datetime
 
-from django.test import TestCase
 from dvf.aggregator.data_import import import_data
 from dvf.models import ValeursFoncieres
 from dvf.data.cities import get_simple_sales, get_city_data, get_all_cities
