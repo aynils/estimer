@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users.views import signup
+from estimer.views import home
+from dvf.views import city
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('acocunt/', include('django.contrib.auth.urls')),
+    path('account/', include('django.contrib.auth.urls')),
     path('account/signup', signup, name="signup"),
+    path('commune/<str:slug>', city, name="city"),
+    path('', home, name="home"),
 ]
