@@ -18,6 +18,9 @@ from django.urls import path, include
 from users.views import signup
 from estimer.views import home
 from dvf.views import city
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +28,4 @@ urlpatterns = [
     path('account/signup', signup, name="signup"),
     path('commune/<str:slug>', city, name="city"),
     path('', home, name="home"),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
