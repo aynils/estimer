@@ -19,7 +19,7 @@
             }
         })
             .then((response) => {
-                loading = false
+                console.log('response', response)
                 return response.json()
             })
             .then(data => {
@@ -30,8 +30,10 @@
             });
     }
 
-    function handleSearch() {
-        loading = true
+    function handleSearch(event) {
+        console.log('coucou', event)
+        event.preventDefault()
+        address = event.target[0].value
         const url = new URL('https://api-adresse.data.gouv.fr/search/')
         url.search = new URLSearchParams({q: address}).toString()
         findAddress(url)
@@ -52,7 +54,7 @@
                         name="address-form"
                         data-name="Address Form"
                         class="form w-clearfix"
-                        onsubmit="handleSearch()"
+                        onsubmit="return handleSearch(event);"
                 >
                     <input
                             type="text"
@@ -66,7 +68,6 @@
                     <button
                             type="submit"
                             class="submit-button w-button"
-                            disabled
                     >
                         Estimer
                     </button>
