@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'estimer/css/estimer.css'%}">
+    {% block headscript %} {% endblock %}
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+{% include 'layout/navbar.html' %}
+{% block body %} {% endblock %}
+{% include 'layout/footer.html' %}
+
+    {% block endscript %} {% endblock %}
+</body>
+</html>

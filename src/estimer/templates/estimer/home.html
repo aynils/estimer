@@ -1,11 +1,8 @@
+{%  extends 'layout/base.html' %}
+{% load static %}
 
-<head>
-    {#    CSS #}
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'estimer/css/estimer.css'%}">
-</head>
+{% block headscript %}
 <script>
-
     function redirectToCityPage(city, postcode) {
         const cityName = city.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-').toLowerCase()
         const resultUrl = `/commune/${cityName}-${postcode}/`
@@ -19,7 +16,6 @@
             }
         })
             .then((response) => {
-                console.log('response', response)
                 return response.json()
             })
             .then(data => {
@@ -31,17 +27,16 @@
     }
 
     function handleSearch(event) {
-        console.log('coucou', event)
         event.preventDefault()
         address = event.target[0].value
         const url = new URL('https://api-adresse.data.gouv.fr/search/')
         url.search = new URLSearchParams({q: address}).toString()
         findAddress(url)
     }
+    </script>
+{% endblock %}
 
-</script>
-
-
+{% block body %}
 <div class="section">
 
     <div class="div-block-3">
@@ -239,3 +234,5 @@
         </div>
     </div>
 </div>
+
+{% endblock %}
