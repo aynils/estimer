@@ -5,7 +5,7 @@
 <script>
     function redirectToCityPage(city, postcode) {
         const cityName = city.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-').toLowerCase()
-        const resultUrl = `/commune/${cityName}-${postcode}/`
+        const resultUrl = `/commune/${cityName}-${postcode}`
         window.location.assign(resultUrl)
     }
 

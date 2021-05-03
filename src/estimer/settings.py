@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import re
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -17,6 +17,31 @@ BASE_DIR = Path(__file__).resolve().parent
 
 import os
 import logging.config
+
+def read_env():
+    """Pulled from Honcho code with minor updates, reads local default
+    environment variables from a .env file located in the project root
+    directory.
+    """
+    try:
+        with open('.env.local') as f:
+            content = f.read()
+    except IOError:
+        content = ''
+
+    for line in content.splitlines():
+        m1 = re.match(r'\A([A-Za-z_0-9]+)=(.*)\Z', line)
+        if m1:
+            key, val = m1.group(1), m1.group(2)
+            m2 = re.match(r"\A'(.*)'\Z", val)
+            if m2:
+                val = m2.group(1)
+            m3 = re.match(r'\A"(.*)"\Z', val)
+            if m3:
+                val = re.sub(r'\\(.)', r'\1', m3.group(1))
+            os.environ.setdefault(key, val)
+
+read_env()
 
 # Clear previous config
 LOGGING_CONFIG = None
@@ -68,7 +93,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'storages',
 ]
 
 MIDDLEWARE = [

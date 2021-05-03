@@ -52,3 +52,19 @@ class ValeursFoncieres(models.Model):
             models.Index(fields=['date_mutation','code_commune','type_local']),
             models.Index(fields=['date_mutation'])
         ]
+
+
+class Commune(models.Model):
+    code_postal = models.CharField(max_length=255, null=True)
+    code_commune = models.CharField(max_length=255, null=False, unique=True)
+    nom_commune = models.CharField(max_length=255, null=True)
+    code_departement = models.CharField(max_length=255, null=True)
+    slug = models.CharField(max_length=255, null=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['code_postal']),
+            models.Index(fields=['code_commune']),
+            models.Index(fields=['nom_commune']),
+            models.Index(fields=['slug'])
+        ]

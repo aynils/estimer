@@ -17,3 +17,4 @@ requests==2.25.1
 pandas
 psycopg2-binary
 sentry-sdk==1.0.0
+python-slugify

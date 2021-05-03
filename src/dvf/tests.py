@@ -53,4 +53,4 @@ class TestCommunes(unittest.TestCase):
     def test_get_all_cities(self):
         all_cities = get_all_cities()
         logger.info(f"Found {len(all_cities)} cities")
-        assert len(all_cities) == 28664
+        assert len(all_cities) == 31076
