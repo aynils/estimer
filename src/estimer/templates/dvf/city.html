@@ -162,7 +162,7 @@
                 <div class="w-col w-col-4">
                     <div class="div-block-26">
                         <div>
-                            <img alt="photo de {{ city_data.agent.name }}" class="agent-img" src="{% get_static_prefix %}estimer/images/{{ city_data.agent.picture }}"/>
+                            <img alt="photo de {{ city_data.agent.name }}" class="agent-img" src="{{ city_data.agent.picture }}"/>
                         </div>
                         <div class="text-block-18">{{ city_data.agent.name }}</div>
                         <div class="text-block-19">{{ city_data.agent.agence }}</div>

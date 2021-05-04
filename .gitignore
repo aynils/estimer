@@ -18,3 +18,4 @@ tests/.coverage
 build/
 tests/report/
 /pandas/
+/ca-certificate.crt

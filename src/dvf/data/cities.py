@@ -1,15 +1,16 @@
 import datetime
 from typing import Tuple, List
+from functools import lru_cache
 
 import pandas as pd
 from django.db import connection
 
 from dvf.data.classes import CityData, MedianM2Price, Sale, Address, StreetMedianPrice, Agent
 # from helpers.timer import timer
-# @timer
+
 from dvf.models import Commune
 
-
+# @timer
 def get_avg_m2_price(code_commune: str,
                      types: Tuple,
                      date_from: datetime.date) -> dict:
@@ -79,6 +80,7 @@ def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
 
 
 # @timer
+@lru_cache
 def get_city_data(code_commune: str) -> CityData:
     today = datetime.date.today()
     last_year = datetime.date(year=today.year - 1, month=1, day=1)
@@ -186,6 +188,7 @@ def get_all_cities() -> list:
 
 
 # noinspection SqlResolve
+@lru_cache
 def get_simple_sales(code_commune: str,
                      types: Tuple,
                      date_from: datetime.date) -> pd.DataFrame:
@@ -218,18 +221,18 @@ def get_simple_sales(code_commune: str,
 
     return mutations.drop_duplicates(subset="id_mutation", keep=False)
 
-
+@lru_cache
 def get_cities() -> List[Commune]:
     return Commune.objects.all()
 
-
+@lru_cache
 def get_city_from_slug(slug: str) -> Commune:
     return Commune.objects.get(slug=slug)
 
 
 def get_agent(code_commune: str) -> Agent:
     return Agent(
-        picture='olivier.jpeg',
+        picture='https://estimer-prod.fra1.digitaloceanspaces.com/static/estimer/images/olivier.jpeg',
         name='Olivier Pourquier',
         agency='estimer.com',
         description='''Vous souhaitez obtenir une estimation précise de votre bien ?
