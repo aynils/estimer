@@ -1,6 +1,8 @@
 import datetime
 from typing import Tuple, List
-from functools import lru_cache
+from helpers.cache import cached_function
+from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
+from django.core.exceptions import ObjectDoesNotExist
 
 import pandas as pd
 from django.db import connection
@@ -80,7 +82,7 @@ def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
 
 
 # @timer
-@lru_cache
+@cached_function(ttl=CACHE_TTL_ONE_DAY)
 def get_city_data(code_commune: str) -> CityData:
     today = datetime.date.today()
     last_year = datetime.date(year=today.year - 1, month=1, day=1)
@@ -188,7 +190,7 @@ def get_all_cities() -> list:
 
 
 # noinspection SqlResolve
-@lru_cache
+@cached_function(ttl=CACHE_TTL_SIX_MONTH)
 def get_simple_sales(code_commune: str,
                      types: Tuple,
                      date_from: datetime.date) -> pd.DataFrame:
@@ -221,13 +223,16 @@ def get_simple_sales(code_commune: str,
 
     return mutations.drop_duplicates(subset="id_mutation", keep=False)
 
-@lru_cache
+@cached_function(ttl=CACHE_TTL_SIX_MONTH)
 def get_cities() -> List[Commune]:
     return Commune.objects.all()
 
-@lru_cache
+@cached_function(ttl=CACHE_TTL_SIX_MONTH)
 def get_city_from_slug(slug: str) -> Commune:
-    return Commune.objects.get(slug=slug)
+    try:
+        return Commune.objects.get(slug=slug)
+    except ObjectDoesNotExist:
+        return None
 
 
 def get_agent(code_commune: str) -> Agent:
