@@ -171,7 +171,6 @@ def get_city_data(code_commune: str) -> CityData:
     agent = get_agent(code_commune=code_commune)
 
     return CityData(
-        code_commune=code_commune,
         median_m2_price_appartement=median_m2_price_appartement,
         median_m2_price_maison=median_m2_price_maison,
         median_m2_prices_years=median_m2_prices_years,
@@ -231,6 +230,13 @@ def get_cities() -> List[Commune]:
 def get_city_from_slug(slug: str) -> Commune:
     try:
         return Commune.objects.get(slug=slug)
+    except ObjectDoesNotExist:
+        return None
+
+@cached_function(ttl=CACHE_TTL_SIX_MONTH)
+def get_city_from_code(code: str) -> Commune:
+    try:
+        return Commune.objects.get(code_commune=code)
     except ObjectDoesNotExist:
         return None
 

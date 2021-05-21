@@ -56,7 +56,6 @@ class Agent:
 
 @dataclass
 class CityData:
-    code_commune: str
     median_m2_price_appartement: MedianM2Price
     median_m2_price_maison: MedianM2Price
     median_m2_prices_years: List[MedianM2Price]
