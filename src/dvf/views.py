@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 
 from dvf.data.cities import get_city_data, get_city_from_slug, get_city_from_code
@@ -43,16 +43,7 @@ def city(request, slug):
 
             commune = get_city_from_code(code=city_code)
             if commune:
-                city_data = get_city_data(code_commune=commune.code_commune)
-                context = {
-                    "slug": commune.slug,
-                    "city_name": commune.nom_commune,
-                    "city_data": city_data,
-                    "title": f'Prix m2 {commune.nom_commune} ({commune.code_departement}) '
-                             f'| Prix immobilier et estimation à {commune.nom_commune}'
-                }
-
-                return render(request, "dvf/city.html", context)
+                return redirect(f'/commune/{commune.slug}')
 
             else:
                 context = {
