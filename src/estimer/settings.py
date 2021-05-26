@@ -210,10 +210,10 @@ AWS_S3_SIGNATURE_VERSION = 's3v4'
 
 STATIC_URL = '/static/'
 
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-else:
-    INSTALLED_APPS.append('storages')
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
-    STATIC_ROOT = f"{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}"
+# if not DEBUG:
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# else:
+#     INSTALLED_APPS.append('storages')
+#     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#     DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
+#     STATIC_ROOT = f"{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}"
