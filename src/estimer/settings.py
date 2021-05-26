@@ -210,7 +210,7 @@ AWS_S3_SIGNATURE_VERSION = 's3v4'
 
 STATIC_URL = '/static/'
 
-if DEBUG:
+if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 else:
     INSTALLED_APPS.append('storages')
