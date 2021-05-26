@@ -1,16 +1,17 @@
 import datetime
 from typing import Tuple, List
-from helpers.cache import cached_function
-from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
-from django.core.exceptions import ObjectDoesNotExist
 
 import pandas as pd
 from django.db import connection
 
+from agencies.models import Agency
 from dvf.data.classes import CityData, MedianM2Price, Sale, Address, StreetMedianPrice, Agent
-# from helpers.timer import timer
-
 from dvf.models import Commune
+from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
+from helpers.cache import cached_function
+
+
+# from helpers.timer import timer
 
 # @timer
 def get_avg_m2_price(code_commune: str,
@@ -222,40 +223,61 @@ def get_simple_sales(code_commune: str,
 
     return mutations.drop_duplicates(subset="id_mutation", keep=False)
 
+
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
 def get_cities() -> List[Commune]:
     return Commune.objects.all()
 
-@cached_function(ttl=CACHE_TTL_SIX_MONTH)
-def get_city_from_slug(slug: str) -> Commune:
-    try:
-        return Commune.objects.get(slug=slug)
-    except ObjectDoesNotExist:
-        return None
 
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
-def get_city_from_code(code: str) -> Commune:
+def get_city_from_slug(slug: str) -> Commune or None:
+    try:
+        return Commune.objects.get(slug=slug)
+    except Commune.DoesNotExist:
+        return None
+
+
+@cached_function(ttl=CACHE_TTL_SIX_MONTH)
+def get_city_from_code(code: str) -> Commune or None:
     try:
         return Commune.objects.get(code_commune=code)
-    except ObjectDoesNotExist:
+    except Commune.DoesNotExist:
         return None
 
 
 def get_agent(code_commune: str) -> Agent:
-    return Agent(
-        picture='https://estimer-prod.fra1.cdn.digitaloceanspaces.com/static/estimer/images/olivier.jpeg',
-        name='Olivier Pourquier',
-        agency='estimer.com',
-        description='''Vous souhaitez obtenir une estimation précise de votre bien ?
-        Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.''',
-        phone_number='06.81.37.36.33',
-        email='contact@estimer.com',
-        website_url='estimer.com',
-    )
+    try:
+        agency = Agency.objects.get(code_commune=code_commune)
+        agent = Agent(
+            picture=agency.picture_url,
+            name=agency.agent,
+            agency=agency.name,
+            description=agency.description,
+            phone_number=agency.phone_number,
+            email=agency.email,
+            website_url=agency.website_url,
+        )
+
+    except Agency.DoesNotExist:
+        agent = Agent(
+            picture='https://estimer-prod.fra1.cdn.digitaloceanspaces.com/static/estimer/images/olivier.jpeg',
+            name='Olivier Pourquier',
+            agency='estimer.com',
+            description='''Vous souhaitez obtenir une estimation précise de votre bien ?
+                            Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.''',
+            phone_number='06.81.37.36.33',
+            email='contact@estimer.com',
+            website_url='estimer.com',
+        )
+
+    return agent
 
 
 def calculate_bar_heights(avg_m2_price: dict) -> dict:
-    max_price = max(avg_m2_price.values())
+    if avg_m2_price:
+        max_price = max(avg_m2_price.values())
+    else:
+        max_price = 0
     return {
         key: {
             "height": int(value / max_price * 135),
@@ -265,22 +287,27 @@ def calculate_bar_heights(avg_m2_price: dict) -> dict:
 
 
 def generate_price_evolution_text(avg_m2_price: dict) -> str:
-    max_year = int(max(avg_m2_price.keys()))
-    max_year_price = int(avg_m2_price.get(max_year, 0))
+    if avg_m2_price:
+        max_year = int(max(avg_m2_price.keys()))
+        max_year_price = int(avg_m2_price.get(max_year, 0))
+    else:
+        max_year = 2021
+        max_year_price = 1
+
     last_year_price = int(
-            avg_m2_price.get(max_year - 1)
-            or avg_m2_price.get(max_year - 2)
-            or avg_m2_price.get(max_year - 3)
-            or avg_m2_price.get(max_year - 4)
-            or avg_m2_price.get(max_year - 5)
-            or max_year_price
+        avg_m2_price.get(max_year - 1)
+        or avg_m2_price.get(max_year - 2)
+        or avg_m2_price.get(max_year - 3)
+        or avg_m2_price.get(max_year - 4)
+        or avg_m2_price.get(max_year - 5)
+        or max_year_price
     )
 
-    evolution = int((max_year_price/last_year_price) * 100 - 100)
+    evolution = int((max_year_price / last_year_price) * 100 - 100)
     if evolution >= 0:
         evolution_text = f"augmenté de {evolution}"
     else:
         evolution_text = f"diminué de {abs(evolution)}"
 
-    return f"Entre {max_year -1} et {max_year}, les prix de l'immobilier ont {evolution_text}%" \
+    return f"Entre {max_year - 1} et {max_year}, les prix de l'immobilier ont {evolution_text}%" \
            f", atteignant {max_year_price} € en {max_year}."

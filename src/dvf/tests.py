@@ -32,7 +32,7 @@ class TestCommunes(unittest.TestCase):
 
     def test_raw_data_montpellier(self):
         raw_city_data = get_simple_sales(
-            code_commune=34172,
+            code_commune="34172",
             types=('Appartement', 'Maison'),
             date_from=datetime.date(year=2020, month=1, day=1)
         )
@@ -41,14 +41,13 @@ class TestCommunes(unittest.TestCase):
 
     def test_city_data_montpellier(self):
         city_data = get_city_data(
-            code_commune=34172,
+            code_commune="34172",
         )
         # logger.info(f"Data for Montpellier: {city_data}")
-        assert city_data.code_commune == 34172
         assert city_data.median_m2_price_appartement.year == 2020
-        assert city_data.median_m2_price_appartement.value == 3004.02
+        assert city_data.median_m2_price_appartement.value == 3004
         assert city_data.median_m2_price_maison.year == 2020
-        assert city_data.median_m2_price_maison.value == 3823.84
+        assert city_data.median_m2_price_maison.value == 3823
 
     def test_get_all_cities(self):
         all_cities = get_all_cities()

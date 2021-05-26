@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     'dvf',
     'estimer',
     'users',
+    'agencies',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
