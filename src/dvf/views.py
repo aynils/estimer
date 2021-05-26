@@ -44,7 +44,7 @@ def city(request, slug):
 
             commune = get_city_from_code(code=city_code)
             if commune:
-                return redirect(f'/commune/{commune.slug}')
+                return render(request,f'/commune/{commune.slug}')
 
             else:
                 context = {
