@@ -29,5 +29,5 @@ urlpatterns = [
     path('account/', include('django.contrib.auth.urls')),
     path('account/signup', signup, name="signup"),
     path('commune/<str:slug>', cache_page(CACHE_TTL_ONE_DAY)(city), name="city"),
-    path('', home, name="home"),
+    path('', cache_page(CACHE_TTL_ONE_DAY)(home), name="home"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

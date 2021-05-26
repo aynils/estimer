@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 import requests
 
 from dvf.data.cities import get_city_data, get_city_from_slug, get_city_from_code
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 
 SEARCH_API_URL = 'https://api-adresse.data.gouv.fr/search/'
 
-@csrf_protect
+@csrf_exempt
 def city(request, slug):
     if request.method == "GET":
         commune = get_city_from_slug(slug=slug)
@@ -44,7 +44,7 @@ def city(request, slug):
 
             commune = get_city_from_code(code=city_code)
             if commune:
-                return render(request,f'/commune/{commune.slug}')
+                return redirect(f'/commune/{commune.slug}')
 
             else:
                 context = {
