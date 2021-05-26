@@ -2,39 +2,6 @@
 {% load static %}
 
 {% block headscript %}
-<script>
-    function redirectToCityPage(city, postcode) {
-        const cityName = city.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-').toLowerCase()
-        const resultUrl = `/commune/${cityName}-${postcode}`
-        window.location.assign(resultUrl)
-    }
-
-    function findAddress (url)  {
-        fetch(url, {
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-            .then((response) => {
-                return response.json()
-            })
-            .then(data => {
-                const city = data.features[0].properties.city
-                const postcode = data.features[0].properties.postcode
-                {#const citycode = data.features[0].properties.citycode#}
-                redirectToCityPage(city, postcode)
-            });
-    }
-
-    function handleSearch(event) {
-        event.preventDefault()
-        address = event.target[0].value
-        const url = new URL('https://api-adresse.data.gouv.fr/search/')
-        url.search = new URLSearchParams({q: address}).toString()
-        findAddress(url)
-
-    }
-    </script>
     <title>Estimer.com</title>
     <meta name="description"
           content="Découvrez les prix du m2 et l’évolution du marché de l’immobilier
