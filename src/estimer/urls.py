@@ -14,9 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from users.views import signup
-from estimer.views import home
+from django.urls import path
+from estimer.views import home, mentions_legales
 from dvf.views import city
 from django.conf import settings
 from django.conf.urls.static import static
@@ -26,8 +25,8 @@ from estimer.settings import CACHE_TTL_ONE_DAY
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('django.contrib.auth.urls')),
-    path('account/signup', signup, name="signup"),
+    # path('account/', include('django.contrib.auth.urls')),
     path('commune/<str:slug>', cache_page(CACHE_TTL_ONE_DAY)(city), name="city"),
+    path('mentions-legales/', mentions_legales, name="mentions-legales"),
     path('', cache_page(CACHE_TTL_ONE_DAY)(home), name="home"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
