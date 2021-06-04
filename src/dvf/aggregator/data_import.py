@@ -72,7 +72,7 @@ def import_gzipped_csv_to_db(gzipped_csv_file_path: str) -> None:
 def delete_existing_data(year: int) -> None:
     ValeursFoncieres.objects.raw(
         f"""
-    DELETE FROM dvf_valeursfoncieres 
+    DELETE FROM dvf_valeursfoncieres
     WHERE EXTRACT(year FROM dvf_valeursfoncieres.date_mutation) = {int(year)}
     ;"""
     )

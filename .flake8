@@ -1,0 +1,8 @@
+[flake8]
+ignore =
+    W503,
+    # Black breaking this one
+    E125
+max-line-length = 160
+exclude = tests/*
+max-complexity = 10

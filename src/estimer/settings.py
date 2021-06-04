@@ -11,17 +11,16 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import re
 from pathlib import Path
+import os
+import logging.config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
 
-import os
-import logging.config
-
 
 def read_env():
-    """Pulled from Honcho code with minor updates, reads local default
-    environment variables from a .env file located in the project root
+    """Pulled from Honcho code with minor updates, reads local default environment variables
+    from a .env file located in the project root
     directory.
     """
     try:
@@ -163,7 +162,6 @@ CACHE_TTL_SIX_MONTH = 60 * 60 * 24 * 30 * 6
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

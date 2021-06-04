@@ -16,6 +16,16 @@ else
     echo -e "                  [ ${GREEN}OK${NC} ]";
 fi
 
+# check if code is flake8 formated
+echo -n -e "${ORANGE}CHECKING${NC}: Flake8 format..."
+flake8 src > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo -e "             [ ${RED}FAILED!${NC} ]";
+    exit 1
+else
+    echo -e "                  [ ${GREEN}OK${NC} ]";
+fi
+
 # run tests
 echo -n -e "${ORANGE}CHECKING${NC}: Running tests..."
 source venv/bin/activate && src/manage.py test > /dev/null 2>&1
