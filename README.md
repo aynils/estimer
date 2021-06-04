@@ -15,8 +15,7 @@ These instructions are tested on a Mac M1. Shouldn't be that different on Linux.
 ## Config
 1. Copy `.env.local.example` and rename it to `.env.local`
 2. Update the env variables to match your local config
-3. 
-
+3. Copy the file `pre-push` to `.git/hooks/pre-push` : `cp pre-push .git/hooks/pre-push`
 
 
 
