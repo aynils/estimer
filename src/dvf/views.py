@@ -4,6 +4,8 @@ import requests
 from dvf.data.cities import get_city_data, get_city_from_slug, get_city_from_code
 from django.views.decorators.csrf import csrf_exempt
 
+from estimer.settings import MAPBOX_PUBLIC_TOKEN
+
 SEARCH_API_URL = "https://api-adresse.data.gouv.fr/search/"
 
 
@@ -19,6 +21,7 @@ def city(request, slug):
                 "city_data": city_data,
                 "title": f"Prix m2 {commune.nom_commune} ({commune.code_departement}) "
                 f"| Prix immobilier et estimation à {commune.nom_commune}",
+                "MAPBOX_PUBLIC_TOKEN": MAPBOX_PUBLIC_TOKEN,
             }
 
             return render(request, "dvf/city.html", context)

@@ -20,7 +20,4 @@ These instructions are tested on a Mac M1. Shouldn't be that different on Linux.
 
 
 # Prod setup
-## Config
-### Reference
-
-### Steps
+TODO: add prod setup guide
