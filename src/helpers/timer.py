@@ -8,7 +8,7 @@ def timer(f):
         ts = time()
         result = f(*args, **kw)
         te = time()
-        print(f'func:{f.__name__} args:[{args}, {kw}] took: {te - ts} sec')
+        print(f"func:{f.__name__} args:[{args}, {kw}] took: {te - ts} sec")
         return result
 
     return wrap

@@ -38,5 +38,5 @@ dvf_table_columns = [
     "nature_culture_speciale",
     "surface_terrain",
     "longitude",
-    "latitude"
+    "latitude",
 ]

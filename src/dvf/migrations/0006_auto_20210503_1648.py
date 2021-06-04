@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dvf', '0005_auto_20210503_1627'),
+        ("dvf", "0005_auto_20210503_1627"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='commune',
-            name='code_commune',
+            model_name="commune",
+            name="code_commune",
             field=models.CharField(max_length=255, unique=True),
         ),
     ]

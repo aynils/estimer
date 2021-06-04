@@ -1,19 +1,27 @@
 # Introduction
-This is a Django template meant to run on K8s
 
-# Setup
+
+## Note:
+These instructions are tested on a Mac M1. Shouldn't be that different on Linux. If you're on Windows, I'm sorry, but I have no idea how you can setup your environment. Google will be your friend.
+
+# Local Setup
 ## Prerequisites
-1. a PSQL Managed DB
-2. an S3 compatible space
-3. a Digital Ocean K8s
+1. PSQL server running
+2. Redis server running
+3. Python 3.9: `brew install python@3.9`
+4. Flak8 installed: `brew install flake8`
+5. Black installed: `brew install black`
 
 ## Config
+1. Copy `.env.local.example` and rename it to `.env.local`
+2. Update the env variables to match your local config
+3. 
+
+
+
+
+# Prod setup
+## Config
 ### Reference
-https://www.digitalocean.com/community/tutorials/how-to-deploy-a-scalable-and-secure-django-application-with-kubernetes
 
 ### Steps
-Update the files in ./k8s to use the right app name (replace `estimer` by your own name, everywhere).
-
-Then follow the steps in the ref doc. I only did it once and it wasn't an easy adventure. 
-I'll certainely put more details here next time I go through this process.
-

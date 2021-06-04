@@ -6,39 +6,53 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('dvf', '0004_valeursfoncieres_slug'),
+        ("dvf", "0004_valeursfoncieres_slug"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Commune',
+            name="Commune",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('code_postal', models.CharField(max_length=255, null=True)),
-                ('code_commune', models.CharField(max_length=255, null=True)),
-                ('nom_commune', models.CharField(max_length=255, null=True)),
-                ('code_departement', models.CharField(max_length=255, null=True)),
-                ('slug', models.CharField(max_length=255, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("code_postal", models.CharField(max_length=255, null=True)),
+                ("code_commune", models.CharField(max_length=255, null=True)),
+                ("nom_commune", models.CharField(max_length=255, null=True)),
+                ("code_departement", models.CharField(max_length=255, null=True)),
+                ("slug", models.CharField(max_length=255, null=True)),
             ],
         ),
         migrations.RemoveField(
-            model_name='valeursfoncieres',
-            name='slug',
+            model_name="valeursfoncieres",
+            name="slug",
         ),
         migrations.AddIndex(
-            model_name='commune',
-            index=models.Index(fields=['code_postal'], name='dvf_commune_code_po_417b5b_idx'),
+            model_name="commune",
+            index=models.Index(
+                fields=["code_postal"], name="dvf_commune_code_po_417b5b_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='commune',
-            index=models.Index(fields=['code_commune'], name='dvf_commune_code_co_403295_idx'),
+            model_name="commune",
+            index=models.Index(
+                fields=["code_commune"], name="dvf_commune_code_co_403295_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='commune',
-            index=models.Index(fields=['nom_commune'], name='dvf_commune_nom_com_56de01_idx'),
+            model_name="commune",
+            index=models.Index(
+                fields=["nom_commune"], name="dvf_commune_nom_com_56de01_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='commune',
-            index=models.Index(fields=['slug'], name='dvf_commune_slug_66b3e8_idx'),
+            model_name="commune",
+            index=models.Index(fields=["slug"], name="dvf_commune_slug_66b3e8_idx"),
         ),
     ]

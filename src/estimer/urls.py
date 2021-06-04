@@ -24,9 +24,9 @@ from estimer.settings import CACHE_TTL_ONE_DAY
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     # path('account/', include('django.contrib.auth.urls')),
-    path('commune/<str:slug>', cache_page(CACHE_TTL_ONE_DAY)(city), name="city"),
-    path('mentions-legales/', mentions_legales, name="mentions-legales"),
-    path('', cache_page(CACHE_TTL_ONE_DAY)(home), name="home"),
+    path("commune/<str:slug>", cache_page(CACHE_TTL_ONE_DAY)(city), name="city"),
+    path("mentions-legales/", mentions_legales, name="mentions-legales"),
+    path("", cache_page(CACHE_TTL_ONE_DAY)(home), name="home"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

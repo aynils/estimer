@@ -13,7 +13,7 @@ class Agency(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=['code_commune']),
+            models.Index(fields=["code_commune"]),
         ]
 
         verbose_name_plural = "Agencies"

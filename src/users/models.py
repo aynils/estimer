@@ -7,9 +7,7 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError("Email is mandatory")
 
-        user = self.model(
-            email=self.normalize_email(email)
-        )
+        user = self.model(email=self.normalize_email(email))
 
         user.set_password(password)
         user.save()
@@ -24,12 +22,7 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser):
-    email = models.EmailField(
-        unique=True,
-        blank=False,
-        max_length=255,
-        null=False
-    )
+    email = models.EmailField(unique=True, blank=False, max_length=255, null=False)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

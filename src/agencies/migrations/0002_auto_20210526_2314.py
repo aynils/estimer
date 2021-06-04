@@ -6,25 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('agencies', '0001_initial'),
+        ("agencies", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveIndex(
-            model_name='agency',
-            name='agencies_ag_commune_aa8db8_idx',
+            model_name="agency",
+            name="agencies_ag_commune_aa8db8_idx",
         ),
         migrations.RemoveField(
-            model_name='agency',
-            name='commune',
+            model_name="agency",
+            name="commune",
         ),
         migrations.AddField(
-            model_name='agency',
-            name='code_commune',
+            model_name="agency",
+            name="code_commune",
             field=models.CharField(max_length=255, null=True),
         ),
         migrations.AddIndex(
-            model_name='agency',
-            index=models.Index(fields=['code_commune'], name='agencies_ag_code_co_852095_idx'),
+            model_name="agency",
+            index=models.Index(
+                fields=["code_commune"], name="agencies_ag_code_co_852095_idx"
+            ),
         ),
     ]
