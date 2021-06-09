@@ -1,4 +1,5 @@
 import datetime
+import math
 from typing import Tuple, List
 
 import pandas as pd
@@ -129,18 +130,19 @@ def get_city_data(code_commune: str) -> CityData:
     last_sales = [
         Sale(
             date=sale.get("date_mutation").date,
-            price=int(sale.get("valeur_fonciere", 0))
+            price=int(sale.get("valeur_fonciere"))
             if sale.get("valeur_fonciere")
             else "",
-            surface=int(sale.get("surface_reelle_bati", 0))
+            surface=int(sale.get("surface_reelle_bati"))
             if sale.get("surface_reelle_bati")
             else "",
-            m2_price=int(sale.get("prix_m2", 0)) if sale.get("prix_m2") else "",
+            m2_price=int(sale.get("prix_m2")) if sale.get("prix_m2") else "",
             type_local=sale.get("type_local"),
             rooms_count=sale.get("nombre_pieces_principales"),
             address=Address(
-                numero=int(sale.get("adresse_numero", 0))
+                numero=int(sale.get("adresse_numero"))
                 if sale.get("adresse_numero")
+                and not math.isnan(sale.get("adresse_numero"))
                 else "",
                 suffixe=sale.get("adresse_suffixe"),
                 nom_voie=sale.get("adresse_nom_voie", "").lower(),
