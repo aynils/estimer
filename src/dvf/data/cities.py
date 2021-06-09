@@ -129,17 +129,17 @@ def get_city_data(code_commune: str) -> CityData:
     last_sales = [
         Sale(
             date=sale.get("date_mutation").date,
-            price=int(sale.get("valeur_fonciere"))
+            price=int(sale.get("valeur_fonciere", 0))
             if sale.get("valeur_fonciere")
             else "",
-            surface=int(sale.get("surface_reelle_bati"))
+            surface=int(sale.get("surface_reelle_bati", 0))
             if sale.get("surface_reelle_bati")
             else "",
-            m2_price=int(sale.get("prix_m2")) if sale.get("prix_m2") else "",
+            m2_price=int(sale.get("prix_m2"), 0) if sale.get("prix_m2") else "",
             type_local=sale.get("type_local"),
             rooms_count=sale.get("nombre_pieces_principales"),
             address=Address(
-                numero=int(sale.get("adresse_numero"))
+                numero=int(sale.get("adresse_numero"), 0)
                 if sale.get("adresse_numero")
                 else "",
                 suffixe=sale.get("adresse_suffixe"),
