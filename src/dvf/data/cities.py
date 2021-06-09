@@ -135,7 +135,7 @@ def get_city_data(code_commune: str) -> CityData:
             surface=int(sale.get("surface_reelle_bati", 0))
             if sale.get("surface_reelle_bati")
             else "",
-            m2_price=int(sale.get("prix_m2"), 0) if sale.get("prix_m2") else "",
+            m2_price=int(sale.get("prix_m2", 0)) if sale.get("prix_m2") else "",
             type_local=sale.get("type_local"),
             rooms_count=sale.get("nombre_pieces_principales"),
             address=Address(
