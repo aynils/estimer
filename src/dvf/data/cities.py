@@ -139,7 +139,7 @@ def get_city_data(code_commune: str) -> CityData:
             type_local=sale.get("type_local"),
             rooms_count=sale.get("nombre_pieces_principales"),
             address=Address(
-                numero=int(sale.get("adresse_numero"), 0)
+                numero=int(sale.get("adresse_numero", 0))
                 if sale.get("adresse_numero")
                 else "",
                 suffixe=sale.get("adresse_suffixe"),
