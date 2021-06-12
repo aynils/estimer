@@ -38,9 +38,7 @@ def copy_csv(
 
 
 def build_url(year: int) -> str:
-    return (
-        f"https://cadastre.data.gouv.fr/data/etalab-dvf/latest/csv/{year}/full.csv.gz"
-    )
+    return f"https://files.data.gouv.fr/geo-dvf/2021-06/csv/{year}/full.csv.gz"
 
 
 def download_csv(url: str, folder_path: str) -> str:
