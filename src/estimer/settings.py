@@ -162,7 +162,7 @@ else:
             "OPTIONS": {
                 "CLIENT_CLASS": "django_redis.client.DefaultClient",
             },
-            "KEY_PREFIX": "estimer",
+            "KEY_PREFIX": "estimer_v1",
         }
     }
 
