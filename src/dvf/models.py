@@ -57,8 +57,8 @@ class ValeursFoncieres(models.Model):
     code_nature_culture_speciale = models.CharField(max_length=255, null=True)
     nature_culture_speciale = models.CharField(max_length=255, null=True)
     surface_terrain = models.DecimalField(max_digits=12, decimal_places=2, null=True)
-    longitude = models.DecimalField(max_digits=12, decimal_places=15, null=True)
-    latitude = models.DecimalField(max_digits=12, decimal_places=15, null=True)
+    longitude = models.DecimalField(max_digits=20, decimal_places=15, null=True)
+    latitude = models.DecimalField(max_digits=20, decimal_places=15, null=True)
     section_prefixe = models.CharField(max_length=5, null=True)
 
     class Meta:

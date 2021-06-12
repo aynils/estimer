@@ -63,7 +63,7 @@ def get_last_sales(
 ) -> dict:
     ordered_sales = ventes.sort_values(by="date_mutation", ascending=False)
     # clean_sales = remove_outliers(ordered_sales, "valeur_fonciere")
-    return ordered_sales.head(n=limit).round(2).to_dict("records")
+    return ordered_sales.head(n=limit).to_dict("records")
 
 
 def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
@@ -80,7 +80,7 @@ def get_city_data(code_commune: str) -> CityData:
     last_year = datetime.date(year=today.year - 1, month=1, day=1)
     last_5_years = datetime.date(year=today.year - 5, month=1, day=1)
 
-    ventes = get_simple_sales_v1(
+    ventes = get_simple_sales(
         code_commune=code_commune,
         types=("Maison", "Appartement"),
         date_from=last_5_years,
@@ -199,7 +199,7 @@ def get_all_cities() -> list:
 # noinspection SqlResolve
 # @timer
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
-def get_simple_sales_v1(
+def get_simple_sales(
     code_commune: str, types: Tuple, date_from: datetime.date
 ) -> pd.DataFrame:
     mutations = pd.read_sql(

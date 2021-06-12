@@ -2,7 +2,7 @@ import datetime
 
 from dvf.aggregator.data_import import import_data
 from dvf.models import ValeursFoncieres
-from dvf.data.cities import get_simple_sales_v1, get_city_data, get_all_cities
+from dvf.data.cities import get_simple_sales, get_city_data, get_all_cities
 import unittest
 import logging
 
@@ -31,7 +31,7 @@ class TestCommunes(unittest.TestCase):
         assert data_count == 2459560
 
     def test_raw_data_montpellier(self):
-        raw_city_data = get_simple_sales_v1(
+        raw_city_data = get_simple_sales(
             code_commune="34172",
             types=("Appartement", "Maison"),
             date_from=datetime.date(year=2020, month=1, day=1),
