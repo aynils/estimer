@@ -200,7 +200,7 @@ def get_all_cities() -> list:
 # @timer
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
 def get_simple_sales(
-    code_commune: str, types: Tuple, date_from: datetime.date
+    code_commune: str, types: Tuple, date_from: datetime.date, version=2
 ) -> pd.DataFrame:
     mutations = pd.read_sql(
         """SELECT
