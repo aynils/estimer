@@ -80,7 +80,7 @@ def get_city_data(code_commune: str) -> CityData:
     last_year = datetime.date(year=today.year - 1, month=1, day=1)
     last_5_years = datetime.date(year=today.year - 5, month=1, day=1)
 
-    ventes = get_simple_sales(
+    ventes = get_simple_sales_v1(
         code_commune=code_commune,
         types=("Maison", "Appartement"),
         date_from=last_5_years,
@@ -199,8 +199,8 @@ def get_all_cities() -> list:
 # noinspection SqlResolve
 # @timer
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
-def get_simple_sales(
-    code_commune: str, types: Tuple, date_from: datetime.date, version=2
+def get_simple_sales_v1(
+    code_commune: str, types: Tuple, date_from: datetime.date
 ) -> pd.DataFrame:
     mutations = pd.read_sql(
         """SELECT
