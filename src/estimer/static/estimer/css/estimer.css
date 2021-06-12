@@ -1977,6 +1977,9 @@ label {
     padding-right: 0px;
     padding-left: 0px;
   }
+  .margin-bottom {
+    margin-bottom: 10px;
+  }
 }
 
 .captcha {
@@ -2086,4 +2089,6 @@ label {
   .div-block-30 {
     margin-right: 0px;
   }
+
+
 }
