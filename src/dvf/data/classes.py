@@ -24,6 +24,8 @@ class Address:
     code_postal: int
     code_commune: int
     code_departement: int
+    latitude: int
+    longitude: int
 
 
 @dataclass
@@ -55,6 +57,19 @@ class Agent:
 
 
 @dataclass
+class Geometry:
+    coordinates: List[int]
+    type: str = "Point"
+
+
+@dataclass
+class MapMarker:
+    geometry: Geometry
+    properties: Sale
+    type: str = "Feature"
+
+
+@dataclass
 class CityData:
     median_m2_price_appartement: MedianM2Price
     median_m2_price_maison: MedianM2Price
@@ -66,3 +81,4 @@ class CityData:
     agent: Agent
     bar_heights: dict
     price_evolution_text: str
+    map_markers: List[MapMarker]

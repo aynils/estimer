@@ -1,8 +1,13 @@
+import json
+
 from django.shortcuts import render, redirect
 import requests
+import dataclasses
 
 from dvf.data.cities import get_city_data, get_city_from_slug, get_city_from_code
 from django.views.decorators.csrf import csrf_exempt
+
+from django.core.serializers.json import DjangoJSONEncoder
 
 from estimer.settings import MAPBOX_PUBLIC_TOKEN
 
@@ -15,6 +20,7 @@ def city(request, slug):
         commune = get_city_from_slug(slug=slug)
         if commune:
             city_data = get_city_data(code_commune=commune.code_commune)
+            markers = [dataclasses.asdict(marker) for marker in city_data.map_markers]
             context = {
                 "slug": slug,
                 "city_name": commune.nom_commune,
@@ -22,6 +28,7 @@ def city(request, slug):
                 "title": f"Prix m2 {commune.nom_commune} ({commune.code_departement}) "
                 f"| Prix immobilier et estimation à {commune.nom_commune}",
                 "MAPBOX_PUBLIC_TOKEN": MAPBOX_PUBLIC_TOKEN,
+                "map_markers": json.dumps(markers, cls=DjangoJSONEncoder),
             }
 
             return render(request, "dvf/city.html", context)

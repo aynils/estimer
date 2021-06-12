@@ -198,107 +198,114 @@
                 </div>
             </div>
         </div>
-            <div class="div-block-27 ">
-                <h2 class="heading-historique">Historique des transactions
-                    immobilières à {{ city_name }}</h2>
-                <div class="div-block-35"></div>
-                <form onsubmit="setDisplayTable(event)">
-                    <input type="checkbox" name="captcha" id="captcha" class="captcha">
-                    <label for="captcha" class="captcha">I'm not a robot</label>
-                    <button id="displayButton" class="display-table-button w-button" type="submit"
-                            style="display: block">
-                        Afficher l'historique
-                    </button>
-                </form>
-
-                <div id="historyTable" class="column-10 w-col" style="display: none">
-                    <div class="div-block-32">
-                        <!-- Header -->
-                        <div class="div-block-33">
-                            <div class="columns-19 w-row">
-                                <div class="w-col w-col-2">
-                                    <div class="titre-tableau">Type de bien</div>
-                                </div>
-                                <div class="w-col w-col-2">
-                                    <div class="titre-tableau">Prix de vente</div>
-                                </div>
-                                <div class="w-col w-col-2">
-                                    <div class="titre-tableau">Superficie</div>
-                                </div>
-                                <div class="w-col w-col-2">
-                                    <div class="titre-tableau">Coût au m2</div>
-                                </div>
-                                <div class="w-col w-col-2">
-                                    <div class="titre-tableau">Adresse</div>
-                                </div>
-                                <div class="w-col w-col-2">
-                                    <div class="titre-tableau">Date de vente</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Rows -->
-                        {% for sale in city_data.last_sales %}
-
-                            <div class="div-block-22">
-                                <div class="columns-7 w-row">
-                                    <div class="w-col w-col-2">
-                                        {% if sale.type_local == "Maison" %}
-                                            <img
-                                                    src="{% static 'estimer/images/5ff4e2bcf745434ac10876ea_home.svg' %}"
-                                                    loading="lazy" alt="" class="image-7">
-                                        {% else %}
-                                            <img
-                                                    src="{% static 'estimer/images/5ff4e2b0c5090619d5965a09_appartement.svg' %}"
-                                                    loading="lazy" alt="" class="image-7">
-                                        {% endif %}
-
-
-                                        <div class="nb-pieces">{{ sale.rooms_count }} pièces</div>
-                                    </div>
-                                    <div class="w-col w-col-2">
-                                        <div class="prix-de-vente">{{ sale.price }} €</div>
-                                    </div>
-                                    <div class="w-col w-col-2">
-                                        <div class="text-block-8">{{ sale.surface }} m2</div>
-                                    </div>
-                                    <div class="w-col w-col-2">
-                                        <div class="text-block-8">{{ sale.m2_price }} €</div>
-                                    </div>
-                                    <div class="w-col w-col-2">
-                                        <div
-                                                class="text-block-8 ">
-                                            {{ sale.address.numero }} {{ sale.address.suffixe | default_if_none:'' }}<span
-                                                class="capitalize">{{ sale.address.nom_voie }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="w-col w-col-2">
-                                        <div class="text-block-8">{{ sale.date }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    <div class="section-7">
-        <div class="map-container">
-            {% include 'map/map.html' %}
-        </div>
+    <div class="div-block-27 ">
+        <h2 class="heading-historique">Dernières transactions
+            immobilières à {{ city_name }}</h2>
+        <div class="div-block-35"></div>
     </div>
-    <script>
-        const historyTable = document.querySelector('#historyTable')
-        const displayButton = document.querySelector('#displayButton')
 
-        function setDisplayTable(event) {
-            event.preventDefault()
-            if (!event.target[0].checked) {
-                historyTable.style.display = "block"
-                displayButton.style.display = "none"
-            }
-        }
-    </script>
+        <div class="section-7">
+            <div class="map-container">
+                {% include 'map/map.html' %}
+            </div>
+        </div>
+{#            <div class="div-block-27 ">#}
+{#                <h2 class="heading-historique">Historique des transactions#}
+{#                    immobilières à {{ city_name }}</h2>#}
+{#                <div class="div-block-35"></div>#}
+{#                <form onsubmit="setDisplayTable(event)">#}
+{#                    <input type="checkbox" name="captcha" id="captcha" class="captcha">#}
+{#                    <label for="captcha" class="captcha">I'm not a robot</label>#}
+{#                    <button id="displayButton" class="display-table-button w-button" type="submit"#}
+{#                            style="display: block">#}
+{#                        Afficher l'historique#}
+{#                    </button>#}
+{#                </form>#}
+{##}
+{#                <div id="historyTable" class="column-10 w-col" style="display: none">#}
+{#                    <div class="div-block-32">#}
+{#                        <!-- Header -->#}
+{#                        <div class="div-block-33">#}
+{#                            <div class="columns-19 w-row">#}
+{#                                <div class="w-col w-col-2">#}
+{#                                    <div class="titre-tableau">Type de bien</div>#}
+{#                                </div>#}
+{#                                <div class="w-col w-col-2">#}
+{#                                    <div class="titre-tableau">Prix de vente</div>#}
+{#                                </div>#}
+{#                                <div class="w-col w-col-2">#}
+{#                                    <div class="titre-tableau">Superficie</div>#}
+{#                                </div>#}
+{#                                <div class="w-col w-col-2">#}
+{#                                    <div class="titre-tableau">Coût au m2</div>#}
+{#                                </div>#}
+{#                                <div class="w-col w-col-2">#}
+{#                                    <div class="titre-tableau">Adresse</div>#}
+{#                                </div>#}
+{#                                <div class="w-col w-col-2">#}
+{#                                    <div class="titre-tableau">Date de vente</div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                        <!-- Rows -->#}
+{#                        {% for sale in city_data.last_sales %}#}
+{##}
+{#                            <div class="div-block-22">#}
+{#                                <div class="columns-7 w-row">#}
+{#                                    <div class="w-col w-col-2">#}
+{#                                        {% if sale.type_local == "Maison" %}#}
+{#                                            <img#}
+{#                                                    src="{% static 'estimer/images/5ff4e2bcf745434ac10876ea_home.svg' %}"#}
+{#                                                    loading="lazy" alt="" class="image-7">#}
+{#                                        {% else %}#}
+{#                                            <img#}
+{#                                                    src="{% static 'estimer/images/5ff4e2b0c5090619d5965a09_appartement.svg' %}"#}
+{#                                                    loading="lazy" alt="" class="image-7">#}
+{#                                        {% endif %}#}
+{##}
+{##}
+{#                                        <div class="nb-pieces">{{ sale.rooms_count }} pièces</div>#}
+{#                                    </div>#}
+{#                                    <div class="w-col w-col-2">#}
+{#                                        <div class="prix-de-vente">{{ sale.price }} €</div>#}
+{#                                    </div>#}
+{#                                    <div class="w-col w-col-2">#}
+{#                                        <div class="text-block-8">{{ sale.surface }} m2</div>#}
+{#                                    </div>#}
+{#                                    <div class="w-col w-col-2">#}
+{#                                        <div class="text-block-8">{{ sale.m2_price }} €</div>#}
+{#                                    </div>#}
+{#                                    <div class="w-col w-col-2">#}
+{#                                        <div#}
+{#                                                class="text-block-8 ">#}
+{#                                            {{ sale.address.numero }} {{ sale.address.suffixe | default_if_none:'' }}<span#}
+{#                                                class="capitalize">{{ sale.address.nom_voie }}</span>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    <div class="w-col w-col-2">#}
+{#                                        <div class="text-block-8">{{ sale.date }}</div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+
+        </div>
+
+
+{#    <script>#}
+{#        const historyTable = document.querySelector('#historyTable')#}
+{#        const displayButton = document.querySelector('#displayButton')#}
+{##}
+{#        function setDisplayTable(event) {#}
+{#            event.preventDefault()#}
+{#            if (!event.target[0].checked) {#}
+{#                historyTable.style.display = "block"#}
+{#                displayButton.style.display = "none"#}
+{#            }#}
+{#        }#}
+{#    </script>#}
 {% endblock %}}

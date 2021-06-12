@@ -13,6 +13,8 @@ from dvf.data.classes import (
     Address,
     StreetMedianPrice,
     Agent,
+    MapMarker,
+    Geometry,
 )
 from dvf.models import Commune
 from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
@@ -129,7 +131,11 @@ def get_city_data(code_commune: str) -> CityData:
 
     last_sales = [
         Sale(
-            date=sale.get("date_mutation").date,
+            date=datetime.date(
+                day=pd.to_datetime(sale.get("date_mutation")).day,
+                month=pd.to_datetime(sale.get("date_mutation")).month,
+                year=pd.to_datetime(sale.get("date_mutation")).year,
+            ),
             price=int(sale.get("valeur_fonciere"))
             if sale.get("valeur_fonciere")
             else "",
@@ -150,15 +156,23 @@ def get_city_data(code_commune: str) -> CityData:
                 code_postal=sale.get("code_postal"),
                 code_commune=sale.get("code_commune"),
                 code_departement=sale.get("code_departement"),
+                latitude=sale.get("latitude")
+                if sale.get("latitude") and not math.isnan(sale.get("latitude"))
+                else None,
+                longitude=sale.get("longitude")
+                if sale.get("longitude") and not math.isnan(sale.get("longitude"))
+                else None,
             ),
         )
         for sale in get_last_sales(
-            limit=10,
+            limit=20,
             code_commune=code_commune,
             types=("Maison", "Appartement"),
             date_from=last_5_years,
         )
     ]
+
+    map_markers = generate_map_markers(last_sales=last_sales)
 
     most_expensive_streets = [
         StreetMedianPrice(nom_voie=rue.lower(), avg_m2_price=int(price))
@@ -201,6 +215,7 @@ def get_city_data(code_commune: str) -> CityData:
         agent=agent,
         bar_heights=bar_heights,
         price_evolution_text=price_evolution_text,
+        map_markers=map_markers,
     )
 
 
@@ -225,12 +240,15 @@ def get_simple_sales(
         nombre_pieces_principales,
         id_mutation,
         code_departement,
+        longitude,
+        latitude,
         CAST((valeur_fonciere / surface_reelle_bati) as DECIMAL(16,2)) as prix_m2,
         EXTRACT(year FROM dvf_valeursfoncieres.date_mutation) as annee
         FROM dvf_valeursfoncieres
             WHERE code_commune = %(code_commune)s
             AND type_local in %(types)s
-            AND date_mutation >= %(date_from)s""",
+            AND date_mutation >= %(date_from)s
+            AND longitude IS NOT NULL""",
         connection,
         params={
             "code_commune": str(code_commune),
@@ -333,3 +351,15 @@ def generate_price_evolution_text(avg_m2_price: dict) -> str:
         f"Entre {max_year - 1} et {max_year}, les prix de l'immobilier ont {evolution_text}%"
         f", atteignant {max_year_price} € en {max_year}."
     )
+
+
+def generate_map_markers(last_sales: List[Sale]) -> List[MapMarker]:
+    return [
+        MapMarker(
+            geometry=Geometry(
+                coordinates=[sale.address.longitude, sale.address.latitude]
+            ),
+            properties=sale,
+        )
+        for sale in last_sales
+    ]
