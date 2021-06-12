@@ -13,9 +13,6 @@
 
     };
 
-    console.log('coucou', '{{ map_markers | escapejs }}')
-    console.log('coucou', JSON.parse('{{ map_markers | escapejs }}'))
-
     mapboxgl.accessToken = `{{ MAPBOX_PUBLIC_TOKEN }}`;
     const map = new mapboxgl.Map({
         container: 'map',
