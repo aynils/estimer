@@ -23,61 +23,47 @@ from helpers.cache import cached_function
 
 # from helpers.timer import timer
 
-# @timer
-def get_avg_m2_price(code_commune: str, types: Tuple, date_from: datetime.date) -> dict:
-    ventes = get_simple_sales(
-        code_commune=code_commune, types=types, date_from=date_from
-    )
 
+# @timer
+def get_avg_m2_price(
+    types: Tuple, date_from: datetime.date, ventes: pd.DataFrame
+) -> dict:
     if ventes.empty:
         return {}
 
-    clean_vente_per_year = remove_outliers(ventes, "prix_m2")
-    return clean_vente_per_year.groupby("annee").mean().round(2)["prix_m2"].to_dict()
+    ventes_subset = ventes[
+        (ventes["annee"] >= date_from.year) & (ventes["type_local"].isin(types))
+    ]
+
+    return ventes_subset.groupby("annee").mean().round(2)["prix_m2"].to_dict()
 
 
 # @timer
 def get_avg_m2_price_street(
-    code_commune: str,
-    types: Tuple,
     limit: int,
     ascending: bool,
-    date_from: datetime.date,
+    ventes: pd.DataFrame,
 ) -> dict:
-    ventes = get_simple_sales(
-        code_commune=code_commune, types=types, date_from=date_from
-    )
-
     if ventes.empty:
         return {}
 
     average_per_street = ventes.groupby("adresse_nom_voie").mean().round(2)
-    clean_average_per_street = remove_outliers(average_per_street, "prix_m2")
+    # clean_average_per_street = remove_outliers(average_per_street, "prix_m2")
     return (
-        clean_average_per_street.sort_values(by="prix_m2", ascending=ascending)
+        average_per_street.sort_values(by="prix_m2", ascending=ascending)
         .head(n=limit)["prix_m2"]
         .to_dict()
     )
 
 
+# @timer
 def get_last_sales(
-    code_commune: str, types: Tuple, date_from: datetime.date, limit: int
+    limit: int,
+    ventes: pd.DataFrame,
 ) -> dict:
-    ventes = get_simple_sales(
-        code_commune=code_commune, types=types, date_from=date_from
-    )
-
     ordered_sales = ventes.sort_values(by="date_mutation", ascending=False)
-    clean_sales = remove_outliers(ordered_sales, "valeur_fonciere")
-    return clean_sales.head(n=limit).round(2).to_dict("records")
-
-
-def get_count_sales(code_commune: str, types: Tuple, date_from: datetime.date) -> int:
-    ventes = get_simple_sales(
-        code_commune=code_commune, types=types, date_from=date_from
-    )
-
-    return ventes.__len__()
+    # clean_sales = remove_outliers(ordered_sales, "valeur_fonciere")
+    return ordered_sales.head(n=limit).round(2).to_dict("records")
 
 
 def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
@@ -94,8 +80,14 @@ def get_city_data(code_commune: str) -> CityData:
     last_year = datetime.date(year=today.year - 1, month=1, day=1)
     last_5_years = datetime.date(year=today.year - 5, month=1, day=1)
 
+    ventes = get_simple_sales(
+        code_commune=code_commune,
+        types=("Maison", "Appartement"),
+        date_from=last_5_years,
+    )
+
     median_m2_prices_appartement = get_avg_m2_price(
-        code_commune=code_commune, types=("Appartement",), date_from=last_year
+        types=("Appartement",), date_from=last_year, ventes=ventes
     )
     if median_m2_prices_appartement.get(last_year.year):
         median_m2_price_appartement = MedianM2Price(
@@ -105,7 +97,7 @@ def get_city_data(code_commune: str) -> CityData:
         median_m2_price_appartement = None
 
     median_m2_prices_maison = get_avg_m2_price(
-        code_commune=code_commune, types=("Maison",), date_from=last_year
+        types=("Maison",), date_from=last_year, ventes=ventes
     )
 
     if median_m2_prices_maison.get(last_year.year):
@@ -116,9 +108,7 @@ def get_city_data(code_commune: str) -> CityData:
         median_m2_price_maison = None
 
     avg_m2_price = get_avg_m2_price(
-        code_commune=code_commune,
-        types=("Maison", "Appartement"),
-        date_from=last_5_years,
+        types=("Maison", "Appartement"), date_from=last_5_years, ventes=ventes
     ).items()
 
     median_m2_prices_years = [
@@ -164,12 +154,7 @@ def get_city_data(code_commune: str) -> CityData:
                 else None,
             ),
         )
-        for sale in get_last_sales(
-            limit=20,
-            code_commune=code_commune,
-            types=("Maison", "Appartement"),
-            date_from=last_5_years,
-        )
+        for sale in get_last_sales(limit=20, ventes=ventes)
     ]
 
     map_markers = generate_map_markers(last_sales=last_sales)
@@ -177,30 +162,18 @@ def get_city_data(code_commune: str) -> CityData:
     most_expensive_streets = [
         StreetMedianPrice(nom_voie=rue.lower(), avg_m2_price=int(price))
         for rue, price in get_avg_m2_price_street(
-            limit=5,
-            code_commune=code_commune,
-            types=("Maison", "Appartement"),
-            ascending=False,
-            date_from=last_5_years,
+            limit=5, ascending=False, ventes=ventes
         ).items()
     ]
 
     less_expensive_streets = [
         StreetMedianPrice(nom_voie=rue.lower(), avg_m2_price=int(price))
         for rue, price in get_avg_m2_price_street(
-            limit=5,
-            code_commune=code_commune,
-            types=("Maison", "Appartement"),
-            ascending=True,
-            date_from=last_5_years,
+            limit=5, ascending=True, ventes=ventes
         ).items()
     ]
 
-    number_of_sales = get_count_sales(
-        code_commune=code_commune,
-        types=("Maison", "Appartement"),
-        date_from=last_5_years,
-    )
+    number_of_sales = ventes.__len__()
 
     agent = get_agent(code_commune=code_commune)
 
@@ -224,6 +197,7 @@ def get_all_cities() -> list:
 
 
 # noinspection SqlResolve
+# @timer
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
 def get_simple_sales(
     code_commune: str, types: Tuple, date_from: datetime.date
@@ -248,7 +222,9 @@ def get_simple_sales(
             WHERE code_commune = %(code_commune)s
             AND type_local in %(types)s
             AND date_mutation >= %(date_from)s
-            AND longitude IS NOT NULL""",
+            AND longitude IS NOT NULL
+            AND latitude IS NOT NULL
+            """,
         connection,
         params={
             "code_commune": str(code_commune),
@@ -258,7 +234,9 @@ def get_simple_sales(
         parse_dates=["date_mutation"],
     )
 
-    return mutations.drop_duplicates(subset="id_mutation", keep=False)
+    unique_mutations = mutations.drop_duplicates(subset="id_mutation", keep=False)
+
+    return remove_outliers(unique_mutations, "prix_m2")
 
 
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
@@ -274,6 +252,7 @@ def get_city_from_slug(slug: str) -> Commune or None:
         return None
 
 
+# @timer
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
 def get_city_from_code(code: str) -> Commune or None:
     try:
@@ -282,6 +261,7 @@ def get_city_from_code(code: str) -> Commune or None:
         return None
 
 
+# @timer
 def get_agent(code_commune: str) -> Agent:
     try:
         agency = Agency.objects.get(code_commune=code_commune)
@@ -310,6 +290,7 @@ def get_agent(code_commune: str) -> Agent:
     return agent
 
 
+# @timer
 def calculate_bar_heights(avg_m2_price: dict) -> dict:
     if avg_m2_price:
         max_price = max(avg_m2_price.values())
@@ -324,6 +305,7 @@ def calculate_bar_heights(avg_m2_price: dict) -> dict:
     }
 
 
+# @timer
 def generate_price_evolution_text(avg_m2_price: dict) -> str:
     if avg_m2_price:
         max_year = int(max(avg_m2_price.keys()))
@@ -353,6 +335,7 @@ def generate_price_evolution_text(avg_m2_price: dict) -> str:
     )
 
 
+# @timer
 def generate_map_markers(last_sales: List[Sale]) -> List[MapMarker]:
     return [
         MapMarker(
