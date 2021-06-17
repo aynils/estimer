@@ -90,3 +90,6 @@ class Commune(models.Model):
             models.Index(fields=["nom_commune"]),
             models.Index(fields=["slug"]),
         ]
+
+    def get_absolute_url(self):
+        return f"/commune/{self.slug}"
