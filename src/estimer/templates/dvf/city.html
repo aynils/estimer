@@ -74,8 +74,8 @@
                                  role="img"
                                  aria-labelledby="svg-title svg-desc"
                             >
-                                <title>prix m2 {{ city_name }}</title>
-                                <desc>Evolution du prix au m2 à {{ city_name }} pour les 5 dernières années</desc>
+                                <title id="svg-title">prix m2 {{ city_name }}</title>
+                                <desc id="svg-desc">Evolution du prix au m2 à {{ city_name }} pour les 5 dernières années</desc>
                                 <text class="svg-text" x="45" y="{{ city_data.bar_heights.2016.text_y }}">
                                     {{ city_data.bar_heights.2016.value }} €
                                 </text>
