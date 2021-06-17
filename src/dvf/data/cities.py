@@ -298,8 +298,10 @@ def calculate_bar_heights(avg_m2_price: dict) -> dict:
         max_price = 0
     return {
         key: {
-            "height": int(value / max_price * 135),
+            "height": int(value / max_price * 145),
             "value": int(value),
+            "y": 180 - int(value / max_price * 145),
+            "text_y": 180 - int(value / max_price * 145) - 10,
         }
         for key, value in avg_m2_price.items()
     }
