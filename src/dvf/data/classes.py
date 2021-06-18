@@ -79,6 +79,6 @@ class CityData:
     less_expensive_streets: List[StreetMedianPrice]
     number_of_sales: int
     agent: Agent
-    bar_heights: dict
+    chart_b64_svg: str
     price_evolution_text: str
     map_markers: List[MapMarker]

@@ -1,3 +1,4 @@
+import base64
 import datetime
 import math
 from typing import Tuple, List
@@ -177,6 +178,10 @@ def get_city_data(code_commune: str) -> CityData:
 
     agent = get_agent(code_commune=code_commune)
 
+    city_name = "La cité merveilleuse"
+
+    chart_b64_svg = generate_chart_b64_svg(city_name=city_name, bar_heights=bar_heights)
+
     return CityData(
         median_m2_price_appartement=median_m2_price_appartement,
         median_m2_price_maison=median_m2_price_maison,
@@ -186,7 +191,7 @@ def get_city_data(code_commune: str) -> CityData:
         less_expensive_streets=less_expensive_streets,
         number_of_sales=number_of_sales or 0,
         agent=agent,
-        bar_heights=bar_heights,
+        chart_b64_svg=chart_b64_svg,
         price_evolution_text=price_evolution_text,
         map_markers=map_markers,
     )
@@ -297,7 +302,7 @@ def calculate_bar_heights(avg_m2_price: dict) -> dict:
     else:
         max_price = 0
     return {
-        key: {
+        str(int(key)): {
             "height": int(value / max_price * 145),
             "value": int(value),
             "y": 180 - int(value / max_price * 145),
@@ -348,3 +353,66 @@ def generate_map_markers(last_sales: List[Sale]) -> List[MapMarker]:
         )
         for sale in last_sales
     ]
+
+
+def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
+    svg = f"""<svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 600 200"
+    role="img"
+    aria-labelledby="svg-title svg-desc"
+        >
+            <title id="svg-title">prix m2 {city_name}</title>
+            <desc id="svg-desc">Evolution du prix au m2 à {city_name} pour les 5 dernières années</desc>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="35" y="{bar_heights.get('2016', {}).get('text_y')}">
+                {bar_heights.get('2016', {}).get('value')} €
+            </text>
+            <rect x="30" y="{bar_heights.get('2016', {}).get('y')}" width="60"
+                  height="{bar_heights.get('2016', {}).get('height')}"
+                  style="fill:#1378f8"></rect>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="40" y="200">
+                2016
+            </text>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="155" y="{bar_heights.get('2017', {}).get('text_y')}">
+                {bar_heights.get('2017', {}).get('value')} €
+            </text>
+            <rect x="150" y="{bar_heights.get('2017', {}).get('y')}" width="60"
+                  height="{bar_heights.get('2017', {}).get('height')}"
+                  style="fill:#1378f8"></rect>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="160" y="200">
+                2017
+            </text>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="275" y="{bar_heights.get('2018', {}).get('text_y')}">
+                {bar_heights.get('2018', {}).get('value')} €
+            </text>
+            <rect x="270" y="{bar_heights.get('2018', {}).get('y')}" width="60"
+                  height="{bar_heights.get('2018', {}).get('height')}"
+                  style="fill:#1378f8"></rect>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="280" y="200">
+                2018
+            </text>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="395" y="{bar_heights.get('2019', {}).get('text_y')}">
+                {bar_heights.get('2019', {}).get('value')} €
+            </text>
+            <rect x="390" y="{bar_heights.get('2019', {}).get('y')}" width="60"
+                  height="{bar_heights.get('2019', {}).get('height')}"
+                  style="fill:#1378f8"></rect>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="400" y="200">
+                2019
+            </text>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="515" y="{bar_heights.get('2020', {}).get('text_y')}">
+                {bar_heights.get('2020', {}).get('value')} €
+            </text>
+            <rect x="510" y="{bar_heights.get('2020', {}).get('y')}" width="60"
+                  height="{bar_heights.get('2020', {}).get('height')}"
+                  style="fill:#1378f8"></rect>
+            <text font-family="Rubik, sans-serif" class="svg-text" x="520" y="200">
+                2020
+            </text>
+        </svg>"""
+
+    encoded_svg = svg.encode("utf-8")
+    b64_svg = base64.b64encode(encoded_svg)
+
+    return b64_svg.decode("utf-8")
