@@ -906,10 +906,10 @@ label {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  /*-webkit-box-pack: center;*/
+  /*-webkit-justify-content: center;*/
+  /*-ms-flex-pack: center;*/
+  /*justify-content: center;*/
   -webkit-box-align: start;
   -webkit-align-items: flex-start;
   -ms-flex-align: start;
@@ -1612,6 +1612,7 @@ label {
   border-color: #dfdfdf;
   border-radius: 10px;
   width: 100%;
+  max-width: 600px;
   height: 100%;
 }
 
