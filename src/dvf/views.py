@@ -4,7 +4,12 @@ from django.shortcuts import render, redirect
 import requests
 import dataclasses
 
-from dvf.data.cities import get_city_data, get_city_from_slug, get_city_from_code
+from dvf.data.cities import (
+    get_city_data,
+    get_city_from_slug,
+    get_city_from_code,
+    get_closeby_cities,
+)
 from django.views.decorators.csrf import csrf_exempt
 
 from django.core.serializers.json import DjangoJSONEncoder
@@ -19,6 +24,7 @@ def city(request, slug):
     if request.method == "GET":
         commune = get_city_from_slug(slug=slug)
         if commune:
+            closeby_cities = get_closeby_cities(code_postal=commune.code_postal)
             city_data = get_city_data(code_commune=commune.code_commune)
             markers = [dataclasses.asdict(marker) for marker in city_data.map_markers]
             context = {
@@ -29,6 +35,7 @@ def city(request, slug):
                 f"| Prix immobilier et estimation à {commune.nom_commune}",
                 "MAPBOX_PUBLIC_TOKEN": MAPBOX_PUBLIC_TOKEN,
                 "map_markers": json.dumps(markers, cls=DjangoJSONEncoder),
+                "closeby_cities": closeby_cities,
             }
 
             return render(request, "dvf/city.html", context)

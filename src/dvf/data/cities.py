@@ -16,6 +16,7 @@ from dvf.data.classes import (
     Agent,
     MapMarker,
     Geometry,
+    ClosebyCity,
 )
 from dvf.models import Commune
 from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
@@ -416,3 +417,23 @@ def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
     b64_svg = base64.b64encode(encoded_svg)
 
     return b64_svg.decode("utf-8")
+
+
+def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
+    cities_under = (
+        Commune.objects.filter(code_postal__lt=code_postal)
+        .order_by("-code_postal")[:15]
+        .all()
+    )
+    cities_over = (
+        Commune.objects.filter(code_postal__gt=code_postal)
+        .order_by("code_postal")[:15]
+        .all()
+    )
+    return [
+        ClosebyCity(
+            nom_commune=city.nom_commune,
+            slug=city.slug,
+        )
+        for city in list(cities_under) + list(cities_over)
+    ]

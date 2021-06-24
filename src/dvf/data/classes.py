@@ -82,3 +82,9 @@ class CityData:
     chart_b64_svg: str
     price_evolution_text: str
     map_markers: List[MapMarker]
+
+
+@dataclass
+class ClosebyCity:
+    nom_commune: str
+    slug: str

@@ -9,6 +9,18 @@
     border: 1px solid #dfdfdf;
 }
 
+.links-container {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    border: 1px solid #dfdfdf;
+}
+
 .svg-text {
     font-size: 11px;
 }

@@ -149,5 +149,34 @@
                 {% include 'map/map.html' %}
             </div>
         </div>
+        <div class="section-7">
+            <div class="div-block-27 ">
+                <h2 class="heading-historique">Communes à proximité de {{ city_name }}</h2>
+                <div class="div-block-35"></div>
+            </div>
+            <div class="links-container">
+                <div class="w-col w-col-6">
+                {% for city in closeby_cities|slice:":10" %}
+                        <div class="city-link">
+                            <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
+                        </div>
+                {% endfor %}
+                </div>
+                <div class="w-col w-col-6">
+                    {% for city in closeby_cities|slice:"10:20" %}
+                        <div class="city-link">
+                            <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            <div class="w-col w-col-6">
+                    {% for city in closeby_cities|slice:"20:30" %}
+                        <div class="city-link">
+                            <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}}
