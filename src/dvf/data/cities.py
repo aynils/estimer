@@ -283,7 +283,7 @@ def get_agent(code_commune: str) -> Agent:
 
     except Agency.DoesNotExist:
         agent = Agent(
-            picture="https://estimer-prod.fra1.cdn.digitaloceanspaces.com/static/estimer/images/olivier.jpeg",
+            picture="https://estimer.com/static/estimer/images/olivier.jpeg",
             name="Olivier Pourquier",
             agency="estimer.com",
             description="""Vous souhaitez obtenir une estimation précise de votre bien ?
