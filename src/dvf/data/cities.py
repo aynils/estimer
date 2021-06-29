@@ -143,7 +143,7 @@ def get_city_data(code_commune: str) -> CityData:
                 and not math.isnan(sale.get("adresse_numero"))
                 else "",
                 suffixe=sale.get("adresse_suffixe"),
-                nom_voie=sale.get("adresse_nom_voie", "").lower(),
+                nom_voie=(sale.get("adresse_nom_voie") or "").lower(),
                 code_voie=sale.get("adresse_code_voie"),
                 code_postal=sale.get("code_postal"),
                 code_commune=sale.get("code_commune"),
@@ -331,7 +331,7 @@ def generate_price_evolution_text(avg_m2_price: dict) -> str:
         or max_year_price
     )
 
-    evolution = int((max_year_price / last_year_price) * 100 - 100)
+    evolution = int((max_year_price / (last_year_price or 1)) * 100 - 100)
     if evolution >= 0:
         evolution_text = f"augmenté de {evolution}"
     else:

@@ -24,7 +24,9 @@ def city(request, slug):
     if request.method == "GET":
         commune = get_city_from_slug(slug=slug)
         if commune:
-            closeby_cities = get_closeby_cities(code_postal=commune.code_postal)
+            closeby_cities = get_closeby_cities(
+                code_postal=commune.code_postal or commune.code_commune
+            )
             city_data = get_city_data(code_commune=commune.code_commune)
             markers = [dataclasses.asdict(marker) for marker in city_data.map_markers]
             context = {
