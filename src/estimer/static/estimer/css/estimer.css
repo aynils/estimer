@@ -2093,6 +2093,9 @@ label {
     margin-right: 0px;
   }
 
+  .city-link {
+    padding-top: 10px;
+  }
 
 }
 
@@ -2106,3 +2109,4 @@ label {
   text-decoration: none;
   color: #1378f8;
 }
+
