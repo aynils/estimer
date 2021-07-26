@@ -1380,9 +1380,9 @@ label {
 .div-block-26 {
   padding: 20px;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-right: 20px;
-  border: 1px solid #eee;
+  border: 1px solid #dfdfdf;
   border-radius: 10px;
   background-color: #fff;
 }
@@ -1535,7 +1535,7 @@ label {
 
 .image-6 {
   display: block;
-  width: 50px;
+  width: 90px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -1555,6 +1555,7 @@ label {
 
 .text-block-28 {
   margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 18px;
   font-weight: 700;
   text-align: center;
@@ -1602,7 +1603,7 @@ label {
 }
 
 .column-10 {
-  padding-left: 0px;
+  padding-left: 20px;
 }
 
 .div-block-34 {
@@ -1923,7 +1924,7 @@ label {
   }
 
   .image-6 {
-    width: 40px;
+    width: 70px;
   }
 
   .text-block-28 {
@@ -2097,6 +2098,9 @@ label {
     padding-top: 10px;
   }
 
+  .div-block-26 {
+    margin-right: 10px;
+  }
 }
 
 .communes {
