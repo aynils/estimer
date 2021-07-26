@@ -161,12 +161,7 @@ label {
   width: 100%;
   min-height: 1px;
   padding-left: 10px;
-  padding-right: 10px
-}
-
-.w-col .w-col {
-  padding-left: 0;
-  padding-right: 0
+  padding-right: 10px;
 }
 
 .w-col-1 {
@@ -772,11 +767,6 @@ label {
   text-align: center;
 }
 
-.data-block {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
 .div-block-3 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1380,8 +1370,6 @@ label {
 .div-block-26 {
   padding: 20px;
   margin-top: 20px;
-  margin-left: 10px;
-  margin-right: 20px;
   border: 1px solid #dfdfdf;
   border-radius: 10px;
   background-color: #fff;
@@ -1400,13 +1388,6 @@ label {
   padding-top: 40px;
   padding-bottom: 40px;
   border-bottom: 1px solid #dbdbdb;
-}
-
-.div-block-27 {
-  padding-right: 5%;
-  padding-bottom: 0px;
-  padding-left: 5%;
-  border-bottom: 1px none #d4d4d4;
 }
 
 .div-block-28 {
@@ -1876,6 +1857,9 @@ label {
 
 .section-7 {
   padding-top: 20px;
+  max-width: 90%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .text-block-36 {
@@ -2098,9 +2082,6 @@ label {
     padding-top: 10px;
   }
 
-  .div-block-26 {
-    margin-right: 10px;
-  }
 }
 
 .communes {

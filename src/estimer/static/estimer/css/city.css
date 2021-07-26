@@ -2,9 +2,7 @@
     margin-top: 20px;
     border-radius: 10px;
     overflow: hidden;
-    max-width: 90%;
-    margin-right: auto;
-    margin-left: auto;
+
     display: flex;
     border: 1px solid #dfdfdf;
 }
@@ -14,9 +12,6 @@
     padding: 20px;
     border-radius: 10px;
     overflow: hidden;
-    max-width: 90%;
-    margin-right: auto;
-    margin-left: auto;
     display: flex;
     border: 1px solid #dfdfdf;
 }

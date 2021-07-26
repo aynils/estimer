@@ -15,222 +15,213 @@
 {% endblock %}
 
 {% block body %}
-    <div class="section-6">
-        <div class="div-block-27">
+    <div class="section-7">
 
-            <div class="columns-13 w-row">
-                <div class="column-9 w-col w-col-5">
 
-                    <div class="data-block column-12 w-col">
-                        <h1 class="heading-4">Prix au m2 à
-                            {{ city_name }}</h1>
-                        <div class="div-block-35"></div>
-                        <div class="text-block-29">Suite à l’analyse des {{ city_data.number_of_sales }}
-                            transactions immobilières à {{ city_name }},
-                            en 2020,
-                            nous observons un prix au m2 de {{ city_data.median_m2_price_appartement.value }} € pour les
-                            appartements,
-                            et de {{ city_data.median_m2_price_maison.value }} € pour les maisons.
-                        </div>
-                        <div class="div-block-30 ">
-                            <div class="columns-12 w-row">
-                                <div class="w-col w-col-6"><img
-                                        src="{% static 'estimer/images/5ff4e2b0c5090619d5965a09_appartement.svg' %}"
-                                        loading="lazy" alt="" class="image-6">
-                                    <div class="text-block-25">Appartement</div>
-                                </div>
-                                <div class="w-col w-col-6">
-                                    <div class="text-block-26">Prix m2 moyen en 2020</div>
-                                    <div class="text-block-28">{{ city_data.median_m2_price_appartement.value }} €</div>
-                                    {% if city_data.median_m2_price_appartement_rooms.four %}
+        <div class="columns-13 w-row">
+            <div class="column-9 w-col w-col-6">
+
+                <div class="column-12 w-col">
+                    <h1 class="heading-4">Prix au m2 à
+                        {{ city_name }}</h1>
+                    <div class="div-block-35"></div>
+                    <div class="text-block-29">Suite à l’analyse des {{ city_data.number_of_sales }}
+                        transactions immobilières à {{ city_name }},
+                        en 2020,
+                        nous observons un prix au m2 de {{ city_data.median_m2_price_appartement.value }} € pour les
+                        appartements,
+                        et de {{ city_data.median_m2_price_maison.value }} € pour les maisons.
+                    </div>
+                    <div class="div-block-30 ">
+                        <div class="columns-12 w-row">
+                            <div class="w-col w-col-6"><img
+                                    src="{% static 'estimer/images/5ff4e2b0c5090619d5965a09_appartement.svg' %}"
+                                    loading="lazy" alt="" class="image-6">
+                                <div class="text-block-25">Appartement</div>
+                            </div>
+                            <div class="w-col w-col-6">
+                                <div class="text-block-26">Prix m2 moyen en 2020</div>
+                                <div class="text-block-28">{{ city_data.median_m2_price_appartement.value }} €</div>
+                                {% if city_data.median_m2_price_appartement_rooms.four %}
                                     <div class="div-block-22">
                                         <span>4 pièces</span>
                                         <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.four }} € m2</span>
                                     </div>
-                                    {% endif %}
-                                    {% if city_data.median_m2_price_appartement_rooms.three %}
+                                {% endif %}
+                                {% if city_data.median_m2_price_appartement_rooms.three %}
                                     <div class="div-block-22">
                                         <span>3 pièces</span>
                                         <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.three }} € m2</span>
                                     </div>
-                                    {% endif %}
-                                    {% if city_data.median_m2_price_appartement_rooms.two %}
+                                {% endif %}
+                                {% if city_data.median_m2_price_appartement_rooms.two %}
                                     <div class="div-block-22">
                                         <span>2 pièces</span>
                                         <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.two }} € m2</span>
                                     </div>
-                                    {% endif %}
-                                    {% if city_data.median_m2_price_appartement_rooms.one %}
+                                {% endif %}
+                                {% if city_data.median_m2_price_appartement_rooms.one %}
                                     <div class="div-block-22">
                                         <span>1 pièce</span>
                                         <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.one }} € m2</span>
                                     </div>
-                                    {% endif %}
+                                {% endif %}
 
-                                </div>
                             </div>
-                            <div class="div-block-31"></div>
-                            <div class="columns-12 w-row">
-                                <div class="w-col w-col-6"><img
-                                        src="{% static 'estimer/images/5ff4e2bcf745434ac10876ea_home.svg' %}"
-                                        loading="lazy" alt="" class="image-6">
-                                    <div class="text-block-25">Maison</div>
-                                </div>
-                                <div class="w-col w-col-6">
-                                    <div class="text-block-26">Prix m2 moyen en 2020</div>
-                                    <div class="text-block-28">{{ city_data.median_m2_price_maison.value }} €</div>
+                        </div>
+                        <div class="div-block-31"></div>
+                        <div class="columns-12 w-row">
+                            <div class="w-col w-col-6"><img
+                                    src="{% static 'estimer/images/5ff4e2bcf745434ac10876ea_home.svg' %}"
+                                    loading="lazy" alt="" class="image-6">
+                                <div class="text-block-25">Maison</div>
+                            </div>
+                            <div class="w-col w-col-6">
+                                <div class="text-block-26">Prix m2 moyen en 2020</div>
+                                <div class="text-block-28">{{ city_data.median_m2_price_maison.value }} €</div>
 
-                                    {% if city_data.median_m2_price_maison_rooms.four %}
+                                {% if city_data.median_m2_price_maison_rooms.four %}
                                     <div class="div-block-22">
                                         <span>4 pièces</span>
                                         <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.four }} € m2</span>
                                     </div>
-                                    {% endif %}
-                                    {% if city_data.median_m2_price_maison_rooms.three %}
+                                {% endif %}
+                                {% if city_data.median_m2_price_maison_rooms.three %}
                                     <div class="div-block-22">
                                         <span>3 pièces</span>
                                         <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.three }} € m2</span>
                                     </div>
-                                    {% endif %}
-                                    {% if city_data.median_m2_price_maison_rooms.two %}
+                                {% endif %}
+                                {% if city_data.median_m2_price_maison_rooms.two %}
                                     <div class="div-block-22">
                                         <span>2 pièces</span>
                                         <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.two }} € m2</span>
                                     </div>
-                                    {% endif %}
-                                    {% if city_data.median_m2_price_maison_rooms.one %}
+                                {% endif %}
+                                {% if city_data.median_m2_price_maison_rooms.one %}
                                     <div class="div-block-22">
                                         <span>1 pièces</span>
                                         <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.one }} € m2</span>
                                     </div>
-                                    {% endif %}
-                                </div>
-
+                                {% endif %}
                             </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="data-block column-12 w-col w-col-7 ">
-                    <h2 class="heading-historique">Évolution du prix du m2 moyen
-                        à {{ city_name }}</h2>
-                    <div class="div-block-35"></div>
-                    <div class="text-block-29">
-                        {{ city_data.price_evolution_text }}
-                    </div>
-                    <div class="columns-14 w-row">
-                        <div class="div-block-34">
-                            <img
-                                    src='data:image/svg+xml;base64,{{ city_data.chart_b64_svg }}'
-                                    alt="prix m2 {{ city_name }}"
-                            >
-                        </div>
-                    </div>
-                </div>
-
-
-        <div class="w-col w-col-6">
-            <div class="div-block-26">
-                <div>
-                    <img alt="photo de {{ city_data.agent.name }}" class="agent-img"
-                         src="{{ city_data.agent.picture }}"/>
-                </div>
-                <div class="text-block-18">{{ city_data.agent.name }}</div>
-                <div class="text-block-19">{{ city_data.agent.agence }}</div>
-                <div class="text-block-20 ">{{ city_data.agent.description }}
-                </div>
-                <div class="text-block-21">Contact</div>
-                <div class="text-block-20">{{ city_data.agent.phoneNumber }}</div>
-                <div class="text-block-20">{{ city_data.agent.email }}</div>
-                <div class="text-block-20">{{ city_data.agent.website }}</div>
             </div>
-        </div>
+            <div class="column-12 w-col w-col-6 ">
+                <h2 class="heading-historique">Évolution du prix du m2 moyen
+                    à {{ city_name }}</h2>
+                <div class="div-block-35"></div>
+                <div class="text-block-29">
+                    {{ city_data.price_evolution_text }}
+                </div>
+                <div class="columns-14 w-row">
+                    <div class="div-block-34">
+                        <img
+                                src='data:image/svg+xml;base64,{{ city_data.chart_b64_svg }}'
+                                alt="prix m2 {{ city_name }}"
+                        >
+                    </div>
+                </div>
+
+                <div class="div-block-26">
+                    <div>
+                        <img alt="photo de {{ city_data.agent.name }}" class="agent-img"
+                             src="{{ city_data.agent.picture }}"/>
+                    </div>
+                    <div class="text-block-18">{{ city_data.agent.name }}</div>
+                    <div class="text-block-19">{{ city_data.agent.agence }}</div>
+                    <div class="text-block-20 ">{{ city_data.agent.description }}
+                    </div>
+                    <div class="text-block-21">Contact</div>
+                    <div class="text-block-20">{{ city_data.agent.phoneNumber }}</div>
+                    <div class="text-block-20">{{ city_data.agent.email }}</div>
+                    <div class="text-block-20">{{ city_data.agent.website }}</div>
+                </div>
             </div>
         </div>
     </div>
 
 
-
-
     <div class="section-7">
-        <div class="div-block-27">
-            <div class="columns-14 w-row">
+        <div class="columns-14 w-row">
 
 
-                <div class="w-col w-col-6 "><h3 class="heading-historique">Rues les
-                    plus chères à
-                    {{ city_name }}</h3>
-                    <div class="div-block-43"></div>
-                    <div class="div-block-42">
-                        <div class="div-block-45">
-                            {% for street in city_data.most_expensive_streets %}
-                                <div class="div-block-22">
+            <div class="w-col w-col-6 "><h3 class="heading-historique">Rues les
+                plus chères à
+                {{ city_name }}</h3>
+                <div class="div-block-43"></div>
+                <div class="div-block-42">
+                    <div class="div-block-45">
+                        {% for street in city_data.most_expensive_streets %}
+                            <div class="div-block-22">
                 <span
                         class="capitalize">{{ street.nom_voie }}</span>
-                                    <span style="float: right;">{{ street.avg_m2_price }} € m2</span>
-                                </div>
-                            {% endfor %}
-                        </div>
+                                <span style="float: right;">{{ street.avg_m2_price }} € m2</span>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
+            </div>
 
-                <div class="column-10  w-col w-col-6 "><h3 class="heading-historique">Rues les moins chères
-                    à
-                    {{ city_name }}</h3>
-                    <div class="div-block-43"></div>
-                    <div class="div-block-42">
-                        <div class="div-block-45">
-                            {% for street in city_data.less_expensive_streets %}
-                                <div class="div-block-22">
-                                    <span class="capitalize">{{ street.nom_voie }}</span>
-                                    <span style="float: right;">{{ street.avg_m2_price }} € m2</span>
-                                </div>
-                            {% endfor %}
-                        </div>
+            <div class="column-10  w-col w-col-6 "><h3 class="heading-historique">Rues les moins chères
+                à
+                {{ city_name }}</h3>
+                <div class="div-block-43"></div>
+                <div class="div-block-42">
+                    <div class="div-block-45">
+                        {% for street in city_data.less_expensive_streets %}
+                            <div class="div-block-22">
+                                <span class="capitalize">{{ street.nom_voie }}</span>
+                                <span style="float: right;">{{ street.avg_m2_price }} € m2</span>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="section-7">
-        <div class="div-block-27 ">
-            <h2 class="heading-historique">Dernières transactions
-                immobilières à {{ city_name }}</h2>
-            <div class="div-block-35"></div>
-        </div>
 
-        <div class="section-7">
-            <div class="map-container">
-                {% include 'map/map.html' %}
+        <h2 class="heading-historique">Dernières transactions
+            immobilières à {{ city_name }}</h2>
+        <div class="div-block-35"></div>
+
+
+        <div class="map-container">
+            {% include 'map/map.html' %}
+        </div>
+    </div>
+    <div class="section-7">
+
+        <h2 class="heading-historique">Communes à proximité de {{ city_name }}</h2>
+        <div class="div-block-35"></div>
+
+        <div class="links-container">
+            <div class="w-col w-col-6">
+                {% for city in closeby_cities|slice:":10" %}
+                    <div class="city-link">
+                        <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="w-col w-col-6">
+                {% for city in closeby_cities|slice:"10:20" %}
+                    <div class="city-link">
+                        <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="w-col w-col-6">
+                {% for city in closeby_cities|slice:"20:30" %}
+                    <div class="city-link">
+                        <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-        <div class="section-7">
-            <div class="div-block-27 ">
-                <h2 class="heading-historique">Communes à proximité de {{ city_name }}</h2>
-                <div class="div-block-35"></div>
-            </div>
-            <div class="links-container">
-                <div class="w-col w-col-6">
-                    {% for city in closeby_cities|slice:":10" %}
-                        <div class="city-link">
-                            <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="w-col w-col-6">
-                    {% for city in closeby_cities|slice:"10:20" %}
-                        <div class="city-link">
-                            <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="w-col w-col-6">
-                    {% for city in closeby_cities|slice:"20:30" %}
-                        <div class="city-link">
-                            <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+    </div>
     </div>
 {% endblock %}}
