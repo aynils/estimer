@@ -10,6 +10,14 @@ class MedianM2Price:
 
 
 @dataclass
+class MedianM2PriceRoom:
+    one: int
+    two: int
+    three: int
+    four: int
+
+
+@dataclass
 class SalesPerStreet:
     nom_voie: int
     nombre_ventes: float
@@ -73,6 +81,8 @@ class MapMarker:
 class CityData:
     median_m2_price_appartement: MedianM2Price
     median_m2_price_maison: MedianM2Price
+    median_m2_price_maison_rooms: MedianM2PriceRoom
+    median_m2_price_appartement_rooms: MedianM2PriceRoom
     median_m2_prices_years: List[MedianM2Price]
     last_sales: List[Sale]
     most_expensive_streets: List[StreetMedianPrice]

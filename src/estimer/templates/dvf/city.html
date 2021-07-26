@@ -42,22 +42,30 @@
                                 <div class="w-col w-col-6">
                                     <div class="text-block-26">Prix m2 moyen en 2020</div>
                                     <div class="text-block-28">{{ city_data.median_m2_price_appartement.value }} €</div>
+                                    {% if city_data.median_m2_price_appartement_rooms.four %}
                                     <div class="div-block-22">
                                         <span>4 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_appartement.value }} € m2</span>
+                                        <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.four }} € m2</span>
                                     </div>
+                                    {% endif %}
+                                    {% if city_data.median_m2_price_appartement_rooms.three %}
                                     <div class="div-block-22">
                                         <span>3 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_appartement.value }} € m2</span>
+                                        <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.three }} € m2</span>
                                     </div>
+                                    {% endif %}
+                                    {% if city_data.median_m2_price_appartement_rooms.two %}
                                     <div class="div-block-22">
                                         <span>2 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_appartement.value }} € m2</span>
+                                        <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.two }} € m2</span>
                                     </div>
+                                    {% endif %}
+                                    {% if city_data.median_m2_price_appartement_rooms.one %}
                                     <div class="div-block-22">
                                         <span>1 pièce</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_appartement.value }} € m2</span>
+                                        <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.one }} € m2</span>
                                     </div>
+                                    {% endif %}
 
                                 </div>
                             </div>
@@ -72,22 +80,30 @@
                                     <div class="text-block-26">Prix m2 moyen en 2020</div>
                                     <div class="text-block-28">{{ city_data.median_m2_price_maison.value }} €</div>
 
+                                    {% if city_data.median_m2_price_maison_rooms.four %}
                                     <div class="div-block-22">
                                         <span>4 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_maison.value }} € m2</span>
+                                        <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.four }} € m2</span>
                                     </div>
+                                    {% endif %}
+                                    {% if city_data.median_m2_price_maison_rooms.three %}
                                     <div class="div-block-22">
                                         <span>3 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_maison.value }} € m2</span>
+                                        <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.three }} € m2</span>
                                     </div>
+                                    {% endif %}
+                                    {% if city_data.median_m2_price_maison_rooms.two %}
                                     <div class="div-block-22">
                                         <span>2 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_maison.value }} € m2</span>
+                                        <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.two }} € m2</span>
                                     </div>
+                                    {% endif %}
+                                    {% if city_data.median_m2_price_maison_rooms.one %}
                                     <div class="div-block-22">
                                         <span>1 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_maison.value }} € m2</span>
+                                        <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.one }} € m2</span>
                                     </div>
+                                    {% endif %}
                                 </div>
 
                             </div>

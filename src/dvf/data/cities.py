@@ -17,6 +17,7 @@ from dvf.data.classes import (
     MapMarker,
     Geometry,
     ClosebyCity,
+    MedianM2PriceRoom,
 )
 from dvf.models import Commune
 from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
@@ -38,6 +39,25 @@ def get_avg_m2_price(
     ]
 
     return ventes_subset.groupby("annee").mean().round(2)["prix_m2"].to_dict()
+
+
+def get_avg_m2_price_rooms(
+    types: Tuple, date_from: datetime.date, ventes: pd.DataFrame
+) -> dict:
+    if ventes.empty:
+        return {}
+
+    ventes_subset = ventes[
+        (ventes["annee"] >= date_from.year) & (ventes["type_local"].isin(types))
+    ]
+
+    return (
+        ventes_subset.groupby("nombre_pieces_principales")
+        .mean()
+        .round(0)["prix_m2"]
+        .astype(int)
+        .to_dict()
+    )
 
 
 # @timer
@@ -100,6 +120,28 @@ def get_city_data(code_commune: str) -> CityData:
 
     median_m2_prices_maison = get_avg_m2_price(
         types=("Maison",), date_from=last_year, ventes=ventes
+    )
+
+    median_m2_prices_room_maison = get_avg_m2_price_rooms(
+        types=("Maison",), date_from=last_5_years, ventes=ventes
+    )
+
+    median_m2_prices_rooms_maison = MedianM2PriceRoom(
+        one=median_m2_prices_room_maison.get(1),
+        two=median_m2_prices_room_maison.get(2),
+        three=median_m2_prices_room_maison.get(3),
+        four=median_m2_prices_room_maison.get(4),
+    )
+
+    median_m2_prices_room_appartement = get_avg_m2_price_rooms(
+        types=("Appartement",), date_from=last_5_years, ventes=ventes
+    )
+
+    median_m2_prices_rooms_appartement = MedianM2PriceRoom(
+        one=median_m2_prices_room_appartement.get(1),
+        two=median_m2_prices_room_appartement.get(2),
+        three=median_m2_prices_room_appartement.get(3),
+        four=median_m2_prices_room_appartement.get(4),
     )
 
     if median_m2_prices_maison.get(last_year.year):
@@ -185,7 +227,9 @@ def get_city_data(code_commune: str) -> CityData:
 
     return CityData(
         median_m2_price_appartement=median_m2_price_appartement,
+        median_m2_price_appartement_rooms=median_m2_prices_rooms_appartement,
         median_m2_price_maison=median_m2_price_maison,
+        median_m2_price_maison_rooms=median_m2_prices_rooms_maison,
         median_m2_prices_years=median_m2_prices_years,
         last_sales=last_sales,
         most_expensive_streets=most_expensive_streets,
