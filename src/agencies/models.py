@@ -12,8 +12,6 @@ class Agency(models.Model):
     website_url = models.CharField(max_length=255, null=True)
 
     class Meta:
-        indexes = [
-            models.Index(fields=["code_commune"]),
-        ]
+        indexes = [models.Index(fields=["code_commune"])]
 
         verbose_name_plural = "Agencies"

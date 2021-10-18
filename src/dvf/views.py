@@ -4,12 +4,7 @@ from django.shortcuts import render, redirect
 import requests
 import dataclasses
 
-from dvf.data.cities import (
-    get_city_data,
-    get_city_from_slug,
-    get_city_from_code,
-    get_closeby_cities,
-)
+from dvf.data.cities import get_city_data, get_city_from_slug, get_city_from_code, get_closeby_cities
 from django.views.decorators.csrf import csrf_exempt
 
 from django.core.serializers.json import DjangoJSONEncoder

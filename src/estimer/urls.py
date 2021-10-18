@@ -33,10 +33,5 @@ urlpatterns = [
     path("commune/<str:slug>", cache_page(CACHE_TTL_ONE_DAY)(city), name="city"),
     path("mentions-legales/", mentions_legales, name="mentions-legales"),
     path("", cache_page(CACHE_TTL_ONE_DAY)(home), name="home"),
-    path(
-        "sitemap.xml",
-        sitemap,
-        {"sitemaps": sitemaps},
-        name="django.contrib.sitemaps.views.sitemap",
-    ),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
