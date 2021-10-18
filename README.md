@@ -17,7 +17,20 @@ These instructions are tested on a Mac M1. Shouldn't be that different on Linux.
 2. Update the env variables to match your local config
 3. Copy the file `pre-push` to `.git/hooks/pre-push` : `cp pre-push .git/hooks/pre-push`
 
-
+## Setup local env
+1. Create a virtual environment
+at `/estimer`
+   ```bash
+   python3.9 -m venv venv
+   ```
+2. Activate the virtual environment
+   ```bash
+   source venv/bin/activate
+   ```
+2. Install dependencies
+    ```bash
+   pip install -r requirements.txt 
+   ```
 
 # Prod setup
 TODO: add prod setup guide
