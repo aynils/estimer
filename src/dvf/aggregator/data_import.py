@@ -70,6 +70,7 @@ def import_gzipped_csv_to_db(gzipped_csv_file_path: str) -> None:
 
 def delete_existing_data(year: int) -> None:
     print("delete existing data")
+    # TODO: fix this function
     ValeursFoncieres.objects.raw(
         f"""
     DELETE FROM dvf_valeursfoncieres
@@ -80,11 +81,7 @@ def delete_existing_data(year: int) -> None:
 
 def create_communes():
     print("create communes")
-    rows = (
-        ValeursFoncieres.objects.order_by("code_commune", "code_postal")
-        .distinct("code_commune")
-        .all()
-    )
+    rows = ValeursFoncieres.objects.order_by("code_commune", "code_postal").distinct("code_commune").all()
     communes = [
         Commune(
             code_commune=row.code_commune,

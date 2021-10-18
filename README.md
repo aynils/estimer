@@ -40,5 +40,15 @@ at `/estimer`
    import_data(2020)
    ```
 
+Setup DB user:
+
+ALTER ROLE localuser SET client_encoding TO 'utf8';
+ALTER ROLE localuser SET default_transaction_isolation TO 'read committed';
+ALTER ROLE localuser SET timezone TO 'UTC';
+
+Grant privileges to local DB user:
+
+GRANT ALL PRIVILEGES ON DATABASE XXXXX TO localuser;
+
 # Prod setup
 TODO: add prod setup guide

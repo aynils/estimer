@@ -28,36 +28,22 @@ from helpers.cache import cached_function
 
 
 # @timer
-def get_avg_m2_price(
-    types: Tuple, date_from: datetime.date, ventes: pd.DataFrame
-) -> dict:
+def get_avg_m2_price(types: Tuple, date_from: datetime.date, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
         return {}
 
-    ventes_subset = ventes[
-        (ventes["annee"] >= date_from.year) & (ventes["type_local"].isin(types))
-    ]
+    ventes_subset = ventes[(ventes["annee"] >= date_from.year) & (ventes["type_local"].isin(types))]
 
     return ventes_subset.groupby("annee").mean().round(2)["prix_m2"].to_dict()
 
 
-def get_avg_m2_price_rooms(
-    types: Tuple, date_from: datetime.date, ventes: pd.DataFrame
-) -> dict:
+def get_avg_m2_price_rooms(types: Tuple, date_from: datetime.date, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
         return {}
 
-    ventes_subset = ventes[
-        (ventes["annee"] >= date_from.year) & (ventes["type_local"].isin(types))
-    ]
+    ventes_subset = ventes[(ventes["annee"] >= date_from.year) & (ventes["type_local"].isin(types))]
 
-    return (
-        ventes_subset.groupby("nombre_pieces_principales")
-        .mean()
-        .round(0)["prix_m2"]
-        .astype(int)
-        .to_dict()
-    )
+    return ventes_subset.groupby("nombre_pieces_principales").mean().round(0)["prix_m2"].astype(int).to_dict()
 
 
 # @timer
@@ -71,11 +57,7 @@ def get_avg_m2_price_street(
 
     average_per_street = ventes.groupby("adresse_nom_voie").mean().round(2)
     # clean_average_per_street = remove_outliers(average_per_street, "prix_m2")
-    return (
-        average_per_street.sort_values(by="prix_m2", ascending=ascending)
-        .head(n=limit)["prix_m2"]
-        .to_dict()
-    )
+    return average_per_street.sort_values(by="prix_m2", ascending=ascending).head(n=limit)["prix_m2"].to_dict()
 
 
 # @timer
@@ -108,9 +90,7 @@ def get_city_data(code_commune: str) -> CityData:
         date_from=last_5_years,
     )
 
-    median_m2_prices_appartement = get_avg_m2_price(
-        types=("Appartement",), date_from=last_year, ventes=ventes
-    )
+    median_m2_prices_appartement = get_avg_m2_price(types=("Appartement",), date_from=last_year, ventes=ventes)
     if median_m2_prices_appartement.get(last_year.year):
         median_m2_price_appartement = MedianM2Price(
             value=int(median_m2_prices_appartement[last_year.year]), year=last_year.year
@@ -118,13 +98,9 @@ def get_city_data(code_commune: str) -> CityData:
     else:
         median_m2_price_appartement = None
 
-    median_m2_prices_maison = get_avg_m2_price(
-        types=("Maison",), date_from=last_year, ventes=ventes
-    )
+    median_m2_prices_maison = get_avg_m2_price(types=("Maison",), date_from=last_year, ventes=ventes)
 
-    median_m2_prices_room_maison = get_avg_m2_price_rooms(
-        types=("Maison",), date_from=last_5_years, ventes=ventes
-    )
+    median_m2_prices_room_maison = get_avg_m2_price_rooms(types=("Maison",), date_from=last_5_years, ventes=ventes)
 
     median_m2_prices_rooms_maison = MedianM2PriceRoom(
         one=median_m2_prices_room_maison.get(1),
@@ -145,19 +121,13 @@ def get_city_data(code_commune: str) -> CityData:
     )
 
     if median_m2_prices_maison.get(last_year.year):
-        median_m2_price_maison = MedianM2Price(
-            value=int(median_m2_prices_maison[last_year.year]), year=last_year.year
-        )
+        median_m2_price_maison = MedianM2Price(value=int(median_m2_prices_maison[last_year.year]), year=last_year.year)
     else:
         median_m2_price_maison = None
 
-    avg_m2_price = get_avg_m2_price(
-        types=("Maison", "Appartement"), date_from=last_5_years, ventes=ventes
-    ).items()
+    avg_m2_price = get_avg_m2_price(types=("Maison", "Appartement"), date_from=last_5_years, ventes=ventes).items()
 
-    median_m2_prices_years = [
-        MedianM2Price(value=price, year=year) for year, price in avg_m2_price
-    ]
+    median_m2_prices_years = [MedianM2Price(value=price, year=year) for year, price in avg_m2_price]
 
     bar_heights = calculate_bar_heights(avg_m2_price=dict(avg_m2_price))
 
@@ -170,19 +140,14 @@ def get_city_data(code_commune: str) -> CityData:
                 month=pd.to_datetime(sale.get("date_mutation")).month,
                 year=pd.to_datetime(sale.get("date_mutation")).year,
             ),
-            price=int(sale.get("valeur_fonciere"))
-            if sale.get("valeur_fonciere")
-            else "",
-            surface=int(sale.get("surface_reelle_bati"))
-            if sale.get("surface_reelle_bati")
-            else "",
+            price=int(sale.get("valeur_fonciere")) if sale.get("valeur_fonciere") else "",
+            surface=int(sale.get("surface_reelle_bati")) if sale.get("surface_reelle_bati") else "",
             m2_price=int(sale.get("prix_m2")) if sale.get("prix_m2") else "",
             type_local=sale.get("type_local"),
             rooms_count=sale.get("nombre_pieces_principales"),
             address=Address(
                 numero=int(sale.get("adresse_numero"))
-                if sale.get("adresse_numero")
-                and not math.isnan(sale.get("adresse_numero"))
+                if sale.get("adresse_numero") and not math.isnan(sale.get("adresse_numero"))
                 else "",
                 suffixe=sale.get("adresse_suffixe"),
                 nom_voie=(sale.get("adresse_nom_voie") or "").lower(),
@@ -205,16 +170,12 @@ def get_city_data(code_commune: str) -> CityData:
 
     most_expensive_streets = [
         StreetMedianPrice(nom_voie=rue.lower(), avg_m2_price=int(price))
-        for rue, price in get_avg_m2_price_street(
-            limit=5, ascending=False, ventes=ventes
-        ).items()
+        for rue, price in get_avg_m2_price_street(limit=5, ascending=False, ventes=ventes).items()
     ]
 
     less_expensive_streets = [
         StreetMedianPrice(nom_voie=rue.lower(), avg_m2_price=int(price))
-        for rue, price in get_avg_m2_price_street(
-            limit=5, ascending=True, ventes=ventes
-        ).items()
+        for rue, price in get_avg_m2_price_street(limit=5, ascending=True, ventes=ventes).items()
     ]
 
     number_of_sales = ventes.__len__()
@@ -249,9 +210,7 @@ def get_all_cities() -> list:
 # noinspection SqlResolve
 # @timer
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
-def get_simple_sales(
-    code_commune: str, types: Tuple, date_from: datetime.date
-) -> pd.DataFrame:
+def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) -> pd.DataFrame:
     mutations = pd.read_sql(
         """SELECT
         valeur_fonciere,
@@ -391,9 +350,7 @@ def generate_price_evolution_text(avg_m2_price: dict) -> str:
 def generate_map_markers(last_sales: List[Sale]) -> List[MapMarker]:
     return [
         MapMarker(
-            geometry=Geometry(
-                coordinates=[sale.address.longitude, sale.address.latitude]
-            ),
+            geometry=Geometry(coordinates=[sale.address.longitude, sale.address.latitude]),
             properties=sale,
         )
         for sale in last_sales
@@ -410,7 +367,9 @@ def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
         >
             <title id="svg-title">prix m2 {city_name}</title>
             <desc id="svg-desc">Evolution du prix au m2 à {city_name} pour les 5 dernières années</desc>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="35" y="{bar_heights.get('2016', {}).get('text_y')}">
+            <text font-family="Rubik, sans-serif"
+            class="svg-text" x="35"
+            y="{bar_heights.get('2016', {}).get('text_y')}">
                 {bar_heights.get('2016', {}).get('value')} €
             </text>
             <rect x="30" y="{bar_heights.get('2016', {}).get('y')}" width="60"
@@ -419,7 +378,8 @@ def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
             <text font-family="Rubik, sans-serif" class="svg-text" x="40" y="200">
                 2016
             </text>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="155" y="{bar_heights.get('2017', {}).get('text_y')}">
+            <text font-family="Rubik, sans-serif"
+            class="svg-text" x="155" y="{bar_heights.get('2017', {}).get('text_y')}">
                 {bar_heights.get('2017', {}).get('value')} €
             </text>
             <rect x="150" y="{bar_heights.get('2017', {}).get('y')}" width="60"
@@ -428,7 +388,8 @@ def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
             <text font-family="Rubik, sans-serif" class="svg-text" x="160" y="200">
                 2017
             </text>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="275" y="{bar_heights.get('2018', {}).get('text_y')}">
+            <text font-family="Rubik, sans-serif"
+            class="svg-text" x="275" y="{bar_heights.get('2018', {}).get('text_y')}">
                 {bar_heights.get('2018', {}).get('value')} €
             </text>
             <rect x="270" y="{bar_heights.get('2018', {}).get('y')}" width="60"
@@ -437,7 +398,8 @@ def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
             <text font-family="Rubik, sans-serif" class="svg-text" x="280" y="200">
                 2018
             </text>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="395" y="{bar_heights.get('2019', {}).get('text_y')}">
+            <text font-family="Rubik, sans-serif"
+            class="svg-text" x="395" y="{bar_heights.get('2019', {}).get('text_y')}">
                 {bar_heights.get('2019', {}).get('value')} €
             </text>
             <rect x="390" y="{bar_heights.get('2019', {}).get('y')}" width="60"
@@ -446,7 +408,8 @@ def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
             <text font-family="Rubik, sans-serif" class="svg-text" x="400" y="200">
                 2019
             </text>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="515" y="{bar_heights.get('2020', {}).get('text_y')}">
+            <text font-family="Rubik, sans-serif"
+            class="svg-text" x="515" y="{bar_heights.get('2020', {}).get('text_y')}">
                 {bar_heights.get('2020', {}).get('value')} €
             </text>
             <rect x="510" y="{bar_heights.get('2020', {}).get('y')}" width="60"
@@ -464,16 +427,8 @@ def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
 
 
 def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
-    cities_under = (
-        Commune.objects.filter(code_postal__lt=code_postal)
-        .order_by("-code_postal")[:15]
-        .all()
-    )
-    cities_over = (
-        Commune.objects.filter(code_postal__gt=code_postal)
-        .order_by("code_postal")[:15]
-        .all()
-    )
+    cities_under = Commune.objects.filter(code_postal__lt=code_postal).order_by("-code_postal")[:15].all()
+    cities_over = Commune.objects.filter(code_postal__gt=code_postal).order_by("code_postal")[:15].all()
     return [
         ClosebyCity(
             nom_commune=city.nom_commune,
