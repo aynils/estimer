@@ -3,7 +3,7 @@ venv
 .env
 .env.local
 .digitalocean
-pre-push
+pre-push.
 
 *.egg-info
 *.pot
@@ -21,4 +21,4 @@ build/
 tests/report/
 /pandas/
 /ca-certificate.crt
-/.git/hooks/pre-push
+/.git/hooks/pre-push.
