@@ -27,9 +27,17 @@ at `/estimer`
    ```bash
    source venv/bin/activate
    ```
-2. Install dependencies
+3. Install dependencies
     ```bash
    pip install -r requirements.txt 
+   ```
+4. Import data to your local DB
+   ```bash
+   python manage.py shell
+   ```
+   ```python
+   from dvf.aggregator.data_import import import_data
+   import_data(2020)
    ```
 
 # Prod setup
