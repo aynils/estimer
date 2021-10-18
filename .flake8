@@ -4,5 +4,7 @@ ignore =
     # Black breaking this one
     E125
 max-line-length = 120
-exclude = tests/*
+exclude =
+    tests/*
+    *settings.py
 max-complexity = 10
