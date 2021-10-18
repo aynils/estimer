@@ -28,7 +28,7 @@ fi
 
 # run tests
 echo -n -e "${ORANGE}CHECKING${NC}: Running tests..."
-source venv/bin/activate && src/manage.py test > /dev/null 2>&1
+. venv/bin/activate && src/manage.py test > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo -e "            [ ${RED}FAILED!${NC} ]";
     exit 1;
