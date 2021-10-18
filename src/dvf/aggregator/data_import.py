@@ -56,6 +56,7 @@ def download_csv(url: str, folder_path: str) -> str:
 
 
 def import_gzipped_csv_to_db(gzipped_csv_file_path: str) -> None:
+    print("Import data from zip file")
     with gzip.open(gzipped_csv_file_path, "rb") as csv_file:
         copy_csv(
             csv_file=csv_file,
@@ -68,6 +69,7 @@ def import_gzipped_csv_to_db(gzipped_csv_file_path: str) -> None:
 
 
 def delete_existing_data(year: int) -> None:
+    print("delete existing data")
     ValeursFoncieres.objects.raw(
         f"""
     DELETE FROM dvf_valeursfoncieres
@@ -77,6 +79,7 @@ def delete_existing_data(year: int) -> None:
 
 
 def create_communes():
+    print("create communes")
     rows = (
         ValeursFoncieres.objects.order_by("code_commune", "code_postal")
         .distinct("code_commune")
