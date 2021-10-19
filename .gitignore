@@ -21,4 +21,3 @@ build/
 tests/report/
 /pandas/
 /ca-certificate.crt
-/.git/hooks/pre-push
