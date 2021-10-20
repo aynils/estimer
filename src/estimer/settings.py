@@ -58,23 +58,11 @@ logging.config.dictConfig(
         "disable_existing_loggers": False,
         "formatters": {
             "console": {
-                "format": "%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s",
-            },
+                "format": "%(asctime)s %(levelname)s [%(name)s:%(lineno)s] %(module)s %(process)d %(thread)d %(message)s"
+            }
         },
-        "handlers": {
-            "console": {
-                "class": "logging.StreamHandler",
-                "formatter": "console",
-            },
-        },
-        "loggers": {
-            "": {
-                "level": LOGLEVEL,
-                "handlers": [
-                    "console",
-                ],
-            },
-        },
+        "handlers": {"console": {"class": "logging.StreamHandler", "formatter": "console"}},
+        "loggers": {"": {"level": LOGLEVEL, "handlers": ["console"]}},
     }
 )
 
@@ -141,9 +129,9 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-            ],
+            ]
         },
-    },
+    }
 ]
 
 WSGI_APPLICATION = "estimer.wsgi.application"
@@ -164,20 +152,14 @@ DATABASES = {
 }
 
 if DEBUG:
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
-        }
-    }
+    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
 
 else:
     CACHES = {
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",
             "LOCATION": os.getenv("REDIS_URL"),
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            },
+            "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
             "KEY_PREFIX": "estimer_v1",
         }
     }
@@ -192,18 +174,10 @@ SESSION_CACHE_ALIAS = "default"
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 MAPBOX_PUBLIC_TOKEN = os.getenv("MAPBOX_PUBLIC_TOKEN")
@@ -231,9 +205,7 @@ AWS_SECRET_ACCESS_KEY = os.getenv("STATIC_SECRET_KEY")
 
 AWS_STORAGE_BUCKET_NAME = "static"
 AWS_S3_ENDPOINT_URL = os.getenv("STATIC_ENDPOINT_URL")
-AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": "max-age=86400",
-}
+AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 AWS_LOCATION = ""
 AWS_DEFAULT_ACL = "public-read"
 AWS_QUERYSTRING_AUTH = False

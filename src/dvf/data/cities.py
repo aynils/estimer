@@ -47,11 +47,7 @@ def get_avg_m2_price_rooms(types: Tuple, date_from: datetime.date, ventes: pd.Da
 
 
 # @timer
-def get_avg_m2_price_street(
-    limit: int,
-    ascending: bool,
-    ventes: pd.DataFrame,
-) -> dict:
+def get_avg_m2_price_street(limit: int, ascending: bool, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
         return {}
 
@@ -61,10 +57,7 @@ def get_avg_m2_price_street(
 
 
 # @timer
-def get_last_sales(
-    limit: int,
-    ventes: pd.DataFrame,
-) -> dict:
+def get_last_sales(limit: int, ventes: pd.DataFrame) -> dict:
     ordered_sales = ventes.sort_values(by="date_mutation", ascending=False)
     # clean_sales = remove_outliers(ordered_sales, "valeur_fonciere")
     return ordered_sales.head(n=limit).to_dict("records")
@@ -84,11 +77,7 @@ def get_city_data(code_commune: str) -> CityData:
     last_year = datetime.date(year=today.year - 1, month=1, day=1)
     last_5_years = datetime.date(year=today.year - 5, month=1, day=1)
 
-    ventes = get_simple_sales(
-        code_commune=code_commune,
-        types=("Maison", "Appartement"),
-        date_from=last_5_years,
-    )
+    ventes = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=last_5_years)
 
     median_m2_prices_appartement = get_avg_m2_price(types=("Appartement",), date_from=last_year, ventes=ventes)
     if median_m2_prices_appartement.get(last_year.year):
@@ -235,11 +224,7 @@ def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) 
             AND latitude IS NOT NULL
             """,
         connection,
-        params={
-            "code_commune": str(code_commune),
-            "date_from": date_from,
-            "types": types,
-        },
+        params={"code_commune": str(code_commune), "date_from": date_from, "types": types},
         parse_dates=["date_mutation"],
     )
 
@@ -349,10 +334,7 @@ def generate_price_evolution_text(avg_m2_price: dict) -> str:
 # @timer
 def generate_map_markers(last_sales: List[Sale]) -> List[MapMarker]:
     return [
-        MapMarker(
-            geometry=Geometry(coordinates=[sale.address.longitude, sale.address.latitude]),
-            properties=sale,
-        )
+        MapMarker(geometry=Geometry(coordinates=[sale.address.longitude, sale.address.latitude]), properties=sale)
         for sale in last_sales
     ]
 
@@ -430,9 +412,5 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
     cities_under = Commune.objects.filter(code_postal__lt=code_postal).order_by("-code_postal")[:15].all()
     cities_over = Commune.objects.filter(code_postal__gt=code_postal).order_by("code_postal")[:15].all()
     return [
-        ClosebyCity(
-            nom_commune=city.nom_commune,
-            slug=city.slug,
-        )
-        for city in list(cities_under) + list(cities_over)
+        ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(cities_under) + list(cities_over)
     ]

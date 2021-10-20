@@ -14,12 +14,7 @@ folder_path = str(Path.home())
 
 
 def copy_csv(
-    csv_file: TextIO,
-    table_name: str,
-    columns: List[str],
-    delimiter: str,
-    headers: bool,
-    quote: str = None,
+    csv_file: TextIO, table_name: str, columns: List[str], delimiter: str, headers: bool, quote: str = None
 ) -> None:
     column_names = ", ".join(columns)
     quote = quote or '"'
