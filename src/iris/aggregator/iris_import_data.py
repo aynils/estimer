@@ -27,4 +27,5 @@ def lire_fichier_ign():
             sys.exit(1)
 
         data = [row["properties"] for row in reader]
-        return pd.DataFrame(data)
+        pandaframetocsv = pd.DataFrame(data)
+        return pandaframetocsv.to_csv(r'/home/cink/Bureau/DEV/estimer/src/iris/data/dataframetocsv.csv')
