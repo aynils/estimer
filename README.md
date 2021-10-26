@@ -37,7 +37,8 @@ at `/estimer`
    ```
    ```python
    from dvf.aggregator.data_import import import_data
-   import_data(2020)
+   for year in range(2016,2021):
+      import_data(year)
    ```
 
 Setup DB user:
