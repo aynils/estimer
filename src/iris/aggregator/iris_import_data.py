@@ -10,10 +10,14 @@ IGN_SRID = "epsg:2154"  # Lambert 93
 
 
 # TODO: add script to download this file from the server
-SHP_INPUT_PATH = "/Users/seraphinvandegar/Downloads/CONTOURS-IRIS_2-1__SHP__FRA_2018-01-01/CONTOURS-IRIS/1_DONNEES_LIVRAISON_2018-07-00057/CONTOURS-IRIS_2-1_SHP_LAMB93_FXX-2018"
+SHP_INPUT_PATH = (
+    "/Users/seraphinvandegar/Downloads/CONTOURS-IRIS_2-1__SHP__"
+    "FRA_2018-01-01/CONTOURS-IRIS/1_DONNEES_LIVRAISON_2018-07-00057/"
+    "CONTOURS-IRIS_2-1_SHP_LAMB93_FXX-2018"
+)
 
 
-def import_data():
+def import_data(foo):
     logger.info("Reading IGN shapefile")
 
     mapping = {
