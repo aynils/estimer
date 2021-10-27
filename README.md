@@ -9,13 +9,30 @@ These instructions are tested on a Mac M1. Shouldn't be that different on Linux.
 1. PSQL server running
 2. Redis server running
 3. Python 3.9: `brew install python@3.9`
-4. Flak8 installed: `brew install flake8`
+4. Flak 8 installed: `brew install flake8`
 5. Black installed: `brew install black`
+6. GDAL installed: `brew install gdal`
+6. PROJ installed: `brew install proj`
+6. postgis installed: `brew install postgis`
 
 ## Config
 1. Copy `.env.local.example` and rename it to `.env.local`
 2. Update the env variables to match your local config
 3. Copy the file `pre-push` to `.git/hooks/pre-push` : `cp pre-push .git/hooks/pre-push`
+
+## Setup local DB
+Install PSQL spatial extension
+https://docs.djangoproject.com/fr/3.2/ref/contrib/gis/install/postgis/
+
+Setup DB user:
+
+ALTER ROLE localuser SET client_encoding TO 'utf8';
+ALTER ROLE localuser SET default_transaction_isolation TO 'read committed';
+ALTER ROLE localuser SET timezone TO 'UTC';
+
+Grant privileges to local DB user:
+
+GRANT ALL PRIVILEGES ON DATABASE estimer TO localuser;
 
 ## Setup local env
 1. Create a virtual environment
@@ -41,15 +58,6 @@ at `/estimer`
       import_data(year)
    ```
 
-Setup DB user:
-
-ALTER ROLE localuser SET client_encoding TO 'utf8';
-ALTER ROLE localuser SET default_transaction_isolation TO 'read committed';
-ALTER ROLE localuser SET timezone TO 'UTC';
-
-Grant privileges to local DB user:
-
-GRANT ALL PRIVILEGES ON DATABASE XXXXX TO localuser;
 
 # Prod setup
 TODO: add prod setup guide

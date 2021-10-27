@@ -19,3 +19,5 @@ psycopg2-binary
 sentry-sdk==1.0.0
 python-slugify
 django-redis
+fiona
+pyproj

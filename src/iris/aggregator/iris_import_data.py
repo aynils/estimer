@@ -1,31 +1,31 @@
-import sys
-import pandas as pd
-from pyproj import CRS
-import fiona
+import logging
 
-# Les champs issus fichier shp IGN
-IGN_FIELDS = ("INSEE_COM", "NOM_COM", "IRIS", "CODE_IRIS", "NOM_IRIS", "TYP_IRIS")
+from django.contrib.gis.utils import LayerMapping
+
+from iris.models import IRIS
+
+logger = logging.getLogger(__name__)
+
 IGN_SRID = "epsg:2154"  # Lambert 93
 
 
-def lire_fichier_ign():
-    print("lecture du fichier shapefile IGN")
-    with fiona.open("/home/cink/Bureau/DEV/estimer/src/iris/data/CONTOURS-IRIS.shp") as reader:
-        properties = reader.meta["schema"]["properties"]
-        crs = CRS.from_wkt(reader.meta["crs_wkt"])
-        srid = "epsg:{}".format(crs.to_epsg())
-        # on vérifie que le nom des champs sont conformes
-        if tuple(properties.keys()) != IGN_FIELDS:
-            print("Les champs IGN ont changé.")
-            print("Champs IGN demandés : %s", IGN_FIELDS)
-            print("Champs IGN trouvés : %s", tuple(properties.keys()))
-            sys.exit(1)
+# TODO: add script to download this file from the server
+SHP_INPUT_PATH = "/Users/seraphinvandegar/Downloads/CONTOURS-IRIS_2-1__SHP__FRA_2018-01-01/CONTOURS-IRIS/1_DONNEES_LIVRAISON_2018-07-00057/CONTOURS-IRIS_2-1_SHP_LAMB93_FXX-2018"
 
-        # on vérifie que le système de projection est lambert 93
-        if srid != IGN_SRID:
-            print("Le système de projection devrait être '%s' et non '%s'", IGN_SRID, srid)
-            sys.exit(1)
 
-        data = [row["properties"] for row in reader]
-        pandaframetocsv = pd.DataFrame(data)
-        return pandaframetocsv.to_csv(r'/home/cink/Bureau/DEV/estimer/src/iris/data/dataframetocsv.csv')
+def import_data():
+    logger.info("Reading IGN shapefile")
+
+    mapping = {
+        "insee_commune": "INSEE_COM",
+        "nom_commune": "NOM_COM",
+        "iris": "IRIS",
+        "code_iris": "CODE_IRIS",
+        "nom_iris": "NOM_IRIS",
+        "type_iris": "TYP_IRIS",
+        "geometry": "MULTIPOLYGON",
+    }
+
+    lm = LayerMapping(IRIS, SHP_INPUT_PATH, mapping, transform=False, encoding="utf-8")
+
+    lm.save(strict=True, verbose=True)

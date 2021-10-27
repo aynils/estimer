@@ -17,7 +17,7 @@ class ValeursFoncieres(models.Model):
     adresse_nom_voie = models.CharField(max_length=255, null=True)
     adresse_code_voie = models.CharField(max_length=255, null=True)
     code_postal = models.CharField(max_length=255, null=True)
-    code_commune = models.CharField(max_length=255, null=True)
+    code_commune = models.CharField(max_length=255, null=True)  # code INSEE
     nom_commune = models.CharField(max_length=255, null=True)
     code_departement = models.CharField(max_length=255, null=True)
     ancien_code_commune = models.CharField(max_length=255, null=True)
