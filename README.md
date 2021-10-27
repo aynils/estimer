@@ -48,7 +48,7 @@ at `/estimer`
     ```bash
    pip install -r requirements.txt 
    ```
-4. Import data to your local DB
+4. Import dvf data to your local DB
    ```bash
    python manage.py shell
    ```
@@ -56,6 +56,14 @@ at `/estimer`
    from dvf.aggregator.data_import import import_data
    for year in range(2016,2021):
       import_data(year)
+   ```
+4. Import iris data to your local DB
+   ```bash
+   python manage.py shell
+   ```
+   ```python
+   from iris.aggregator.data_import import import_data
+   import_data(2021)
    ```
 
 

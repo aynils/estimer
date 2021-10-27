@@ -17,7 +17,7 @@ SHP_INPUT_PATH = (
 )
 
 
-def import_data():
+def import_data(year=2021):
     logger.info("Reading IGN shapefile")
 
     mapping = {
