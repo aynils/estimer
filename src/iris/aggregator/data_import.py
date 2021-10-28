@@ -8,7 +8,6 @@ import requests
 import os.path
 from pathlib import Path
 
-from pyunpack import Archive
 
 logger = logging.getLogger(__name__)
 
