@@ -38,7 +38,7 @@ def extract_zip(year: int):
     url = build_url(year=year)
     local_filename = download_shp(url, folder_path)
     file_path = f"{folder_path}/{local_filename}"
-    with py7zr.SevenZipFile(f"{file_path}", 'r') as archive:
+    with py7zr.SevenZipFile(f"{file_path}", "r") as archive:
         archive.extractall(path=f"{folder_path}")
 
 
@@ -67,5 +67,3 @@ def import_data(year=2021):
 
     lm.save(strict=True, verbose=True)
 
-
-extract_zip(2021)
