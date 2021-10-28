@@ -66,4 +66,3 @@ def import_data(year=2021):
     lm = LayerMapping(IRIS, SHP_INPUT_PATH, mapping, transform=False, encoding="utf-8")
 
     lm.save(strict=True, verbose=True)
-
