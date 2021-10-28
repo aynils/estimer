@@ -7,7 +7,7 @@ from iris.models import IRIS
 import requests
 import os.path
 from pathlib import Path
-
+import py7zr
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +34,14 @@ def download_shp(url: str, folder_path: str) -> str:
     return local_filename
 
 
+def extract_zip(year: int):
+    url = build_url(year=year)
+    local_filename = download_shp(url, folder_path)
+    file_path = f"{folder_path}/{local_filename}"
+    with py7zr.SevenZipFile(f"{file_path}", 'r') as archive:
+        archive.extractall(path=f"{folder_path}")
+
+
 # TODO: add script to download this file from the server
 SHP_INPUT_PATH = (
     "/home/cink/Téléchargements/CONTOURS-IRIS_2-1__SHP__FRA_2020-01-01/"
@@ -58,3 +66,6 @@ def import_data(year=2021):
     lm = LayerMapping(IRIS, SHP_INPUT_PATH, mapping, transform=False, encoding="utf-8")
 
     lm.save(strict=True, verbose=True)
+
+
+extract_zip(2021)
