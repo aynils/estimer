@@ -42,6 +42,16 @@ def extract_zip(year: int):
         archive.extractall(path=f"{folder_path}")
 
 
+def path_to_shp(year: int):
+    folder_list = []
+    path = Path(f"{folder_path}/CONTOURS-IRIS_2-1__SHP__FRA_{year}-01-01/CONTOURS-IRIS/")
+    for x in path.iterdir():
+        folder_list.append(x)
+    path_shp = f"{folder_list[0]}/CONTOURS-IRIS_2-1_SHP_LAMB93_FXX-{year}/CONTOURS-IRIS.shp"
+
+    return path_shp
+
+
 # TODO: add script to download this file from the server
 SHP_INPUT_PATH = (
     "/home/cink/Téléchargements/CONTOURS-IRIS_2-1__SHP__FRA_2020-01-01/"
