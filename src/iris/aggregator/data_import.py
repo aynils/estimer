@@ -23,6 +23,7 @@ def build_url(year: int) -> str:
 def download_shp(url: str, folder_path: str) -> str:
     local_filename = f"{url.split('/')[-1]}"
     if not os.path.exists(f"{folder_path}/{local_filename}"):
+        print("Downloading files ...")
         with requests.get(url, stream=True) as r:
             r.raise_for_status()
             with open(f"{folder_path}/{local_filename}", "wb") as f:
@@ -46,21 +47,19 @@ def path_to_shp(year: int):
     folder_list = []
     path = Path(f"{folder_path}/CONTOURS-IRIS_2-1__SHP__FRA_{year}-01-01/CONTOURS-IRIS/")
     for x in path.iterdir():
-        folder_list.append(x)
+        if "1_DONNEES_LIVRAISON" in str(x):
+            folder_list.append(x)
     path_shp = f"{folder_list[0]}/CONTOURS-IRIS_2-1_SHP_LAMB93_FXX-{year}/CONTOURS-IRIS.shp"
-
+    print(folder_list)
     return path_shp
 
 
-# TODO: add script to download this file from the server
-SHP_INPUT_PATH = (
-    "/home/cink/Téléchargements/CONTOURS-IRIS_2-1__SHP__FRA_2020-01-01/"
-    "CONTOURS-IRIS/1_DONNEES_LIVRAISON_2020-12-00282/"
-    "CONTOURS-IRIS_2-1_SHP_LAMB93_FXX-2020"
-)
-
-
 def import_data(year=2021):
+    url = build_url(year=year)
+    download_shp(url, folder_path)
+    extract_zip(year=year)
+    shp_input_path = path_to_shp(year=year)
+
     logger.info("Reading IGN shapefile")
 
     mapping = {
@@ -73,6 +72,6 @@ def import_data(year=2021):
         "geometry": "MULTIPOLYGON",
     }
 
-    lm = LayerMapping(IRIS, SHP_INPUT_PATH, mapping, transform=False, encoding="utf-8")
+    lm = LayerMapping(IRIS, shp_input_path, mapping, transform=False, encoding="utf-8")
 
     lm.save(strict=True, verbose=True)
