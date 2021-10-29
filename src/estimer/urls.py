@@ -25,6 +25,7 @@ from django.views.decorators.cache import cache_page
 from estimer.settings import CACHE_TTL_ONE_DAY
 from django.contrib.sitemaps.views import sitemap
 
+
 sitemaps = {"city": CitySitemap}
 
 urlpatterns = [

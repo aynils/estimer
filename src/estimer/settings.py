@@ -97,6 +97,7 @@ INSTALLED_APPS = [
     "users",
     "agencies",
     "map",
+    "iris",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
