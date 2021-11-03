@@ -8,7 +8,7 @@ These instructions are tested on a Mac M1. Shouldn't be that different on Linux.
 ## Prerequisites
 1. PSQL server running
 2. Redis server running
-3. Python 3.9: `brew install python@3.9`
+3. Python 3.8: `brew install python@3.8`
 4. Flak 8 installed: `brew install flake8`
 5. Black installed: `brew install black`
 6. GDAL installed: `brew install gdal`
