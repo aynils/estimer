@@ -46,7 +46,7 @@ at `/estimer`
    ```
 3. Install dependencies
     ```bash
-   pip install -r requirements.txt 
+   pip install -r requirements/local.txt 
    ```
 4. Import dvf data to your local DB
    ```bash
