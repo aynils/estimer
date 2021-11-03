@@ -6,14 +6,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('iris', '0002_auto_20211027_1439'),
-    ]
+    dependencies = [("iris", "0002_auto_20211027_1439")]
 
     operations = [
         migrations.AlterField(
-            model_name='iris',
-            name='geometry',
-            field=django.contrib.gis.db.models.fields.MultiPolygonField(srid=4326),
-        ),
+            model_name="iris", name="geometry", field=django.contrib.gis.db.models.fields.MultiPolygonField(srid=4326)
+        )
     ]

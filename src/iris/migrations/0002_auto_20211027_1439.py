@@ -5,19 +5,9 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('iris', '0001_initial'),
-    ]
+    dependencies = [("iris", "0001_initial")]
 
     operations = [
-        migrations.AlterField(
-            model_name='iris',
-            name='code_iris',
-            field=models.CharField(max_length=255, null=True),
-        ),
-        migrations.AlterField(
-            model_name='iris',
-            name='iris',
-            field=models.CharField(max_length=255, null=True),
-        ),
+        migrations.AlterField(model_name="iris", name="code_iris", field=models.CharField(max_length=255, null=True)),
+        migrations.AlterField(model_name="iris", name="iris", field=models.CharField(max_length=255, null=True)),
     ]

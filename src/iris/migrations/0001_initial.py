@@ -8,21 +8,20 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='IRIS',
+            name="IRIS",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('insee_commune', models.CharField(max_length=255, null=True)),
-                ('nom_commune', models.CharField(max_length=255, null=True)),
-                ('iris', models.IntegerField(null=True)),
-                ('code_iris', models.IntegerField(null=True)),
-                ('nom_iris', models.CharField(max_length=255, null=True)),
-                ('type_iris', models.CharField(max_length=1, null=True)),
-                ('geometry', django.contrib.gis.db.models.fields.PolygonField(srid=4326)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("insee_commune", models.CharField(max_length=255, null=True)),
+                ("nom_commune", models.CharField(max_length=255, null=True)),
+                ("iris", models.IntegerField(null=True)),
+                ("code_iris", models.IntegerField(null=True)),
+                ("nom_iris", models.CharField(max_length=255, null=True)),
+                ("type_iris", models.CharField(max_length=1, null=True)),
+                ("geometry", django.contrib.gis.db.models.fields.PolygonField(srid=4326)),
             ],
-        ),
+        )
     ]
