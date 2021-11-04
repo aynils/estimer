@@ -414,3 +414,18 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
     return [
         ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(cities_under) + list(cities_over)
     ]
+
+
+def bind_neighborhoods_at_municipalities(code_commune: str):
+    coordinates = pd.read_sql(
+        """SELECT dvf_commune.code_commune, dvf_valeursfoncieres.code_commune,dvf_valeursfoncieres.longitude,dvf_valeursfoncieres.latitude FROM dvf_commune
+           INNER JOIN dvf_valeursfoncieres
+           ON dvf_commune.code_commune = dvf_valeursfoncieres.code_commune
+           WHERE dvf_commune.code_commune = '01001' LIMIT 5;""",
+        connection,
+    )
+
+
+    #TODO: 2 Récupérer longitute,latitude de la commune
+    #TODO: 3 Faire un recherche des quartier dans cette longitute,latitude
+    #TODO: 4 Return un résultat
