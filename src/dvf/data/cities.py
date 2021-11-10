@@ -6,6 +6,9 @@ from typing import Tuple, List
 import pandas as pd
 from django.db import connection
 
+from django.contrib.gis.geos import GEOSGeometry, Point
+
+
 from agencies.models import Agency
 from dvf.data.classes import (
     CityData,
@@ -19,7 +22,8 @@ from dvf.data.classes import (
     ClosebyCity,
     MedianM2PriceRoom,
 )
-from dvf.models import Commune
+from dvf.models import Commune,ValeursFoncieres
+from iris.models import IRIS
 from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
 from helpers.cache import cached_function
 
@@ -416,16 +420,17 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
     ]
 
 
-def bind_neighborhoods_at_municipalities(code_commune: str):
-    coordinates = pd.read_sql(
-        """SELECT dvf_commune.code_commune, dvf_valeursfoncieres.code_commune,dvf_valeursfoncieres.longitude,dvf_valeursfoncieres.latitude FROM dvf_commune
-           INNER JOIN dvf_valeursfoncieres
-           ON dvf_commune.code_commune = dvf_valeursfoncieres.code_commune
-           WHERE dvf_commune.code_commune = '01001' LIMIT 5;""",
-        connection,
-    )
+def bind_neighborhoods_at_municipalities():
+    fonciere_object = ValeursFoncieres.objects.filter(code_commune='01002')
+    print(fonciere_object[0].longitude)
+    print(fonciere_object[0].latitude)
+    pnt = Point(5.4270790, 46.0019920, srid=2154)
+    iris_object = IRIS.objects.filter(geometry__contained=pnt)
+    print(iris_object)
 
-
-    #TODO: 2 Récupérer longitute,latitude de la commune
-    #TODO: 3 Faire un recherche des quartier dans cette longitute,latitude
-    #TODO: 4 Return un résultat
+    # check_geometry = iris_data.geometry.apply(point_coordinates)
+    # check_geometry = point_coordinates.within(iris_data.geometry)
+    # print(check_geometry)
+    # TODO: 2 Récupérer longitute,latitude de la commune
+    # TODO: 3 Faire un recherche des quartier dans cette longitute,latitude
+    # TODO: 4 Return un résultat
