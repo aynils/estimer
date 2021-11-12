@@ -6,7 +6,8 @@ from typing import Tuple, List
 import pandas as pd
 from django.db import connection
 
-from django.contrib.gis.geos import GEOSGeometry, Point
+from django.contrib.gis.geos import Point, GEOSGeometry
+
 
 
 from agencies.models import Agency
@@ -22,7 +23,7 @@ from dvf.data.classes import (
     ClosebyCity,
     MedianM2PriceRoom,
 )
-from dvf.models import Commune,ValeursFoncieres
+from dvf.models import Commune, ValeursFoncieres
 from iris.models import IRIS
 from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
 from helpers.cache import cached_function
@@ -421,12 +422,18 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
 
 
 def bind_neighborhoods_at_municipalities():
-    fonciere_object = ValeursFoncieres.objects.filter(code_commune='01002')
-    print(fonciere_object[0].longitude)
+    fonciere_object = ValeursFoncieres.objects.filter(code_commune="01266")
+    print(fonciere_object[0])
     print(fonciere_object[0].latitude)
-    pnt = Point(5.4270790, 46.0019920, srid=2154)
-    iris_object = IRIS.objects.filter(geometry__contained=pnt)
-    print(iris_object)
+    print(fonciere_object[0].longitude)
+    latitude = float(fonciere_object[0].latitude)
+    longitude = float(fonciere_object[0].longitude)
+    #pnt = Point(latitude, longitude, srid=2154)
+    pnt = GEOSGeometry('POINT(46.3384460 5.1278070)', srid=2154).ewkt
+    print(pnt)
+    hood = IRIS.objects.filter(geometry__contains=pnt)
+    print(hood)
+
 
     # check_geometry = iris_data.geometry.apply(point_coordinates)
     # check_geometry = point_coordinates.within(iris_data.geometry)
