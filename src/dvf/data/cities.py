@@ -427,11 +427,10 @@ def bind_neighborhoods_at_municipalities(request):
     longitude = float(fonciere_object[0].longitude)
 
     point = Point(latitude, longitude, srid=2154)
-    point2 = GEOSGeometry('POINT(5.128971000000000 46.335622000000000)', srid=2154)
+    point2 = GEOSGeometry("POINT(5.128971000000000 46.335622000000000)", srid=2154)
 
     hood = IRIS.objects.filter(geometry__contains=point)
     hood2 = IRIS.objects.filter(geometry__contains=point2)
-
 
     # TODO: 3 Faire un recherche des quartier dans cette longitute,latitude
     # TODO: 4 Return un résultat
