@@ -421,17 +421,16 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
 
 
 def bind_neighborhoods_at_municipalities(request):
-    fonciere_object = ValeursFoncieres.objects.filter(code_commune="14426")
+    fonciere_object = ValeursFoncieres.objects.filter(code_commune="72124").first()
 
-    latitude = float(fonciere_object[0].latitude)
-    longitude = float(fonciere_object[0].longitude)
+    latitude = float(fonciere_object.latitude)
+    longitude = float(fonciere_object.longitude)
 
-    point = Point(latitude, longitude, srid=2154)
-    point2 = GEOSGeometry("POINT(5.128971000000000 46.335622000000000)", srid=2154)
+    point = Point(longitude, latitude, srid=4326)
+    point.transform(2154)
 
-    hood = IRIS.objects.filter(geometry__contains=point)
-    hood2 = IRIS.objects.filter(geometry__contains=point2)
-    print(hood)
-    print(hood2)
+    iris = IRIS.objects.filter(geometry__contains=point).first()
+
+    print(iris)
     # TODO: 3 Faire un recherche des quartier dans cette longitute,latitude
     # TODO: 4 Return un résultat
