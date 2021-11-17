@@ -6,9 +6,8 @@ from typing import Tuple, List
 import pandas as pd
 from django.db import connection
 
-from django.contrib.gis.geos import Point, GEOSGeometry
-
-
+from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import GEOSGeometry
 
 from agencies.models import Agency
 from dvf.data.classes import (
@@ -421,23 +420,18 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
     ]
 
 
-def bind_neighborhoods_at_municipalities():
-    fonciere_object = ValeursFoncieres.objects.filter(code_commune="01266")
-    print(fonciere_object[0])
-    print(fonciere_object[0].latitude)
-    print(fonciere_object[0].longitude)
+def bind_neighborhoods_at_municipalities(request):
+    fonciere_object = ValeursFoncieres.objects.filter(code_commune="14426")
+
     latitude = float(fonciere_object[0].latitude)
     longitude = float(fonciere_object[0].longitude)
-    #pnt = Point(latitude, longitude, srid=2154)
-    pnt = GEOSGeometry('POINT(46.3384460 5.1278070)', srid=2154).ewkt
-    print(pnt)
-    hood = IRIS.objects.filter(geometry__contains=pnt)
-    print(hood)
+
+    point = Point(latitude, longitude, srid=2154)
+    point2 = GEOSGeometry('POINT(5.128971000000000 46.335622000000000)', srid=2154)
+
+    hood = IRIS.objects.filter(geometry__contains=point)
+    hood2 = IRIS.objects.filter(geometry__contains=point2)
 
 
-    # check_geometry = iris_data.geometry.apply(point_coordinates)
-    # check_geometry = point_coordinates.within(iris_data.geometry)
-    # print(check_geometry)
-    # TODO: 2 Récupérer longitute,latitude de la commune
     # TODO: 3 Faire un recherche des quartier dans cette longitute,latitude
     # TODO: 4 Return un résultat
