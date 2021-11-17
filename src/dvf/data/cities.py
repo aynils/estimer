@@ -431,6 +431,7 @@ def bind_neighborhoods_at_municipalities(request):
 
     hood = IRIS.objects.filter(geometry__contains=point)
     hood2 = IRIS.objects.filter(geometry__contains=point2)
-
+    print(hood)
+    print(hood2)
     # TODO: 3 Faire un recherche des quartier dans cette longitute,latitude
     # TODO: 4 Return un résultat
