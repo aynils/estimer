@@ -7,7 +7,6 @@ import pandas as pd
 from django.db import connection
 
 from django.contrib.gis.geos import Point
-from django.contrib.gis.geos import GEOSGeometry
 
 from agencies.models import Agency
 from dvf.data.classes import (
@@ -421,10 +420,10 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
 
 
 def bind_neighborhoods_at_municipalities(request):
-    fonciere_object = ValeursFoncieres.objects.filter(code_commune="72124").first()
+    mutation = ValeursFoncieres.objects.filter(code_commune="72124").first()
 
-    latitude = float(fonciere_object.latitude)
-    longitude = float(fonciere_object.longitude)
+    latitude = float(mutation.latitude)
+    longitude = float(mutation.longitude)
 
     point = Point(longitude, latitude, srid=4326)
     point.transform(2154)
