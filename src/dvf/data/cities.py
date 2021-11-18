@@ -433,7 +433,9 @@ def get_mutations_by_iris(request, code_iris: str):
     iris = IRIS.objects.get(code_iris=code_iris)
     code_commune = iris.insee_commune
     # Trouver toutes les mutations du code commune
-    mutations = ValeursFoncieres.objects.filter(code_commune=code_commune).filter(type_local__in=["Maison", "Appartement"])
+    mutations = ValeursFoncieres.objects.filter(code_commune=code_commune).filter(
+        type_local__in=["Maison", "Appartement"]
+    )
     # Pour chacune de c'est mutation voir si elle correspond code iris (en param)
     result = []
     for mutation in mutations:
