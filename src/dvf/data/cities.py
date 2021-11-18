@@ -419,17 +419,29 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
     ]
 
 
-def bind_neighborhoods_at_municipalities(request):
-    mutation = ValeursFoncieres.objects.filter(code_commune="72124").first()
-
-    latitude = float(mutation.latitude)
-    longitude = float(mutation.longitude)
-
+def get_iris_for_coordinates(longitude: float, latitude: float):
     point = Point(longitude, latitude, srid=4326)
     point.transform(2154)
 
     iris = IRIS.objects.filter(geometry__contains=point).first()
 
-    print(iris)
-    # TODO: 3 Faire un recherche des quartier dans cette longitute,latitude
-    # TODO: 4 Return un résultat
+    return iris
+
+
+def get_mutations_by_iris(request, code_iris: str):
+    # Identifier le code commune de l'iris
+    iris = IRIS.objects.get(code_iris=code_iris)
+    code_commune = iris.insee_commune
+    # Trouver toutes les mutations du code commune
+    mutations = ValeursFoncieres.objects.filter(code_commune=code_commune).filter(type_local__in=["Maison", "Appartement"])
+    # Pour chacune de c'est mutation voir si elle correspond code iris (en param)
+    result = []
+    for mutation in mutations:
+        longitude = mutation.longitude
+        latitude = mutation.latitude
+        if longitude and latitude:
+            iris_mutation = get_iris_for_coordinates(float(longitude), float(latitude))
+            if iris_mutation.code_iris == code_iris:
+                result.append(iris_mutation)
+
+    return result

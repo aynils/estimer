@@ -25,7 +25,7 @@ from django.views.decorators.cache import cache_page
 from estimer.settings import CACHE_TTL_ONE_DAY
 from django.contrib.sitemaps.views import sitemap
 
-from src.dvf.data.cities import bind_neighborhoods_at_municipalities
+from src.dvf.data.cities import get_mutations_by_iris
 
 sitemaps = {"city": CitySitemap}
 
@@ -36,5 +36,5 @@ urlpatterns = [
     path("mentions-legales", mentions_legales, name="mentions-legales"),
     path("", cache_page(CACHE_TTL_ONE_DAY)(home), name="home"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
-    path("test", bind_neighborhoods_at_municipalities, name="test"),
+    path("test/<str:code_iris>", get_mutations_by_iris, name="test"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
