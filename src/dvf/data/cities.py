@@ -228,15 +228,15 @@ def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) 
         parse_dates=["date_mutation"],
     )
 
-    mutations = pd.DataFrame.from_records(
-        ValeursFoncieres.objects.filter(code_commune=code_commune)
-        .filter(type_local__in=types)
-        .filter(date_mutation__gt=date_from)
-        .filter(longitude__isnull=False)
-        .filter(latitude__isnull=False)
-        .filter()
-        .values()
-    )
+    # mutations = pd.DataFrame.from_records(
+    #     ValeursFoncieres.objects.filter(code_commune=code_commune)
+    #     .filter(type_local__in=types)
+    #     .filter(date_mutation__gt=date_from)
+    #     .filter(longitude__isnull=False)
+    #     .filter(latitude__isnull=False)
+    #     .filter()
+    #     .values()
+    # )
 
     unique_mutations = mutations.drop_duplicates(subset="id_mutation", keep=False)
 
