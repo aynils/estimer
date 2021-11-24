@@ -434,13 +434,21 @@ def get_mutations_by_iris(request, code_iris: str):
     code_commune = iris.insee_commune
     # Trouver toutes les mutations du code commune
     mutations = pd.DataFrame(
-        ValeursFoncieres.objects.filter(code_commune=code_commune)
-        .filter(type_local__in=["Maison", "Appartement"])
+        ValeursFoncieres.objects.filter(code_commune=code_commune).filter(type_local__in=["Maison", "Appartement"])
+        # Filtrer les colonnes lat et long pour exclure les valeurs nulles
         .values()
     )
+    # mutations = get_simple_sales(
+    #     code_commune=code_commune, types=("Maison", "Appartement"), date_from=datetime.date(year=2017, month=1, day=1)
+    # )
     # TODO: Gérer si il la cellule Longitude ou latitude est null
 
     # Pour chacune de c'est mutation voir si elle correspond code iris (en param)
+
+    # TODO: Ajouter une colonne iris dans la df dont la valeur est get_iris_for_coordinates(float(row["longitude"]), float(row["latitude"]))
+
+    # TODO: filtrer la df pour ne garder que les rows dont la valeur iris = code_iris
+
     mutations_iris = mutations.apply(
         lambda row: get_iris_for_coordinates(float(row["longitude"]), float(row["latitude"])), axis=1
     )
