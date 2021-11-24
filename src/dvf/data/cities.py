@@ -5,7 +5,6 @@ from typing import List, Tuple
 
 import pandas as pd
 from django.contrib.gis.geos import Point
-from django.db import connection
 
 from agencies.models import Agency
 from dvf.data.classes import (
@@ -23,8 +22,13 @@ from dvf.data.classes import (
 from dvf.models import Commune, ValeursFoncieres
 from estimer.settings import CACHE_TTL_ONE_DAY, CACHE_TTL_SIX_MONTH
 from helpers.cache import cached_function
-from helpers.timer import timer
 from iris.models import IRIS
+
+# from helpers.timer import timer
+
+TODAY = datetime.date.today()
+ONE_YEAR_AGO = datetime.date(year=TODAY.year, month=1, day=1)
+FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 4, month=1, day=1)
 
 
 # @timer
@@ -52,14 +56,12 @@ def get_avg_m2_price_street(limit: int, ascending: bool, ventes: pd.DataFrame) -
         return {}
 
     average_per_street = ventes.groupby("adresse_nom_voie").mean().round(2)
-    # clean_average_per_street = remove_outliers(average_per_street, "prix_m2")
     return average_per_street.sort_values(by="prix_m2", ascending=ascending).head(n=limit)["prix_m2"].to_dict()
 
 
 # @timer
 def get_last_sales(limit: int, ventes: pd.DataFrame) -> dict:
     ordered_sales = ventes.sort_values(by="date_mutation", ascending=False)
-    # clean_sales = remove_outliers(ordered_sales, "valeur_fonciere")
     return ordered_sales.head(n=limit).to_dict("records")
 
 
@@ -70,26 +72,23 @@ def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
     return data_frame.loc[(data_frame[column_name].between(q1, q3))]
 
 
-@timer
+# @timer
 @cached_function(ttl=CACHE_TTL_ONE_DAY)
 def get_city_data(code_commune: str) -> CityData:
-    today = datetime.date.today()
-    last_year = datetime.date(year=today.year, month=1, day=1)
-    last_5_years = datetime.date(year=today.year - 4, month=1, day=1)
 
-    ventes = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=last_5_years)
+    ventes = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO)
 
-    median_m2_prices_appartement = get_avg_m2_price(types=("Appartement",), date_from=last_year, ventes=ventes)
-    if median_m2_prices_appartement.get(last_year.year):
+    median_m2_prices_appartement = get_avg_m2_price(types=("Appartement",), date_from=ONE_YEAR_AGO, ventes=ventes)
+    if median_m2_prices_appartement.get(ONE_YEAR_AGO.year):
         median_m2_price_appartement = MedianM2Price(
-            value=int(median_m2_prices_appartement[last_year.year]), year=last_year.year
+            value=int(median_m2_prices_appartement[ONE_YEAR_AGO.year]), year=ONE_YEAR_AGO.year
         )
     else:
         median_m2_price_appartement = None
 
-    median_m2_prices_maison = get_avg_m2_price(types=("Maison",), date_from=last_year, ventes=ventes)
+    median_m2_prices_maison = get_avg_m2_price(types=("Maison",), date_from=ONE_YEAR_AGO, ventes=ventes)
 
-    median_m2_prices_room_maison = get_avg_m2_price_rooms(types=("Maison",), date_from=last_5_years, ventes=ventes)
+    median_m2_prices_room_maison = get_avg_m2_price_rooms(types=("Maison",), date_from=FIVE_YEARS_AGO, ventes=ventes)
 
     median_m2_prices_rooms_maison = MedianM2PriceRoom(
         one=median_m2_prices_room_maison.get(1),
@@ -99,7 +98,7 @@ def get_city_data(code_commune: str) -> CityData:
     )
 
     median_m2_prices_room_appartement = get_avg_m2_price_rooms(
-        types=("Appartement",), date_from=last_5_years, ventes=ventes
+        types=("Appartement",), date_from=FIVE_YEARS_AGO, ventes=ventes
     )
 
     median_m2_prices_rooms_appartement = MedianM2PriceRoom(
@@ -109,12 +108,14 @@ def get_city_data(code_commune: str) -> CityData:
         four=median_m2_prices_room_appartement.get(4),
     )
 
-    if median_m2_prices_maison.get(last_year.year):
-        median_m2_price_maison = MedianM2Price(value=int(median_m2_prices_maison[last_year.year]), year=last_year.year)
+    if median_m2_prices_maison.get(ONE_YEAR_AGO.year):
+        median_m2_price_maison = MedianM2Price(
+            value=int(median_m2_prices_maison[ONE_YEAR_AGO.year]), year=ONE_YEAR_AGO.year
+        )
     else:
         median_m2_price_maison = None
 
-    avg_m2_price = get_avg_m2_price(types=("Maison", "Appartement"), date_from=last_5_years, ventes=ventes).items()
+    avg_m2_price = get_avg_m2_price(types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO, ventes=ventes).items()
 
     median_m2_prices_years = [MedianM2Price(value=price, year=year) for year, price in avg_m2_price]
 
@@ -196,49 +197,45 @@ def get_all_cities() -> list:
     return get_cities()
 
 
-# noinspection SqlResolve
-@timer
+# @timer
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
 def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) -> pd.DataFrame:
-    mutations = pd.read_sql(
-        """SELECT
-        valeur_fonciere,
-        surface_reelle_bati,
-        date_mutation,
-        adresse_nom_voie,
-        type_local,
-        adresse_numero,
-        adresse_suffixe,
-        nombre_pieces_principales,
-        id_mutation,
-        code_departement,
-        longitude,
-        latitude,
-        CAST((valeur_fonciere / surface_reelle_bati) as DECIMAL(16,2)) as prix_m2,
-        EXTRACT(year FROM dvf_valeursfoncieres.date_mutation) as annee
-        FROM dvf_valeursfoncieres
-            WHERE code_commune = %(code_commune)s
-            AND type_local in %(types)s
-            AND date_mutation >= %(date_from)s
-            AND longitude IS NOT NULL
-            AND latitude IS NOT NULL
-            """,
-        connection,
-        params={"code_commune": str(code_commune), "date_from": date_from, "types": types},
-        parse_dates=["date_mutation"],
+    columns = [
+        "valeur_fonciere",
+        "surface_reelle_bati",
+        "date_mutation",
+        "adresse_nom_voie",
+        "type_local",
+        "adresse_numero",
+        "adresse_suffixe",
+        "nombre_pieces_principales",
+        "longitude",
+        "latitude",
+        "id_mutation",
+    ]
+
+    queryset = (
+        ValeursFoncieres.objects.filter(code_commune=code_commune)
+        .filter(type_local__in=types)
+        .filter(date_mutation__gt=date_from)
+        .filter(longitude__isnull=False)
+        .filter(latitude__isnull=False)
+        .values_list(*columns)
     )
 
-    # mutations = pd.DataFrame.from_records(
-    #     ValeursFoncieres.objects.filter(code_commune=code_commune)
-    #     .filter(type_local__in=types)
-    #     .filter(date_mutation__gt=date_from)
-    #     .filter(longitude__isnull=False)
-    #     .filter(latitude__isnull=False)
-    #     .filter()
-    #     .values()
-    # )
+    mutations = pd.DataFrame.from_records(queryset, columns=columns)
 
+    return cleanup_mutations(mutations=mutations)
+
+
+# @timer
+def cleanup_mutations(mutations: pd.DataFrame) -> pd.DataFrame:
     unique_mutations = mutations.drop_duplicates(subset="id_mutation", keep=False)
+    unique_mutations["prix_m2"] = (
+        unique_mutations["valeur_fonciere"] / unique_mutations["surface_reelle_bati"]
+    ).astype("float")
+    unique_mutations["annee"] = pd.DatetimeIndex(unique_mutations["date_mutation"]).year
+    unique_mutations = unique_mutations.round({"prix_m2": 2})
 
     return remove_outliers(unique_mutations, "prix_m2")
 
@@ -435,18 +432,12 @@ def get_iris_code_for_coordinates(longitude: float, latitude: float):
     return iris.code_iris
 
 
-def get_mutations_by_iris(code_iris: str):
+def get_mutations_by_iris(code_iris: str, date_from):
 
     iris = IRIS.objects.get(code_iris=code_iris)
     code_commune = iris.insee_commune
 
-    mutations = pd.DataFrame(
-        ValeursFoncieres.objects.filter(code_commune=code_commune)
-        .filter(type_local__in=["Maison", "Appartement"])
-        .filter(longitude__isnull=False)
-        .filter(latitude__isnull=False)
-        .values()
-    )
+    mutations = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=date_from)
     mutations["code_iris"] = mutations.apply(
         lambda row: get_iris_code_for_coordinates(float(row["longitude"]), float(row["latitude"])), axis=1
     )

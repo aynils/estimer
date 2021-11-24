@@ -13,19 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
-
-from estimer.sitemaps import CitySitemap
-from estimer.views import home, mentions_legales
-from dvf.views import city
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.decorators.cache import cache_page
-from estimer.settings import CACHE_TTL_ONE_DAY
+from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
+from django.urls import path
+from django.views.decorators.cache import cache_page
 
-from src.dvf.data.cities import get_mutations_by_iris
+from dvf.views import city
+from estimer.settings import CACHE_TTL_ONE_DAY
+from estimer.sitemaps import CitySitemap
+from estimer.views import home, mentions_legales
 
 sitemaps = {"city": CitySitemap}
 
@@ -36,5 +34,5 @@ urlpatterns = [
     path("mentions-legales", mentions_legales, name="mentions-legales"),
     path("", cache_page(CACHE_TTL_ONE_DAY)(home), name="home"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
-    #path("test/<str:code_iris>", get_mutations_by_iris, name="test"),
+    # path("test/<str:code_iris>", get_mutations_by_iris, name="test"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
