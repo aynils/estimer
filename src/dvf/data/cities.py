@@ -426,7 +426,7 @@ def get_iris_code_for_coordinates(longitude: float, latitude: float):
     return iris.code_iris
 
 
-def get_mutations_by_iris(request, code_iris: str):
+def get_mutations_by_iris(code_iris: str):
 
     iris = IRIS.objects.get(code_iris=code_iris)
     code_commune = iris.insee_commune
