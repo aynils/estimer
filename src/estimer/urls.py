@@ -30,8 +30,7 @@ sitemaps = {"city": CitySitemap}
 urlpatterns = [
     path("admin/", admin.site.urls),
     # path('account/', include('django.contrib.auth.urls')),
-    # path("commune/<str:slug>", cache_page(CACHE_TTL_ONE_DAY)(city), name="city"),
-    path("commune/<str:slug>", city, name="city"),
+    path("commune/<str:slug>", cache_page(CACHE_TTL_ONE_DAY)(city), name="city"),
     path("mentions-legales", mentions_legales, name="mentions-legales"),
     path("", cache_page(CACHE_TTL_ONE_DAY)(home), name="home"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
