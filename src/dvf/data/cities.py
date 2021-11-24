@@ -1,31 +1,29 @@
 import base64
 import datetime
 import math
-from typing import Tuple, List
+from typing import List, Tuple
 
 import pandas as pd
-from django.db import connection
-
 from django.contrib.gis.geos import Point
+from django.db import connection
 
 from agencies.models import Agency
 from dvf.data.classes import (
-    CityData,
-    MedianM2Price,
-    Sale,
     Address,
-    StreetMedianPrice,
     Agent,
-    MapMarker,
-    Geometry,
+    CityData,
     ClosebyCity,
+    Geometry,
+    MapMarker,
+    MedianM2Price,
     MedianM2PriceRoom,
+    Sale,
+    StreetMedianPrice,
 )
 from dvf.models import Commune, ValeursFoncieres
-from iris.models import IRIS
-from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
+from estimer.settings import CACHE_TTL_ONE_DAY, CACHE_TTL_SIX_MONTH
 from helpers.cache import cached_function
-
+from iris.models import IRIS
 
 # from helpers.timer import timer
 
@@ -419,37 +417,30 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
     ]
 
 
-def get_iris_for_coordinates(longitude: float, latitude: float):
+def get_iris_code_for_coordinates(longitude: float, latitude: float):
     point = Point(longitude, latitude, srid=4326)
     point.transform(2154)
 
     iris = IRIS.objects.filter(geometry__contains=point).first()
 
-    return iris
+    return iris.code_iris
 
 
 def get_mutations_by_iris(request, code_iris: str):
-    # Identifier le code commune de l'iris
+
     iris = IRIS.objects.get(code_iris=code_iris)
     code_commune = iris.insee_commune
-    # Trouver toutes les mutations du code commune
+
     mutations = pd.DataFrame(
-        ValeursFoncieres.objects.filter(code_commune=code_commune).filter(type_local__in=["Maison", "Appartement"])
-        # Filtrer les colonnes lat et long pour exclure les valeurs nulles
+        ValeursFoncieres.objects.filter(code_commune=code_commune)
+        .filter(type_local__in=["Maison", "Appartement"])
+        .filter(longitude__isnull=False)
+        .filter(latitude__isnull=False)
         .values()
     )
-    # mutations = get_simple_sales(
-    #     code_commune=code_commune, types=("Maison", "Appartement"), date_from=datetime.date(year=2017, month=1, day=1)
-    # )
-    # TODO: Gérer si il la cellule Longitude ou latitude est null
-
-    # Pour chacune de c'est mutation voir si elle correspond code iris (en param)
-
-    # TODO: Ajouter une colonne iris dans la df dont la valeur est get_iris_for_coordinates(float(row["longitude"]), float(row["latitude"]))
-
-    # TODO: filtrer la df pour ne garder que les rows dont la valeur iris = code_iris
-
-    mutations_iris = mutations.apply(
-        lambda row: get_iris_for_coordinates(float(row["longitude"]), float(row["latitude"])), axis=1
+    mutations["code_iris"] = mutations.apply(
+        lambda row: get_iris_code_for_coordinates(float(row["longitude"]), float(row["latitude"])), axis=1
     )
-    return mutations_iris
+    filtered_mutations = mutations[mutations["code_iris"] == code_iris]
+
+    return filtered_mutations
