@@ -23,9 +23,8 @@ from dvf.data.classes import (
 from dvf.models import Commune, ValeursFoncieres
 from estimer.settings import CACHE_TTL_ONE_DAY, CACHE_TTL_SIX_MONTH
 from helpers.cache import cached_function
+from helpers.timer import timer
 from iris.models import IRIS
-
-# from helpers.timer import timer
 
 
 # @timer
@@ -71,7 +70,7 @@ def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
     return data_frame.loc[(data_frame[column_name].between(q1, q3))]
 
 
-# @timer
+@timer
 @cached_function(ttl=CACHE_TTL_ONE_DAY)
 def get_city_data(code_commune: str) -> CityData:
     today = datetime.date.today()
@@ -198,7 +197,7 @@ def get_all_cities() -> list:
 
 
 # noinspection SqlResolve
-# @timer
+@timer
 @cached_function(ttl=CACHE_TTL_SIX_MONTH)
 def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) -> pd.DataFrame:
     mutations = pd.read_sql(
@@ -227,6 +226,16 @@ def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) 
         connection,
         params={"code_commune": str(code_commune), "date_from": date_from, "types": types},
         parse_dates=["date_mutation"],
+    )
+
+    mutations = pd.DataFrame.from_records(
+        ValeursFoncieres.objects.filter(code_commune=code_commune)
+        .filter(type_local__in=types)
+        .filter(date_mutation__gt=date_from)
+        .filter(longitude__isnull=False)
+        .filter(latitude__isnull=False)
+        .filter()
+        .values()
     )
 
     unique_mutations = mutations.drop_duplicates(subset="id_mutation", keep=False)
