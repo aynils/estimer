@@ -1,28 +1,29 @@
 import base64
 import datetime
 import math
-from typing import Tuple, List
+from typing import List, Tuple
 
 import pandas as pd
+from django.contrib.gis.geos import Point
 from django.db import connection
 
 from agencies.models import Agency
 from dvf.data.classes import (
-    CityData,
-    MedianM2Price,
-    Sale,
     Address,
-    StreetMedianPrice,
     Agent,
-    MapMarker,
-    Geometry,
+    CityData,
     ClosebyCity,
+    Geometry,
+    MapMarker,
+    MedianM2Price,
     MedianM2PriceRoom,
+    Sale,
+    StreetMedianPrice,
 )
-from dvf.models import Commune
-from estimer.settings import CACHE_TTL_SIX_MONTH, CACHE_TTL_ONE_DAY
+from dvf.models import Commune, ValeursFoncieres
+from estimer.settings import CACHE_TTL_ONE_DAY, CACHE_TTL_SIX_MONTH
 from helpers.cache import cached_function
-
+from iris.models import IRIS
 
 # from helpers.timer import timer
 
@@ -414,3 +415,32 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
     return [
         ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(cities_under) + list(cities_over)
     ]
+
+
+def get_iris_code_for_coordinates(longitude: float, latitude: float):
+    point = Point(longitude, latitude, srid=4326)
+    point.transform(2154)
+
+    iris = IRIS.objects.filter(geometry__contains=point).first()
+
+    return iris.code_iris
+
+
+def get_mutations_by_iris(code_iris: str):
+
+    iris = IRIS.objects.get(code_iris=code_iris)
+    code_commune = iris.insee_commune
+
+    mutations = pd.DataFrame(
+        ValeursFoncieres.objects.filter(code_commune=code_commune)
+        .filter(type_local__in=["Maison", "Appartement"])
+        .filter(longitude__isnull=False)
+        .filter(latitude__isnull=False)
+        .values()
+    )
+    mutations["code_iris"] = mutations.apply(
+        lambda row: get_iris_code_for_coordinates(float(row["longitude"]), float(row["latitude"])), axis=1
+    )
+    filtered_mutations = mutations[mutations["code_iris"] == code_iris]
+
+    return filtered_mutations
