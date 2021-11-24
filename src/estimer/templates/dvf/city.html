@@ -8,8 +8,7 @@
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
 
     {#    Mapbox#}
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet'/>
+
 
     <link rel="stylesheet" type="text/css" href="{% static 'estimer/css/city.css' %}">
 {% endblock %}
@@ -226,6 +225,8 @@
 {% endblock %}
 
 {% block endscript %}
+    <script  src='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
+    <link async defer href='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet'/>
     <script async defer>
         let lastSales = {
             "type": "FeatureCollection",
