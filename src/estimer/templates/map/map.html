@@ -6,7 +6,7 @@
 </div>
 <div id="map"></div>
 
-<script>
+<script async defer>
     let lastSales = {
         "type": "FeatureCollection",
         "features": JSON.parse('{{ map_markers | escapejs }}')
@@ -16,7 +16,7 @@
     mapboxgl.accessToken = `{{ MAPBOX_PUBLIC_TOKEN }}`;
     const map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v10',
+        style: 'mapbox://styles/mapbox/streets-v10?optimize=true',
         center: [2.213749, 46.227638],
         zoom: 4,
     });
@@ -46,7 +46,7 @@
         buildLocationList(lastSales);
         addMarkers();
 
-        map.fitBounds(bounds, {padding: 20});
+        {#map.fitBounds(bounds, {padding: 20});#}
     });
 
     function addMarkers() {
