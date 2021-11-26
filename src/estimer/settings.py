@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import logging.config
+import os
 import re
 from pathlib import Path
-import os
-import logging.config
+
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -98,6 +99,7 @@ INSTALLED_APPS = [
     "agencies",
     "map",
     "iris",
+    "calculator",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
