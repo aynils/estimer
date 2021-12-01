@@ -1,37 +1,14 @@
 import requests
 import os.path
-import gzip
 import logging
+import zipfile
 
-from typing import TextIO, List
-from django.db import connection
-from population.models import PopulationStat
-
+import pandas as pd
 from pathlib import Path
-from .config import population_table_columns
+
 
 logger = logging.getLogger(__name__)
 folder_path = str(Path.home())
-
-
-def copy_csv(
-    csv_file: TextIO, table_name: str, columns: List[str], delimiter: str, headers: bool, quote: str = None
-) -> None:
-    column_names = ", ".join(columns)
-    quote = quote or '"'
-    cursor = connection.cursor()
-    cmd = (
-        f"COPY {table_name} ({column_names})"
-        f"FROM STDIN "
-        f"WITH ("
-        f"FORMAT CSV, "
-        f"DELIMITER '{delimiter}', "
-        f"HEADER {headers}, "
-        f"QUOTE '{quote}')"
-    )
-    cursor.copy_expert(cmd, csv_file)
-    # connection.commit()
-    return ""
 
 
 def build_url() -> str:
@@ -53,23 +30,77 @@ def download_csv(url: str, folder_path: str) -> str:
     return local_filename
 
 
-def import_gzipped_csv_to_db(gzipped_csv_file_path: str) -> None:
-    print("Import data from zip file")
-    with gzip.open(gzipped_csv_file_path, "rb") as csv_file:
-        copy_csv(
-            csv_file=csv_file,
-            table_name=PopulationStat.objects.model._meta.db_table,
-            columns=population_table_columns,
-            delimiter=",",
-            quote="",
-            headers=True,
-        )
-    return ""
-
-
-def import_data():
+def extract_zip():
     url = build_url()
     local_filename = download_csv(url, folder_path)
     file_path = f"{folder_path}/{local_filename}"
-    import_gzipped_csv_to_db(gzipped_csv_file_path=file_path)
+    with zipfile.ZipFile(f"{file_path}", "r") as zip_ref:
+        zip_ref.extractall(path=f"{folder_path}/population_data")
     return ""
+
+
+def csv_to_dataframe():
+    path_csv = f"{folder_path}/population_data/base-ic-evol-struct-pop-2018.CSV"
+    population_df = pd.read_csv(
+        f"{path_csv}",
+        sep=";",
+        usecols=[
+            "IRIS",
+            "COM",
+            "TYP_IRIS",
+            "MODIF_IRIS",
+            "LAB_IRIS",
+            "P18_POP",
+            "P18_POP0002",
+            "P18_POP0305",
+            "P18_POP0610",
+            "P18_POP1117",
+            "P18_POP1824",
+            "P18_POP2539",
+            "P18_POP4054",
+            "P18_POP5564",
+            "P18_POP6579",
+            "P18_POP80P",
+            "P18_POP0014",
+            "P18_POP1529",
+            "P18_POP3044",
+            "P18_POP4559",
+            "P18_POP6074",
+            "P18_POP75P",
+            "P18_POP0019",
+            "P18_POP2064",
+            "P18_POP65P",
+        ],
+    )
+
+    population_df.rename(
+        columns={
+            "IRIS": "iris",
+            "COM": "code_commune",
+            "TYP_IRIS": "type_iris",
+            "MODIF_IRIS": "modification_iris",
+            "LAB_IRIS": "label_iris",
+            "P18_POP": "total_population",
+            "P18_POP0002": "population_0_2",
+            "P18_POP0305": "population_3_5",
+            "P18_POP0610": "population_6_10",
+            "P18_POP1117": "population_11_17",
+            "P18_POP1824": "population_18_24",
+            "P18_POP2539": "population_25_39",
+            "P18_POP4054": "population_40_54",
+            "P18_POP5564": "population_55_64",
+            "P18_POP6579": "population_65_79",
+            "P18_POP80P": "population_80_more",
+            "P18_POP0014": "population_0_14",
+            "P18_POP1529": "population_15_29",
+            "P18_POP3044": "population_30_44",
+            "P18_POP4559": "population_45_59",
+            "P18_POP6074": "population_60_74",
+            "P18_POP75P": "population_75_more",
+            "P18_POP0019": "population_0_19",
+            "P18_POP2064": "population_20_64",
+            "P18_POP65P": "population_65_more",
+        },
+        inplace=True,
+    )
+    return population_df
