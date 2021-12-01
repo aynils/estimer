@@ -5,7 +5,10 @@ import zipfile
 
 import pandas as pd
 from pathlib import Path
+from django.conf import settings
+from sqlalchemy import create_engine
 
+from population.models import PopulationStat
 
 logger = logging.getLogger(__name__)
 folder_path = str(Path.home())
@@ -104,3 +107,21 @@ def csv_to_dataframe():
         inplace=True,
     )
     return population_df
+
+
+def dataframe_to_sql():
+
+    population_df = csv_to_dataframe()
+    user = settings.DATABASES["default"]["USER"]
+    password = settings.DATABASES["default"]["PASSWORD"]
+    database_name = settings.DATABASES["default"]["NAME"]
+
+    database_url = "postgresql://{user}:{password}@localhost:5432/{database_name}".format(
+        user=user,
+        password=password,
+        database_name=database_name,
+    )
+
+    engine = create_engine(database_url, echo=False)
+    population_df.to_sql(PopulationStat._meta.db_table, con=engine, index=True, if_exists="replace")
+    return ""
