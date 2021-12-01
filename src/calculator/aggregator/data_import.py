@@ -1,9 +1,37 @@
 import requests
 import os.path
-import zipfile
-from pathlib import Path
+import gzip
+import logging
 
+from typing import TextIO, List
+from django.db import connection
+from calculator.models import PopulationStat
+from django.contrib.gis.utils import LayerMapping
+from pathlib import Path
+from .config import calculator_table_columns
+
+logger = logging.getLogger(__name__)
 folder_path = str(Path.home())
+
+
+def copy_csv(
+    csv_file: TextIO, table_name: str, columns: List[str], delimiter: str, headers: bool, quote: str = None
+) -> None:
+    column_names = ", ".join(columns)
+    quote = quote or '"'
+    cursor = connection.cursor()
+    cmd = (
+        f"COPY {table_name} ({column_names})"
+        f"FROM STDIN "
+        f"WITH ("
+        f"FORMAT CSV, "
+        f"DELIMITER '{delimiter}', "
+        f"HEADER {headers}, "
+        f"QUOTE '{quote}')"
+    )
+    cursor.copy_expert(cmd, csv_file)
+    # connection.commit()
+    return ""
 
 
 def build_url() -> str:
@@ -25,11 +53,15 @@ def download_zip(url: str, folder_path: str) -> str:
     return local_filename
 
 
-def extract_zip():
-    url = build_url()
-    local_filename = download_zip(url, folder_path)
-    file_path = f"{folder_path}/{local_filename}"
-    with zipfile.ZipFile(f"{file_path}", "r") as zip_ref:
-        zip_ref.extractall(path=f"{folder_path}")
-
+def import_gzipped_csv_to_db(gzipped_csv_file_path: str) -> None:
+    print("Import data from zip file")
+    with gzip.open(gzipped_csv_file_path, "rb") as csv_file:
+        copy_csv(
+            csv_file=csv_file,
+            table_name=PopulationStat.objects.model._meta.db_table,
+            columns=calculator_table_columns,
+            delimiter=",",
+            quote="",
+            headers=True,
+        )
     return ""
