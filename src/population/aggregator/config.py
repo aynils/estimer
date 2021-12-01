@@ -1,4 +1,4 @@
-calculator_table_columns = [
+population_table_columns = [
     "iris",
     "code_commune",
     "type_iris",

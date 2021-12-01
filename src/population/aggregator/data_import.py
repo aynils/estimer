@@ -8,7 +8,7 @@ from django.db import connection
 from population.models import PopulationStat
 
 from pathlib import Path
-from .config import calculator_table_columns
+from .config import population_table_columns
 
 logger = logging.getLogger(__name__)
 folder_path = str(Path.home())
@@ -59,7 +59,7 @@ def import_gzipped_csv_to_db(gzipped_csv_file_path: str) -> None:
         copy_csv(
             csv_file=csv_file,
             table_name=PopulationStat.objects.model._meta.db_table,
-            columns=calculator_table_columns,
+            columns=population_table_columns,
             delimiter=",",
             quote="",
             headers=True,
