@@ -6,7 +6,7 @@ import logging
 from typing import TextIO, List
 from django.db import connection
 from calculator.models import PopulationStat
-from django.contrib.gis.utils import LayerMapping
+
 from pathlib import Path
 from .config import calculator_table_columns
 
@@ -38,7 +38,7 @@ def build_url() -> str:
     return f"https://www.insee.fr/fr/statistiques/fichier/5650720/base-ic-evol-struct-pop-2018_csv.zip"
 
 
-def download_zip(url: str, folder_path: str) -> str:
+def download_csv(url: str, folder_path: str) -> str:
     local_filename = f"{url.split('/')[-1]}"
     if not os.path.exists(f"{folder_path}/{local_filename}"):
         print("Downloading files ...")
@@ -64,4 +64,12 @@ def import_gzipped_csv_to_db(gzipped_csv_file_path: str) -> None:
             quote="",
             headers=True,
         )
+    return ""
+
+
+def import_data():
+    url = build_url()
+    local_filename = download_csv(url, folder_path)
+    file_path = f"{folder_path}/{local_filename}"
+    import_gzipped_csv_to_db(gzipped_csv_file_path=file_path)
     return ""
