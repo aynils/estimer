@@ -99,7 +99,7 @@ INSTALLED_APPS = [
     "agencies",
     "map",
     "iris",
-    "calculator",
+    "population",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

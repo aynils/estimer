@@ -5,7 +5,7 @@ import logging
 
 from typing import TextIO, List
 from django.db import connection
-from calculator.models import PopulationStat
+from population.models import PopulationStat
 
 from pathlib import Path
 from .config import calculator_table_columns
