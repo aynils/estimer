@@ -125,3 +125,12 @@ def dataframe_to_sql():
     engine = create_engine(database_url, echo=False)
     population_df.to_sql(PopulationStat._meta.db_table, con=engine, index=True, if_exists="replace")
     return ""
+
+
+def import_data():
+    url = build_url()
+    download_csv(url=url, folder_path=folder_path)
+    extract_zip()
+    csv_to_dataframe()
+    dataframe_to_sql()
+    return ""
