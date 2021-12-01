@@ -5,7 +5,7 @@ import zipfile
 
 import pandas as pd
 from pathlib import Path
-from django.conf import settings
+from django.db import connection
 from sqlalchemy import create_engine
 
 from population.models import PopulationStat
@@ -111,16 +111,15 @@ def csv_to_dataframe():
 
 def dataframe_to_sql():
 
-    population_df = csv_to_dataframe()
-    user = settings.DATABASES["default"]["USER"]
-    password = settings.DATABASES["default"]["PASSWORD"]
-    database_name = settings.DATABASES["default"]["NAME"]
+    user = connection.settings_dict["USER"]
+    password = connection.settings_dict["PASSWORD"]
+    database_name = connection.settings_dict["NAME"]
+    host = connection.settings_dict["HOST"]
+    port = connection.settings_dict["PORT"]
 
-    database_url = "postgresql://{user}:{password}@localhost:5432/{database_name}".format(
-        user=user,
-        password=password,
-        database_name=database_name,
-    )
+    population_df = csv_to_dataframe()
+
+    database_url = f"postgresql://{user}:{password}@{host}:{port}/{database_name}"
 
     engine = create_engine(database_url, echo=False)
     population_df.to_sql(PopulationStat._meta.db_table, con=engine, index=True, if_exists="replace")
