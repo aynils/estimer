@@ -15,3 +15,10 @@ class Agency(models.Model):
         indexes = [models.Index(fields=["code_commune"])]
 
         verbose_name_plural = "Agencies"
+
+
+class Tench(models.Model):
+    price_range = models.CharField(max_length=255, null=False)
+    min_inhabitant = models.PositiveIntegerField(null=False)
+    max_inhabitant = models.PositiveIntegerField(null=False)
+    pricing = models.FloatField(null=False)
