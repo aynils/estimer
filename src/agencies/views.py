@@ -1,13 +1,18 @@
-communeslist = ["38260", "38270", "38800"]
-
+from django.shortcuts import render
 from population.models import PopulationStat
+
+communeslist = ["38260", "38270"]
 
 
 def find_inhabitant_by_code_communes():
-    population_stat_by_code_commune = []
-    for code_commune in communeslist:
-        request_by_commune = PopulationStat.objects.filter(code_commune=code_commune)
-        if request_by_commune:
-            population_stat_by_code_commune.append(PopulationStat.objects.filter(code_commune=code_commune))
+    population_stat_by_code_commune = PopulationStat.objects.filter(code_commune__in=communeslist).values()
+    return population_stat_by_code_commune.values
 
-    return population_stat_by_code_commune
+
+def communes(request):
+    if request.method == "GET":
+        communes = find_inhabitant_by_code_communes()
+    context = {
+        "communes": communes,
+    }
+    return render(request, "agencies/communes.html", context)

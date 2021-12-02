@@ -1,0 +1,7 @@
+{% extends 'layout/base.html' %}
+{% block body %}
+    {% for commune in communes %}
+    <p> Code commune : {{ commune.code_commune }}</p>
+    <p>Total population : {{ commune.total_population }}</p>
+    {% endfor %}
+{% endblock %}
