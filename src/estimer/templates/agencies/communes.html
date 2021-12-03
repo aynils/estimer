@@ -1,7 +1,12 @@
 {% extends 'layout/base.html' %}
 {% block body %}
     {% for commune in communes %}
-    <p> Code commune : {{ commune.code_commune }}</p>
-    <p>Total population : {{ commune.total_population }}</p>
+            {% if commune.code_commune %}
+            <p> Code commune : {{ commune.code_commune }}</p>
+            <p>Total population : {{ commune.total_population }}</p>
+            {% else %}
+            <p> Tranche : {{ commune.min_inhabitant }} | {{ commune.max_inhabitant }}</p>
+            <p> pricing : {{ commune.pricing }}</p>
+            {% endif %}
     {% endfor %}
 {% endblock %}
