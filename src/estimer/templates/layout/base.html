@@ -1,17 +1,26 @@
 <!DOCTYPE html>
+{% load static tailwind_tags %}
+{% load static %}
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% tailwind_css %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    {% load static %}
     <link rel="shortcut icon" type="image/png" href="{% static 'estimer/images/favicon.ico' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'estimer/css/estimer.css'%}">
-    {% block headscript %} {% endblock %}
     <script async defer data-domain="estimer.com" src="https://stats.estimer.com/js/index.js"></script>
+    {% block headscript %}<title>Estimer.com</title> {% endblock %}
 
 </head>
-<body>
+<body class="bg-white font-body-s leading-normal tracking-normal">
+<h1>Je suis un titre</h1>
+<h2>Je suis un titre</h2>
+<h3>Je suis un titre</h3>
+<p class="body-m">Je suis un texte</p>
+<p class="body-s">Je suis un texte</p>
+<p class="body-xs">Je suis un texte</p>
+<button class="btn-secondary">Etre rappelé·e</button>
+<button class="btn-primary">Obtenir l'exclusivité</button>
 {% include 'layout/navbar.html' %}
 {% block body %} {% endblock %}
 {% include 'layout/footer.html' %}

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="75.839" viewBox="0 0 64 75.839">
+  <defs>
+    <filter id="Tracé_377" x="10.911" y="0.839" width="25.179" height="10.071" filterUnits="userSpaceOnUse">
+      <feOffset dx="-7" input="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood flood-color="#5f95f4" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <filter id="Tracé_379">
+      <feOffset dx="-11" input="SourceAlpha"/>
+      <feGaussianBlur result="blur-2"/>
+      <feFlood flood-color="#5f95f4" result="color-2"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color-2"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Groupe_1263" data-name="Groupe 1263" transform="translate(-219 -670.123)">
+    <rect id="Rectangle_176" data-name="Rectangle 176" width="57" height="57" rx="16" transform="translate(226 688.961)" fill="#ffd399"/>
+    <g id="Groupe_656" data-name="Groupe 656" transform="translate(219 670.122)">
+      <g data-type="innerShadowGroup">
+        <path id="Tracé_377-2" data-name="Tracé 377" d="M12.5,1.5H37.679V11.571H12.5Z" transform="translate(-1.589 -0.661)" fill="#bfd5fa"/>
+        <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Tracé_377)">
+          <path id="Tracé_377-3" data-name="Tracé 377" d="M12.5,1.5H37.679V11.571H12.5Z" transform="translate(-1.59 -0.66)" fill="#fff"/>
+        </g>
+      </g>
+      <path id="Tracé_378" data-name="Tracé 378" d="M37.179,2.679v8.393h-23.5V2.679h23.5M38.857,1H12V12.75H38.857V1Z" transform="translate(-1.929 -1)" fill="#141457"/>
+      <g data-type="innerShadowGroup">
+        <path id="Tracé_379-2" data-name="Tracé 379" d="M6.5,4.5H51.821V61.571H6.5Z" transform="translate(-5.661 1.375)" fill="#bfd5fa"/>
+        <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Tracé_379)">
+          <path id="Tracé_379-3" data-name="Tracé 379" d="M6.5,4.5H51.821V61.571H6.5Z" transform="translate(-5.66 1.37)" fill="#fff"/>
+        </g>
+      </g>
+      <path id="Tracé_380" data-name="Tracé 380" d="M51.321,5.679V61.071H7.679V5.679H51.321M53,4H6V62.75H53V4Z" transform="translate(-6 1.036)" fill="#141457"/>
+      <path id="Tracé_381" data-name="Tracé 381" d="M17.5,32.5h8.393V42.571H17.5Z" transform="translate(1.804 20.375)" fill="#bad1f8"/>
+      <path id="Tracé_382" data-name="Tracé 382" d="M25.393,33.679v8.393H18.679V33.679h6.714M27.071,32H17V43.75H27.071V32Z" transform="translate(1.464 20.036)" fill="#141457"/>
+      <path id="Tracé_383" data-name="Tracé 383" d="M22.429,38.214H32.5V43.25H22.429Zm0-10.071H32.5v5.036H22.429Zm0-10.071H32.5v5.036H22.429ZM22.429,8H32.5v5.036H22.429ZM35.857,38.214H45.929V43.25H35.857Zm0-10.071H45.929v5.036H35.857Zm0-10.071H45.929v5.036H35.857ZM35.857,8H45.929v5.036H35.857ZM9,38.214H19.071V43.25H9ZM35.857,48.286H45.929v5.036H35.857ZM9,48.286H19.071v5.036H9Z" transform="translate(-3.965 3.75)" fill="#141457"/>
+      <path id="Tracé_384" data-name="Tracé 384" d="M9,20H19.071v5.036H9Z" transform="translate(-3.965 11.893)" fill="#141457"/>
+      <path id="Tracé_385" data-name="Tracé 385" d="M9,14H19.071v5.036H9Z" transform="translate(-3.965 7.821)" fill="#141457"/>
+      <path id="Tracé_386" data-name="Tracé 386" d="M9,8H19.071v5.036H9Z" transform="translate(-3.965 3.75)" fill="#141457"/>
+    </g>
+  </g>
+</svg>

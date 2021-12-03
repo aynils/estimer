@@ -100,6 +100,8 @@ INSTALLED_APPS = [
     "map",
     "iris",
     "population",
+    "tailwind",
+    "theme",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -223,3 +225,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 #     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #     DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
 #     STATIC_ROOT = f"{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}"
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+TAILWIND_APP_NAME = "theme"

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="77.735" height="57" viewBox="0 0 77.735 57">
+  <g id="Groupe_1302" data-name="Groupe 1302" transform="translate(-167.265 -1952.506)">
+    <rect id="Rectangle_97" data-name="Rectangle 97" width="57" height="57" rx="16" transform="translate(188 1952.506)" fill="#ffa42b" opacity="0.5"/>
+    <g id="Groupe_495" data-name="Groupe 495" transform="translate(79.153 -151.692)">
+      <g id="Groupe_494" data-name="Groupe 494" transform="translate(88.861 2108.706)">
+        <path id="Tracé_238" data-name="Tracé 238" d="M60.155,23.859l-.62-.249.1-.662A10.134,10.134,0,0,0,45.939,11.963l-.72.279-.344-.691a12.683,12.683,0,0,0-23.326,1.415l-.027,0a9.311,9.311,0,0,0-9.312,9.312,9.708,9.708,0,0,0,.054,1,9.852,9.852,0,0,0-1.605-.151,10.159,10.159,0,1,0,0,20.318H56.374a10.156,10.156,0,0,0,3.781-19.583Z" transform="translate(-0.5 -4.5)" fill="#bfd5fa"/>
+        <path id="Soustraction_1" data-name="Soustraction 1" d="M55.854,14.681H10.139A10.171,10.171,0,0,1,0,5.152a10.2,10.2,0,0,0,9.243,5.941H54.958A10.17,10.17,0,0,0,65.116.935s0-.012-.006-.035L64.958,0a10.171,10.171,0,0,1-9.1,14.681Z" transform="translate(0.021 24.261)" fill="#3f80f1"/>
+      </g>
+      <g id="Groupe_493" data-name="Groupe 493" transform="translate(114.141 2123.826)">
+        <path id="Tracé_229" data-name="Tracé 229" d="M14.105,26.475a1.105,1.105,0,0,1-.781-1.887L26.588,11.324a1.105,1.105,0,0,1,1.563,1.563L14.887,26.151A1.1,1.1,0,0,1,14.105,26.475Z" transform="translate(-13 -11)" fill="#141457"/>
+        <g id="Groupe_492" data-name="Groupe 492" transform="translate(0 0)">
+          <path id="Tracé_230" data-name="Tracé 230" d="M27.369,26.475a1.1,1.1,0,0,1-.781-.324L13.324,12.887a1.105,1.105,0,0,1,1.563-1.563L28.151,24.588a1.105,1.105,0,0,1-.781,1.887Z" transform="translate(-13 -11)" fill="#141457"/>
+        </g>
+      </g>
+      <path id="Tracé_231" data-name="Tracé 231" d="M60.155,23.859l-.62-.249.1-.662A10.134,10.134,0,0,0,45.939,11.963l-.72.279-.344-.691a12.683,12.683,0,0,0-23.326,1.415l-.027,0a9.311,9.311,0,0,0-9.312,9.312,9.708,9.708,0,0,0,.054,1,9.852,9.852,0,0,0-1.605-.151,10.159,10.159,0,1,0,0,20.318H56.374a10.156,10.156,0,0,0,3.781-19.583Z" transform="translate(88.361 2104.206)" fill="none" stroke="#141457" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

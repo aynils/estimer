@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    h1 {
+        @apply text-3xl font-bold;
+    }
+    h2 {
+        @apply text-2xl font-bold;
+    }
+    h3 {
+        @apply text-xl font-bold;
+    }
+    h4 {
+        @apply text-l font-bold;
+    }
+    .body-m {
+        @apply text-m font-normal;
+    }
+    .body-s {
+        @apply text-s font-normal;
+    }
+    .body-xs {
+        @apply text-xs font-normal;
+    }
+    .btn{
+        @apply py-2 px-4 rounded-full;
+        @apply text-black;
+    }
+    .btn-primary{
+        @apply btn;
+        @apply bg-primary-blue-400;
+    }
+    .btn-secondary{
+        @apply btn;
+        @apply bg-secondary-orange-regular;
+    }
+}
