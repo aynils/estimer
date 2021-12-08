@@ -122,7 +122,7 @@ def dataframe_to_sql():
     database_url = f"postgresql://{user}:{password}@{host}:{port}/{database_name}"
 
     engine = create_engine(database_url, echo=False)
-    population_df.to_sql(PopulationStat._meta.db_table, con=engine, index=True, if_exists="replace")
+    population_df.to_sql(PopulationStat._meta.db_table, con=engine, index=True, index_label="id", if_exists="replace")
     return ""
 
 

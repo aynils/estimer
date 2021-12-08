@@ -15,3 +15,10 @@ class Agency(models.Model):
         indexes = [models.Index(fields=["code_commune"])]
 
         verbose_name_plural = "Agencies"
+
+
+class Pricing(models.Model):
+    name = models.CharField(max_length=255, null=False)
+    min_population = models.PositiveIntegerField(null=False)
+    max_population = models.PositiveIntegerField(null=False)
+    pricing = models.FloatField(null=False)
