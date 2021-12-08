@@ -1,10 +1,8 @@
 {% extends 'layout/base.html' %}
 {% block body %}
     {% for commune in communes %}
-            {% if commune.pricing %}
-            <p>Pricing : {{ commune.pricing }}</p>
-            {% else %}
-            <p> Total population : {{ commune }}</p>
+            {% if commune %}
+            <p>Pricing : {{ commune }}</p>
             {% endif %}
     {% endfor %}
 {% endblock %}

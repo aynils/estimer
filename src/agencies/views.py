@@ -13,17 +13,13 @@ def find_inhabitant_by_code_communes(communeslist):
 
 
 def find_range_pricing():
-    communes = find_inhabitant_by_code_communes(communeslist)
-    range_pricing = Pricing.objects.all()
-    communes_list = []
-    for range in range_pricing:
-        min_population = range.min_population
-        max_population = range.max_population
-        for commune in communes:
-            if min_population <= commune <= max_population:
-                communes_list.append(commune)
-                communes_list.append(range)
-    return communes_list
+    population = find_inhabitant_by_code_communes(communeslist)
+    pricing_list = (
+        Pricing.objects.filter(min_population__lt=population[1])
+        .filter(max_population__gt=population[1])
+        .values_list("pricing", flat=True)
+    )
+    return pricing_list
 
 
 def communes(request):
