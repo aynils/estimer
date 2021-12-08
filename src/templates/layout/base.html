@@ -1,0 +1,22 @@
+{% load tailwind_tags %}
+{% load static tailwind_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr-fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/logo/logo_round.png' %}"/>
+    <script async defer data-domain="estimer.com" src="https://stats.estimer.com/js/index.js"></script>
+    <title>{% block title %}Estimer.com{% endblock %}</title>
+    {% block headscript %}{% endblock %}
+    {% tailwind_css %}
+
+</head>
+<body class="bg-white font-body body-s leading-normal tracking-normal">
+{% include 'layout/navbar.html' %}
+{% block body %} {% endblock %}
+{% include 'layout/footer.html' %}
+{% block endscript %} {% endblock %}
+</body>
+</html>
