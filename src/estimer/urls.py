@@ -24,7 +24,7 @@ from dvf.views import city
 from estimer.settings import CACHE_TTL_ONE_DAY
 from estimer.sitemaps import CitySitemap
 from estimer.views import home, mentions_legales
-from agencies.views import communes
+from agencies.views import get_pricing
 
 sitemaps = {"city": CitySitemap}
 
@@ -33,7 +33,7 @@ urlpatterns = [
     # path('account/', include('django.contrib.auth.urls')),
     path("commune/<str:slug>", cache_page(CACHE_TTL_ONE_DAY)(city), name="city"),
     path("mentions-legales", mentions_legales, name="mentions-legales"),
-    path("agences/communes/", communes, name="communes"),
+    path("agences/communes/", get_pricing, name="communes"),
     path("", cache_page(CACHE_TTL_ONE_DAY)(home), name="home"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     # path("test/<str:code_iris>", get_mutations_by_iris, name="test"),

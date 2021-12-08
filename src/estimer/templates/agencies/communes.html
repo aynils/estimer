@@ -1,8 +1,6 @@
 {% extends 'layout/base.html' %}
 {% block body %}
-    {% for commune in communes %}
-            {% if commune %}
-            <p>Pricing : {{ commune }}</p>
+            {% if pricing %}
+            <p>Pricing : {{ pricing }}</p>
             {% endif %}
-    {% endfor %}
 {% endblock %}

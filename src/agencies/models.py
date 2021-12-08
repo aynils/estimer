@@ -18,7 +18,7 @@ class Agency(models.Model):
 
 
 class Pricing(models.Model):
-    price_range = models.CharField(max_length=255, null=False)
+    name = models.CharField(max_length=255, null=False)
     min_population = models.PositiveIntegerField(null=False)
     max_population = models.PositiveIntegerField(null=False)
     pricing = models.FloatField(null=False)
