@@ -14,11 +14,10 @@ import os
 import re
 from pathlib import Path
 
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+APPS_DIR = BASE_DIR / "src"
 
 
 def read_env():
@@ -27,7 +26,7 @@ def read_env():
     directory.
     """
     try:
-        with open(".env.local") as f:
+        with open("config/.env") as f:
             content = f.read()
     except IOError:
         content = ""
@@ -67,18 +66,6 @@ logging.config.dictConfig(
     }
 )
 
-sentry_sdk.init(
-    dsn="https://64223d840fca4d42a7b23457ffa6c23e@o889756.ingest.sentry.io/5838890",
-    integrations=[DjangoIntegration()],
-    environment=os.getenv("DJANGO_ENV"),
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    # We recommend adjusting this value in production.
-    traces_sample_rate=0.1,
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=False,
-)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -93,15 +80,15 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
 # Application definition
 
 INSTALLED_APPS = [
-    "dvf",
-    "estimer",
-    "users",
-    "agencies",
-    "map",
-    "iris",
-    "population",
+    "src.dvf",
+    "src.estimer",
+    "src.users",
+    "src.agencies",
+    "src.map",
+    "src.iris",
+    "src.population",
+    "src.theme",
     "tailwind",
-    "theme",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -121,12 +108,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "estimer.urls"
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [str(APPS_DIR / "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -156,24 +143,9 @@ DATABASES = {
     }
 }
 
-if DEBUG:
-    CACHES = {"default": {"BACKEND": "django.core.cache.backends.dummy.DummyCache"}}
-
-else:
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": os.getenv("REDIS_URL"),
-            "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-            "KEY_PREFIX": "estimer_v1",
-        }
-    }
 
 CACHE_TTL_ONE_DAY = 60 * 60 * 24
 CACHE_TTL_SIX_MONTH = 60 * 60 * 24 * 30 * 6
-
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -216,18 +188,20 @@ AWS_DEFAULT_ACL = "public-read"
 AWS_QUERYSTRING_AUTH = False
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 
-STATIC_URL = "/static/"
 
-# if not DEBUG:
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-# else:
-#     INSTALLED_APPS.append('storages')
-#     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#     DEFAULT_FILE_STORAGE = STATICFILES_STORAGE
-#     STATIC_ROOT = f"{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}"
+STATIC_ROOT = str(BASE_DIR / "staticfiles")
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = "/static/"
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = [str(APPS_DIR / "static")]
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-TAILWIND_APP_NAME = "theme"
+TAILWIND_APP_NAME = "src.theme"

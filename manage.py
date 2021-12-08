@@ -11,11 +11,11 @@ def read_env():
     directory.
     """
     try:
-        if os.path.exists(".env.local"):
-            with open(".env.local") as f:
+        if os.path.exists(".env"):
+            with open(".env") as f:
                 content = f.read()
-        elif os.path.exists("src/.env.local"):
-            with open("src/.env.local") as f:
+        elif os.path.exists("config/.env"):
+            with open("config/.env") as f:
                 content = f.read()
     except IOError:
         content = ""
@@ -35,7 +35,7 @@ def read_env():
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "estimer.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

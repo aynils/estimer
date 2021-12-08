@@ -74,6 +74,7 @@ module.exports = {
                     lightest: "#A6A7CC",
                 },
                 orange: {
+                    dark: "#E89423",
                     regular: "#ffa42b",
                     light: "#ffd399",
                 }
@@ -129,7 +130,15 @@ module.exports = {
             }],
 
         },
-        extend: {},
+        extend: {
+            height: {
+                xl: '80px',
+                l: '60px',
+                m: '40px',
+                s: '20px',
+                xs: '10px',
+            }
+        },
     },
     variants: {
         extend: {},

@@ -4,12 +4,12 @@ from django.shortcuts import render, redirect
 import requests
 import dataclasses
 
-from dvf.data.cities import get_city_data, get_city_from_slug, get_city_from_code, get_closeby_cities
+from src.dvf.data.cities import get_city_data, get_city_from_slug, get_city_from_code, get_closeby_cities
 from django.views.decorators.csrf import csrf_exempt
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.conf import settings
 
-from estimer.settings import MAPBOX_PUBLIC_TOKEN
 
 SEARCH_API_URL = "https://api-adresse.data.gouv.fr/search/"
 
@@ -28,7 +28,7 @@ def city(request, slug):
                 "city_data": city_data,
                 "title": f"Prix m2 {commune.nom_commune} ({commune.code_departement}) "
                 f"| Prix immobilier et estimation à {commune.nom_commune}",
-                "MAPBOX_PUBLIC_TOKEN": MAPBOX_PUBLIC_TOKEN,
+                "MAPBOX_PUBLIC_TOKEN": settings.MAPBOX_PUBLIC_TOKEN,
                 "map_markers": json.dumps(markers, cls=DjangoJSONEncoder),
                 "closeby_cities": closeby_cities,
             }
