@@ -126,7 +126,7 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "estimer.wsgi.application"
+WSGI_APPLICATION = "src.estimer.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -200,8 +200,6 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+INTERNAL_IPS = ["127.0.0.1"]
 
 TAILWIND_APP_NAME = "src.theme"
