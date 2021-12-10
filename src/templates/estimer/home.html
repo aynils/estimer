@@ -17,7 +17,7 @@
         <form name="address-form" data-name="Address Form" action="/commune/search" method="POST">
             {% csrf_token %}
             <div class="relative">
-                    <input type="text" name="adress" class="p-2 text-sm rounded-full" maxlength="256" placeholder="Search..." autocomplete="off" required>
+                    <input type="text" name="adress" class="p-2 text-sm rounded-full md:w-96" maxlength="256" placeholder="Search..." autocomplete="off" required>
                 <span class="absolute inset-y-0 right-0 flex items-center">
                     <button type="submit" class="btn-secondary">
                     Estimer
@@ -28,11 +28,23 @@
     </div>
     <img src="{% static 'images/illustrations/city.svg' %}" class="object-cover h-full w-full">
     <div class="bg-secondary-blue-darkest text-white text-center">
-        <div class="p-10">
-            <h3>15 millions</h3>
-            <p>de ventes listées</p>
-            <h3 class="mt-8">5 années</h3>
-            <p>d'historique de transactions</p>
+        <div class="p-10 md:grid md:grid-cols-4">
+            <div class="md:block">
+                <h3 class="md:mt-8">15 millions</h3>
+                <p>de ventes listées</p>
+            </div>
+            <div class="md:block">
+                <h3 class="mt-8">5 années</h3>
+                <p>d'historique de transactions</p>
+            </div>
+            <div class="hidden md:block">
+                <h3 class="mt-8">31 000</h3>
+                <p>communes analysées</p>
+            </div>
+            <div class="hidden md:block">
+                <h3 class="mt-8">0</h3>
+                <p>données personnelles collectées</p>
+            </div>
         </div>
     </div>
 </div>
