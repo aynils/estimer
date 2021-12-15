@@ -74,5 +74,4 @@
     .btn-secondary:active {
         @apply bg-secondary-orange-dark;
     }
-
 }
