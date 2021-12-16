@@ -45,8 +45,9 @@
     }
 
     .btn {
-        @apply py-2 px-8 rounded-full;
+        @apply py-4 px-8 rounded-full;
         @apply text-black;
+        @apply font-medium;
     }
 
     .btn-primary {
