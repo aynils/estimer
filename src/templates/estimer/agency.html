@@ -1,0 +1,35 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block headscript %}
+    <title>Estimer.com | Prix du m2 et évolution du marché de l’immobilier en France.</title>
+    <link rel="canonical" href="https://estimer.com"/>
+    <meta name="description"
+          content="Découvrez les prix du m2 et l’évolution du marché de l’immobilier
+           dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h2 class="w-3/5 mx-auto mt-8 text-secondary-blue-darkest">Plus de visibilité, plus de mandats</h2>
+        <p class="w-3/5 mx-auto mt-8 text-center text-secondary-blue-darkest">Devenez l'agence immobilière exclusive qui représentera votre commune sur Estimer.com
+            et obtenez de nouveaux mandats</p>
+    </div>
+    <div class="container-fluid">
+        <img src="{% static 'images/illustrations/computer_agency.png' %}" class="w-3/4 mx-auto mt-8">
+    </div>
+    <div class="container-fluid mt-8">
+        <p class="w-3/5 mx-auto mt-8 text-secondary-blue-darkest">" Lorem ipsum dolor sit amet. Qui aliquam quaerat ex tempora consequatur ut quos earum ut galisum expedita.
+            Et ratione minus aut voluptatum veniam a dolorem dolores sed totam quas ut repellat similique et similique
+            voluptatum cum odit deserunt."</p>
+    </div>
+    <div class="container mx-auto">
+    <div class="flex">
+        <div class="mx-auto">
+        <img src="{% static 'images/icons/crown.svg' %}" class="inline-block">
+        <h5 class="inline">Prénom Nom</h5>
+        <p>Agence Lorem</p>
+        </div>
+    </div>
+    </div>
+{% endblock %}
