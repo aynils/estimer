@@ -7,6 +7,7 @@
     <meta name="description"
           content="Découvrez les prix du m2 et l’évolution du marché de l’immobilier
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
+    <script src="{% static 'js/agency.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -123,44 +124,6 @@
             </button>
         </div>
     </div>
-
-    <script>
-        function citySearch()
-        {
-            return {
-                selectedCity: "",
-                cities: [{id : 100, price : 25, name: "Montpellier", zipcode: 34000},{id : 15, price : 25, name: "Testouille", zipcode: 38090},{id : 88, price : 25, name: "Test", zipcode: 34800}],
-                selectedCities: [],
-                addCities() {
-                    const id = parseInt(this.selectedCity);
-                    const city = this.cities.find(city => id === city.id);
-                    this.selectedCities.push(city);
-                    this.selectedCity = "";
-                    this.cities = this.cities.map(city => {
-                        if(city.id === id)
-                        {
-                            city.disabled = true;
-                        }
-                        return city;
-                    });
-                },
-                deleteCities(id) {
-                    this.selectedCities = this.selectedCities.filter((city) => {
-                        return id !== city.id
-                    })
-                    this.cities = this.cities.map(city => {
-                        if(city.id === id)
-                        {
-                            city.disabled = false;
-                        }
-                        return city;
-                    });
-                },
-
-            };
-        }
-    </script>
-
     <div x-data="citySearch()" class="container bg-primary-blue-200 mt-16 w-11/12 mx-auto rounded-lg">
         <h3 class="text-secondary-blue-darkest text-center py-6 w-6/12 pr-1 mx-auto">Des tarifs adaptés à vos communes</h3>
         <p class="text-secondary-blue-darkest text-center text-l w-6/12 mx-auto">Calculez le prix de votre abonnement</p>
