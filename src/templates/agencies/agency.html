@@ -128,14 +128,17 @@
         function citySearch()
         {
             return {
-                newCity: "",
-                cities: [],
+                selectedCity: "",
+                cities: [{id : 100, price : 25, name: "Montpellier", zipcode: 34000},{id : 15, price : 25, name: "Testouille", zipcode: 38090},{id : 88, price : 25, name: "Test", zipcode: 34800}],
+                selectedCities: [],
                 addCities() {
-                    this.cities.push({ city: this.newCity, completed: false });
-                    this.newCity = "";
+                    const id = parseInt(this.selectedCity);
+                    const city = this.cities.find(city => id === city.id);
+                    this.selectedCities.push(city);
+                    this.selectedCity = "";
                 },
                 deleteCities(index) {
-                    this.cities = this.cities.filter((city, cityIndex) => {
+                    this.selectedCities = this.selectedCities.filter((city, cityIndex) => {
                         return index !== cityIndex
                     })
                 },
@@ -148,21 +151,18 @@
         <h3 class="text-secondary-blue-darkest text-center py-6 w-6/12 pr-1 mx-auto">Des tarifs adaptés à vos communes</h3>
         <p class="text-secondary-blue-darkest text-center text-l w-6/12 mx-auto">Calculez le prix de votre abonnement</p>
         <div class="text-center">
-        <select  type="text" x-model="newCity" class="p-2 text-sm rounded-full mt-8 w-9/12" maxlength="256" required x-on:click="addCities()">
-            <option>Choissisez le nom de vos communes</option>
-
-            <option>Option 1 (38000)</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-            <option>Option 4</option>
-            <option>Option 5</option>
+        <select  type="text" x-model="selectedCity" class="p-2 text-sm rounded-full mt-8 w-9/12" maxlength="256" required x-on:change="addCities()">
+            <option value="" disabled selected>Choissisez le nom de vos communes</option>
+    <template x-for="(city, id) in cities" :key="id">
+            <option :value="city.id" x-text="`${city.name} (${city.zipcode})`" ></option>
+    </template>
         </select>
         </div>
         <div class="container-fluid mt-5 bg-white w-9/12 rounded-lg mx-auto h-32 overflow-auto">
             <ul>
-                <template x-for="(city, index) in cities" :key="index">
+                <template x-for="(city, index) in selectedCities" :key="index">
                     <div class="flex mx-2 my-1">
-                    <li x-text="city.city" class="bg-secondary-blue-darkest p-1 text-white rounded-l-lg"></li><button class="bg-secondary-blue-darkest text-white rounded-r-lg pr-2" @click="deleteCities(index)">&cross;</button>
+                    <li x-text="`${city.name} (${city.zipcode})`" class="bg-secondary-blue-darkest p-1 text-white rounded-l-lg"></li><button class="bg-secondary-blue-darkest text-white rounded-r-lg pr-2" @click="deleteCities(index)">&cross;</button>
                     </div>
                 </template>
             </ul>
