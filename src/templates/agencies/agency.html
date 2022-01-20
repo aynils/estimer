@@ -136,11 +136,25 @@
                     const city = this.cities.find(city => id === city.id);
                     this.selectedCities.push(city);
                     this.selectedCity = "";
+                    this.cities = this.cities.map(city => {
+                        if(city.id === id)
+                        {
+                            city.disabled = true;
+                        }
+                        return city;
+                    });
                 },
-                deleteCities(index) {
-                    this.selectedCities = this.selectedCities.filter((city, cityIndex) => {
-                        return index !== cityIndex
+                deleteCities(id) {
+                    this.selectedCities = this.selectedCities.filter((city) => {
+                        return id !== city.id
                     })
+                    this.cities = this.cities.map(city => {
+                        if(city.id === id)
+                        {
+                            city.disabled = false;
+                        }
+                        return city;
+                    });
                 },
 
             };
@@ -154,7 +168,7 @@
         <select  type="text" x-model="selectedCity" class="p-2 text-sm rounded-full mt-8 w-9/12" maxlength="256" required x-on:change="addCities()">
             <option value="" disabled selected>Choissisez le nom de vos communes</option>
     <template x-for="(city, id) in cities" :key="id">
-            <option :value="city.id" x-text="`${city.name} (${city.zipcode})`" ></option>
+            <option :value="city.id" x-text="`${city.name} (${city.zipcode})`" :disabled="!!city.disabled"></option>
     </template>
         </select>
         </div>
@@ -162,7 +176,7 @@
             <ul>
                 <template x-for="(city, index) in selectedCities" :key="index">
                     <div class="flex mx-2 my-1">
-                    <li x-text="`${city.name} (${city.zipcode})`" class="bg-secondary-blue-darkest p-1 text-white rounded-l-lg"></li><button class="bg-secondary-blue-darkest text-white rounded-r-lg pr-2" @click="deleteCities(index)">&cross;</button>
+                    <li x-text="`${city.name} (${city.zipcode})`" class="bg-secondary-blue-darkest p-1 text-white rounded-l-lg"></li><button class="bg-secondary-blue-darkest text-white rounded-r-lg pr-2" @click="deleteCities(city.id)">&cross;</button>
                     </div>
                 </template>
             </ul>
