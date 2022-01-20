@@ -125,7 +125,8 @@
     </div>
 
     <script>
-        function citySearch() {
+        function citySearch()
+        {
             return {
                 newCity: "",
                 cities: [],
@@ -147,25 +148,26 @@
         <h3 class="text-secondary-blue-darkest text-center py-6 w-6/12 pr-1 mx-auto">Des tarifs adaptés à vos communes</h3>
         <p class="text-secondary-blue-darkest text-center text-l w-6/12 mx-auto">Calculez le prix de votre abonnement</p>
         <div class="text-center">
-        <select  type="text" x-model="newCity" class="p-2 text-sm rounded-full mt-8 w-8/12" maxlength="256" required x-on:click="addCities()">
+        <select  type="text" x-model="newCity" class="p-2 text-sm rounded-full mt-8 w-9/12" maxlength="256" required x-on:click="addCities()">
             <option>Choissisez le nom de vos communes</option>
-            <option>Option 1</option>
+
+            <option>Option 1 (38000)</option>
             <option>Option 2</option>
             <option>Option 3</option>
             <option>Option 4</option>
             <option>Option 5</option>
         </select>
         </div>
-        <div class="container-fluid mt-5 bg-white w-1/2 rounded-lg mx-auto h-32 overflow-auto">
+        <div class="container-fluid mt-5 bg-white w-9/12 rounded-lg mx-auto h-32 overflow-auto">
             <ul>
                 <template x-for="(city, index) in cities" :key="index">
                     <div class="flex mx-2 my-1">
-                    <li x-text="city.city" class="bg-secondary-blue-darkest p-1  text-white"></li><button class="bg-secondary-blue-darkest text-white"@click="deleteCities(index)">&cross;</button>
+                    <li x-text="city.city" class="bg-secondary-blue-darkest p-1 text-white rounded-l-lg"></li><button class="bg-secondary-blue-darkest text-white rounded-r-lg pr-2" @click="deleteCities(index)">&cross;</button>
                     </div>
                 </template>
             </ul>
         </div>
-
+        <div class="w-full h-32"></div>
     </div>
 
 
