@@ -1,17 +1,14 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'estimer/css/map.css' %}">
-<div class="sidebar">
-
-    <div id="listings" class="listings"></div>
-</div>
-<div id="map"></div>
+{#<link rel="stylesheet" type="text/css" href="{% static 'estimer/css/map.css' %}">#}
+<div id="map" class="md:w-[1000px] h-[600px] mx-auto"></div>
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
-<link async defer href='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet'/>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet'/>
+
 <script async defer>
-    let lastSales = {
+    let neighbourhoods = {
         "type": "FeatureCollection",
-        "features": JSON.parse('{{ map_markers | escapejs }}')
+        "features": JSON.parse('{{ neighbourhoods | escapejs }}'),
 
     };
 
@@ -19,184 +16,87 @@
     const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v10?optimize=true',
-        center: [2.213749, 46.227638],
-        zoom: 4,
+        center: [5.05525, 45.33675], // default values. Will be overridden by fitBounds
+        zoom: 14, // default value. Will be overridden by fitBounds
     });
 
-    const coordinates = lastSales.features.map(feature => feature.geometry.coordinates)
+    const coordinates = neighbourhoods.features.map(feature => feature.geometry.coordinates)
+    const allCoordinates = coordinates.flat(3)
+    const firstPoint = {
+        lng: allCoordinates[0][0],
+        lat: allCoordinates[0][1],
+    }
 
-    const bounds = coordinates.reduce(function (bounds, coord) {
-        return bounds.extend(coord);
-    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
 
-    lastSales.features.forEach(function (sale, i) {
-        sale.properties.id = i;
-    });
+    const bounds = allCoordinates.reduce((bounds, coord) => {
+            return bounds.extend(coord);
+        }
+        , new mapboxgl.LngLatBounds()
+    );
+
 
     map.on('load', function (e) {
         /* Add the data to your map as a layer */
-        map.addSource('places', {
-            'type': 'geojson',
-            'data': lastSales
-        });
+        neighbourhoods.features.forEach(feature =>
+            map.addSource(feature.properties.code_iris, {
+                'type': 'geojson',
+                'data': feature
+            })
+        );
 
-        /**
-         * Add all the things to the page:
-         * - The location listings on the side of the page
-         * - The markers onto the map
-         */
-        buildLocationList(lastSales);
-        addMarkers();
+        neighbourhoods.features.forEach(feature => {
+                map.addLayer({
+                    'id': `${feature.properties.code_iris}-fill`,
+                    'type': 'fill',
+                    'source': feature.properties.code_iris,
+                    'layout': {},
+                    'paint': {
+                        'fill-color': feature.properties.color.background,
+                        'fill-opacity': 0.5
+                    }
+                })
+
+                {# Keep this part usefull for debugging: displays borders when uncommented#}
+                {#map.addLayer({#}
+                {#    'id': `${feature.properties.code_iris}-outline`,#}
+                {#    'type': 'line',#}
+                {#    'source': feature.properties.code_iris,#}
+                {#    'layout': {},#}
+                {#    'paint': {#}
+                {#        'line-color': feature.properties.color.background,#}
+                {#        'line-width': 2,#}
+                {#    }}#}
+                {#    );#}
+
+            {# Duplicated labels because of this: https://github.com/mapbox/mapbox-gl-js/issues/5583#issuecomment-341840524#}
+                map.addLayer({
+                    'id': `${feature.properties.code_iris}-label`,
+                    'type': 'symbol',
+                    'source': feature.properties.code_iris,
+                    'layout': {
+                        'text-field': ['get', 'average_m2_price'],
+                        'text-font': ['Montserrat Bold']
+                    },
+                    'paint':{
+                        'text-color': feature.properties.color.text,
+                    }
+                });
+            }
+        );
+
 
         map.fitBounds(bounds, {padding: 20, duration: 0});
     });
-
-    function addMarkers() {
-        /* For each feature in the GeoJSON object above: */
-        lastSales.features.forEach(function (marker) {
-
-            /* Create a div element for the marker. */
-            var el = document.createElement('div');
-            /* Assign a unique `id` to the marker. */
-            el.id = 'marker-' + marker.properties.id;
-            /* Assign the `marker` class to each marker for styling. */
-            el.className = 'marker';
-
-            /**
-             * Create a marker using the div element
-             * defined above and add it to the map.
-             **/
-            new mapboxgl.Marker(el, {offset: [0, -23]})
-                .setLngLat(marker.geometry.coordinates)
-                .addTo(map);
-
-            /**
-             * Listen to the element and when it is clicked, do three things:
-             * 1. Fly to the point
-             * 2. Close all other popups and display popup for clicked store
-             * 3. Highlight listing in sidebar (and remove highlight for all other listings)
-             **/
-            el.addEventListener('click', function (e) {
-                /* Fly to the point */
-                flyToStore(marker);
-                /* Close all other popups and display popup for clicked store */
-                createPopUp(marker);
-                /* Highlight listing in sidebar */
-                var activeItem = document.getElementsByClassName('active');
-                e.stopPropagation();
-                if (activeItem[0]) {
-                    activeItem[0].classList.remove('active');
-                }
-                var listing = document.getElementById(
-                    'listing-' + marker.properties.id
-                );
-                listing.classList.add('active');
-            });
-
-        });
-    }
-
-    /**
-     * Add a listing for each store to the sidebar.
-     **/
-    function buildLocationList(data) {
-        data.features.forEach(function (sale, i) {
-            /**
-             * Create a shortcut for `store.properties`,
-             * which will be used several times below.
-             **/
-            var prop = sale.properties;
-
-            /* Add a new listing section to the sidebar. */
-            var listings = document.getElementById('listings');
-            var listing = listings.appendChild(document.createElement('div'));
-            /* Assign a unique `id` to the listing. */
-            listing.id = 'listing-' + prop.id;
-            /* Assign the `item` class to each listing for styling. */
-            listing.className = 'item';
-
-            /* Add the link to the individual listing created above. */
-            const link = listing.appendChild(document.createElement('a'));
-            link.href = '#';
-            link.className = 'title';
-            link.id = 'link-' + prop.id;
-            link.innerHTML = prop.address.nom_voie + ' ' + (prop.address.numero_voie || '');
-
-            /* Add details to the individual listing. */
-            const details = listing.appendChild(document.createElement('div'));
-            details.innerHTML = prop.type_local;
-            if (prop.rooms_count) {
-                details.innerHTML += ' &middot; ' + prop.rooms_count + (prop.rooms_count > 1 ? ' pièces' : ' pièce');
-            }
-
-            /**
-             * Listen to the element and when it is clicked, do four things:
-             * 1. Update the `currentFeature` to the store associated with the clicked link
-             * 2. Fly to the point
-             * 3. Close all other popups and display popup for clicked store
-             * 4. Highlight listing in sidebar (and remove highlight for all other listings)
-             **/
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                for (var i = 0; i < data.features.length; i++) {
-                    if (this.id === 'link-' + data.features[i].properties.id) {
-                        var clickedListing = data.features[i];
-                        flyToStore(clickedListing);
-                        createPopUp(clickedListing);
-                    }
-                }
-                var activeItem = document.getElementsByClassName('active');
-                if (activeItem[0]) {
-                    activeItem[0].classList.remove('active');
-                }
-                this.parentNode.classList.add('active');
-            });
-        });
-    }
 
     /**
      * Use Mapbox GL JS's `flyTo` to move the camera smoothly
      * a given center point.
      **/
-    function flyToStore(currentFeature) {
+    function flyToFeature(currentFeature) {
         map.flyTo({
             center: currentFeature.geometry.coordinates,
             zoom: 15
         });
-    }
-
-    /**
-     * Create a Mapbox GL JS `Popup`.
-     **/
-    function createPopUp(currentFeature) {
-        var popUps = document.getElementsByClassName('mapboxgl-popup');
-        if (popUps[0]) popUps[0].remove();
-        var popup = new mapboxgl.Popup({closeOnClick: false})
-            .setLngLat(currentFeature.geometry.coordinates)
-            .setHTML(
-                `
-                <h3> ${currentFeature.properties.address.nom_voie} ${currentFeature.properties.address.numero || ''} ${currentFeature.properties.address.suffixe || ''}</h3>
-                <table class="popup-table">
-                  <tr>
-                    <td class="col-1">Prix de vente</td>
-                    <td class="col-2">${currentFeature.properties.price} €</td>
-                  </tr>
-                <tr>
-                    <td class="col-1">Superficie</td>
-                    <td class="col-2">${currentFeature.properties.surface} m2</td>
-                  </tr>
-                <tr>
-                    <td class="col-1">Prix au m2</td>
-                    <td class="col-2">${currentFeature.properties.m2_price} €</td>
-                  </tr>
-                <tr>
-                    <td class="col-1">Date de vente</td>
-                    <td class="col-2">${currentFeature.properties.date}</td>
-                  </tr>
-                </table>
-                `
-            )
-            .addTo(map);
     }
 
 </script>

@@ -21,7 +21,8 @@ def city(request, slug):
         if commune:
             closeby_cities = get_closeby_cities(code_postal=commune.code_postal or commune.code_commune)
             city_data = get_city_data(code_commune=commune.code_commune)
-            markers = [dataclasses.asdict(marker) for marker in city_data.map_markers]
+            neighbourhoods = [dataclasses.asdict(neighbourhood) for neighbourhood in city_data.neighbourhoods]
+            # neighbourhoods = city_data.neighbourhoods
             context = {
                 "slug": slug,
                 "city_name": commune.nom_commune,
@@ -29,7 +30,8 @@ def city(request, slug):
                 "title": f"Prix m2 {commune.nom_commune} ({commune.code_departement}) "
                 f"| Prix immobilier et estimation à {commune.nom_commune}",
                 "MAPBOX_PUBLIC_TOKEN": settings.MAPBOX_PUBLIC_TOKEN,
-                "map_markers": json.dumps(markers, cls=DjangoJSONEncoder),
+                "neighbourhoods": json.dumps(neighbourhoods, cls=DjangoJSONEncoder),
+                # "neighbourhoods": neighbourhoods,
                 "closeby_cities": closeby_cities,
             }
 

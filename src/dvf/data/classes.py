@@ -78,6 +78,26 @@ class MapMarker:
 
 
 @dataclass
+class PolygonColor:
+    text: str
+    background: str
+
+
+@dataclass
+class Neighbourhood:
+    average_m2_price: str
+    code_iris: str
+    color: PolygonColor
+
+
+@dataclass
+class NeighbourhoodPolygon:
+    geometry: Geometry
+    properties: Neighbourhood
+    type: str = "Feature"
+
+
+@dataclass
 class CityData:
     median_m2_price_appartement: MedianM2Price
     median_m2_price_maison: MedianM2Price
@@ -91,7 +111,7 @@ class CityData:
     agent: Agent
     chart_b64_svg: str
     price_evolution_text: str
-    map_markers: List[MapMarker]
+    neighbourhoods: List[NeighbourhoodPolygon]
 
 
 @dataclass

@@ -7,10 +7,6 @@
           content="Découvrez les prix du m2 à {{ city_name }} et l’évolution du marché de l’immobilier
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
 
-    {#    Mapbox#}
-
-
-    <link rel="stylesheet" type="text/css" href="{% static 'estimer/css/city.css' %}">
 {% endblock %}
 
 {% block body %}
@@ -109,5 +105,6 @@
         <h2 class="text-secondary-blue-darkest p-8">Carte des prix</h2>
         <p class="text-secondary-blue-darkest p-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem rem nesciunt dicta ut aut ab minus,
             laboriosam impedit. Pariatur nulla commodi placeat natus! Numquam, distinctio? In dicta beatae eaque veniam.</p>
+           {% include 'map/map.html' %}
     </div>
 {% endblock %}
