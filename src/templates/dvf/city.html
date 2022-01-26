@@ -89,4 +89,25 @@
          </div>
     </div>
    </div>
+   <div class="container-fluid mt-20">
+        <h2 class="text-secondary-blue-darkest mx-auto w-7/12 text-center">Evolution du prix au m2</h2>
+        <p class="text-secondary-blue-darkest mx-auto w-7/12 text-center mt-8"> Entre 2019 et 220, les prix de l'immobilier ont augmenté de 3%, atteignant 3095 € en 2020</p>
+        <div class="flex">
+            <select class="mt-8 mx-auto text-center form-select appearance-none block text-secondary-blue-darkest w-8/12 py-4 bg-white bg-clip-padding bg-no-repeat border border-solid border-primary-blue-300 rounded-lg transition ease-in-outm-0
+                focus:text-secondary-blue-darkest focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="">
+                <option disabled selected>Entre le nom de quartier</option>
+                <option value="">Quartier 1</option>
+                <option value="">Quartier 2</option>
+                <option value="">Quartier 3</option>
+            </select>
+        </div>
+   </div>
+    <div class="mt-8">
+        <img src='data:image/svg+xml;base64,{{ city_data.chart_b64_svg }}' alt="prix m2 {{ city_name }}">
+    </div>
+    <div class="container-fluid bg-primary-blue-200 mt-16">
+        <h2 class="text-secondary-blue-darkest p-8">Carte des prix</h2>
+        <p class="text-secondary-blue-darkest p-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem rem nesciunt dicta ut aut ab minus,
+            laboriosam impedit. Pariatur nulla commodi placeat natus! Numquam, distinctio? In dicta beatae eaque veniam.</p>
+    </div>
 {% endblock %}
