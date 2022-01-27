@@ -19,7 +19,7 @@
         center: [5.05525, 45.33675], // default values. Will be overridden by fitBounds
         zoom: 14, // default value. Will be overridden by fitBounds
     });
-
+    map.addControl(new mapboxgl.NavigationControl());
     const coordinates = neighbourhoods.features.map(feature => feature.geometry.coordinates)
     const allCoordinates = coordinates.flat(3)
     const firstPoint = {
@@ -55,6 +55,16 @@
                         'fill-opacity': 0.5
                     }
                 })
+                map.on('mouseenter', `${feature.properties.code_iris}-fill`, function(e) {
+      	        map.setPaintProperty(`${feature.properties.code_iris}-fill`, 'fill-color', '#a9d3f2');
+                map.setPaintProperty(`${feature.properties.code_iris}-fill`, 'fill-opacity', 1);
+
+                });
+
+                map.on('mouseleave', `${feature.properties.code_iris}-fill`, function() {
+                map.setPaintProperty(`${feature.properties.code_iris}-fill`, 'fill-color', feature.properties.color.background);
+                map.setPaintProperty(`${feature.properties.code_iris}-fill`, 'fill-opacity', 0.5);
+                 });
 
                 {# Keep this part usefull for debugging: displays borders when uncommented#}
                 {#map.addLayer({#}
