@@ -1,6 +1,42 @@
 {% load static %}
 {#<link rel="stylesheet" type="text/css" href="{% static 'estimer/css/map.css' %}">#}
-<div id="map" class="md:w-[1000px] h-[600px] mx-auto"></div>
+    <style>
+        .map-overlay {
+            position: absolute;
+            top: 430px;
+            bottom: 0;
+            right: 0px;
+            background: rgba(255, 255, 255, 0.8);
+            margin-right: 20px;
+            font-family: Arial, sans-serif;
+            overflow: auto;
+            border-radius: 3px;
+            z-index: 500;
+        }
+        #legend {
+            padding: 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+            line-height: 18px;
+            height: 150px;
+            margin-bottom: 40px;
+            width: 100px;
+        }
+        .legend-key {
+            display:inline-block;
+            border-radius: 20%;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+        }
+
+    </style>
+
+<div id="map" class="md:w-[1000px] h-[600px] mx-auto">
+    <div class='map-overlay' id='legend'>
+        <span class="legend-key" style="background-color: rgb(253, 141, 60);"></span>
+        <span>50-100</span>
+    </div>
+</div>
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet'/>
@@ -77,7 +113,9 @@
                 {#        'line-width': 2,#}
                 {#    }}#}
                 {#    );#}
-
+                let test = [];
+                test.push(feature.properties.color.background);
+                console.log(test);
             {# Duplicated labels because of this: https://github.com/mapbox/mapbox-gl-js/issues/5583#issuecomment-341840524#}
                 map.addLayer({
                     'id': `${feature.properties.code_iris}-label`,
@@ -91,8 +129,11 @@
                         'text-color': feature.properties.color.text,
                     }
                 });
+
             }
+
         );
+
 
 
         map.fitBounds(bounds, {padding: 20, duration: 0});
