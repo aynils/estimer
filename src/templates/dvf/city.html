@@ -151,9 +151,9 @@
     </div>
     <div class="bg-primary-blue-300 w-10/12 h-[2px] mx-auto rounded-full mt-10 md:w-[2px] md:h-[300px]"></div>
     <div class="container-fluid md:flex md:w-1/2 md:flex-col md:mt-10">
-        <div class="flex">
-            <h3 class="text-secondary-blue-darkest mt-8 ml-8 md:mt-0 md:ml-0 md:ml-36">Rues les moins chères</h3>
-            <img src="{% static 'images/icons/euros_few.svg' %}" class="ml-5 mt-4 md:mt-0 md:ml-56 md:w-12">
+        <div class="flex md:w-8/12 md:mx-auto">
+            <h3 class="text-secondary-blue-darkest mt-8 ml-8 md:mt-0 md:ml-0">Rues les moins chères</h3>
+            <img src="{% static 'images/icons/euros_few.svg' %}" class="ml-5 mt-4 md:mt-0 md:ml-0 md:w-12 md:ml-52">
         </div>
         <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
             <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
@@ -198,7 +198,7 @@
         <li class="bg-white my-2" x-data="accordion(1)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
@@ -218,7 +218,7 @@
         <li class="bg-white my-2" x-data="accordion(2)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
@@ -238,7 +238,7 @@
         <li class="bg-white my-2" x-data="accordion(3)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
@@ -258,7 +258,7 @@
         <li class="bg-white my-2" x-data="accordion(4)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
@@ -278,7 +278,7 @@
         <li class="bg-white my-2" x-data="accordion(5)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
