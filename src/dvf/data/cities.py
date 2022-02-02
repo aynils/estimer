@@ -1,10 +1,12 @@
 import base64
 import datetime
-import math
 from typing import List, Tuple
+import json
 
+import math
 import pandas as pd
 from django.contrib.gis.geos import Point
+from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.conf import settings
 
 from src.agencies.models import Agency
@@ -19,6 +21,9 @@ from src.dvf.data.classes import (
     MedianM2PriceRoom,
     Sale,
     StreetMedianPrice,
+    NeighbourhoodPolygon,
+    Neighbourhood,
+    PolygonColor,
 )
 from src.dvf.models import Commune, ValeursFoncieres
 from src.helpers.cache import cached_function
@@ -32,7 +37,7 @@ FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 4, month=1, day=1)
 
 
 # @timer
-def get_avg_m2_price(types: Tuple, date_from: datetime.date, ventes: pd.DataFrame) -> dict:
+def get_avg_m2_price_per_year(types: Tuple, date_from: datetime.date, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
         return {}
 
@@ -75,10 +80,11 @@ def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
 # @timer
 @cached_function(ttl=settings.CACHE_TTL_ONE_DAY)
 def get_city_data(code_commune: str) -> CityData:
-
     ventes = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO)
 
-    median_m2_prices_appartement = get_avg_m2_price(types=("Appartement",), date_from=ONE_YEAR_AGO, ventes=ventes)
+    median_m2_prices_appartement = get_avg_m2_price_per_year(
+        types=("Appartement",), date_from=ONE_YEAR_AGO, ventes=ventes
+    )
     if median_m2_prices_appartement.get(ONE_YEAR_AGO.year):
         median_m2_price_appartement = MedianM2Price(
             value=int(median_m2_prices_appartement[ONE_YEAR_AGO.year]), year=ONE_YEAR_AGO.year
@@ -86,7 +92,7 @@ def get_city_data(code_commune: str) -> CityData:
     else:
         median_m2_price_appartement = None
 
-    median_m2_prices_maison = get_avg_m2_price(types=("Maison",), date_from=ONE_YEAR_AGO, ventes=ventes)
+    median_m2_prices_maison = get_avg_m2_price_per_year(types=("Maison",), date_from=ONE_YEAR_AGO, ventes=ventes)
 
     median_m2_prices_room_maison = get_avg_m2_price_rooms(types=("Maison",), date_from=FIVE_YEARS_AGO, ventes=ventes)
 
@@ -115,7 +121,9 @@ def get_city_data(code_commune: str) -> CityData:
     else:
         median_m2_price_maison = None
 
-    avg_m2_price = get_avg_m2_price(types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO, ventes=ventes).items()
+    avg_m2_price = get_avg_m2_price_per_year(
+        types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO, ventes=ventes
+    ).items()
 
     median_m2_prices_years = [MedianM2Price(value=price, year=year) for year, price in avg_m2_price]
 
@@ -156,7 +164,7 @@ def get_city_data(code_commune: str) -> CityData:
         for sale in get_last_sales(limit=20, ventes=ventes)
     ]
 
-    map_markers = generate_map_markers(last_sales=last_sales)
+    # map_markers = generate_map_markers(last_sales=last_sales)
 
     most_expensive_streets = [
         StreetMedianPrice(nom_voie=rue.lower(), avg_m2_price=int(price))
@@ -174,7 +182,11 @@ def get_city_data(code_commune: str) -> CityData:
 
     city_name = "La cité merveilleuse"
 
-    chart_b64_svg = generate_chart_b64_svg(city_name=city_name, bar_heights=bar_heights)
+    chart_b64_svg = generate_chart_b64_svg(bar_heights=bar_heights, city_name=city_name)
+
+    neighbourhoods = get_neighbourhoods_data(
+        code_commune=code_commune, date_from=FIVE_YEARS_AGO, types=("Maison", "Appartement")
+    )
 
     return CityData(
         median_m2_price_appartement=median_m2_price_appartement,
@@ -189,12 +201,32 @@ def get_city_data(code_commune: str) -> CityData:
         agent=agent,
         chart_b64_svg=chart_b64_svg,
         price_evolution_text=price_evolution_text,
-        map_markers=map_markers,
+        # map_markers=map_markers,
+        neighbourhoods=neighbourhoods,
     )
 
 
-def get_all_cities() -> list:
-    return get_cities()
+def get_neighbourhoods_data(code_commune: str, date_from: datetime.date, types: tuple) -> List[NeighbourhoodPolygon]:
+    iris_list = IRIS.objects.values("geometry", "code_iris").filter(insee_commune=code_commune).all()
+    neighbourhoods = []
+    mutations = get_avg_m2_price_per_iris(code_commune=code_commune, date_from=date_from, types=types)
+    for iris in iris_list:
+        code_iris = iris.get("code_iris")
+        average_m2_price = mutations.get(code_iris)
+        if average_m2_price:
+            neighbourhood = Neighbourhood(
+                average_m2_price=f"{int(average_m2_price)} €",
+                code_iris=code_iris,
+                color=define_polygon_color(m2_price=average_m2_price),
+            )
+            geometry = iris.get("geometry")
+            geojson = json.loads(geometry.geojson)
+            geojson["coordinates"] = convert_coordinates_srid(
+                initial_srid=geometry.srid, new_srid=4326, coordinates=geojson.get("coordinates")
+            )
+            neighbourhoods.append(NeighbourhoodPolygon(geometry=geojson, properties=neighbourhood))
+
+    return neighbourhoods
 
 
 # @timer
@@ -432,15 +464,65 @@ def get_iris_code_for_coordinates(longitude: float, latitude: float):
     return iris.code_iris
 
 
-def get_mutations_by_iris(code_iris: str, date_from):
-
+def get_mutations_for_iris(code_iris: str, date_from: datetime.date) -> pd.DataFrame:
     iris = IRIS.objects.get(code_iris=code_iris)
     code_commune = iris.insee_commune
 
     mutations = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=date_from)
-    mutations["code_iris"] = mutations.apply(
-        lambda row: get_iris_code_for_coordinates(float(row["longitude"]), float(row["latitude"])), axis=1
-    )
+    mutations = add_iris_to_mutations(mutations=mutations)
     filtered_mutations = mutations[mutations["code_iris"] == code_iris]
 
     return filtered_mutations
+
+
+def add_iris_to_mutations(mutations: pd.DataFrame) -> pd.DataFrame:
+    mutations["code_iris"] = mutations.apply(
+        lambda row: get_iris_code_for_coordinates(float(row["longitude"]), float(row["latitude"])), axis=1
+    )
+    return mutations
+
+
+def get_avg_m2_price_per_iris(code_commune: str, date_from: datetime.date, types: tuple) -> pd.DataFrame:
+    mutations = get_simple_sales(code_commune=code_commune, types=types, date_from=date_from)
+    mutations = add_iris_to_mutations(mutations=mutations)
+    return mutations.groupby("code_iris").mean().round(2)["prix_m2"].to_dict()
+
+
+def convert_coordinates_srid(
+    initial_srid: int, new_srid: int, coordinates: List[List[List[List[float]]]]
+) -> List[List[List[List[float]]]]:
+    initial_srid = SpatialReference(initial_srid)
+    new_srid = SpatialReference(new_srid)
+    transform_method = CoordTransform(initial_srid, new_srid)
+    converted_coordinates = []
+    for coordinate in coordinates:
+        converted_sub = []
+        for sub in coordinate:
+            converted_points = []
+            for sub_sub in sub:
+                point = Point(*sub_sub, srid=initial_srid)
+                point.transform(transform_method)
+                converted_points.append(list(point.ogr.coords))
+            converted_sub.append(converted_points)
+        converted_coordinates.append(converted_sub)
+
+    return converted_coordinates
+
+
+def define_polygon_color(m2_price: float) -> PolygonColor:
+    if m2_price >= 4500:
+        return PolygonColor(background="#0B3C93", text="#F2F7FF")
+    elif m2_price >= 4000:
+        return PolygonColor(background="#105ADC", text="#F2F7FF")
+    elif m2_price >= 3500:
+        return PolygonColor(background="#3F80F1", text="#F2F7FF")
+    elif m2_price >= 3000:
+        return PolygonColor(background="#7FAAF6", text="#F2F7FF")
+    elif m2_price >= 2500:
+        return PolygonColor(background="#BAD1F8", text="#15171A")
+    elif m2_price >= 2000:
+        return PolygonColor(background="#BFD5FA", text="#15171A")
+    elif m2_price >= 1500:
+        return PolygonColor(background="#DFEAFD", text="#15171A")
+    else:
+        return PolygonColor(background="#F2F7FF", text="#15171A")

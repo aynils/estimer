@@ -2,224 +2,325 @@
 {% load static %}
 
 {% block headscript %}
-    <title>{{ title }}</title>
-    <meta name="description"
-          content="Découvrez les prix du m2 à {{ city_name }} et l’évolution du marché de l’immobilier
-           dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
-
-    {#    Mapbox#}
-
-
-    <link rel="stylesheet" type="text/css" href="{% static 'estimer/css/city.css' %}">
+<title>{{ title }}</title>
+<meta name="description" content="Découvrez les prix du m2 à {{ city_name }} et l’évolution du marché de l’immobilier
+           dans votre ville, puis obtenez l’estimation de votre maison ou appartement." />
+<script src="{% static 'js/agencyAsk.js' %}"></script>
 {% endblock %}
 
 {% block body %}
-    <div class="section-7">
-
-
-        <div class="columns-13 w-row">
-            <div class="column-9 w-col w-col-6">
-
-                <div class="column-12 w-col">
-                    <h1 class="heading-4">Prix au m2 à
-                        {{ city_name }}</h1>
-                    <div class="div-block-35"></div>
-                    <div class="text-block-29">Suite à l’analyse des {{ city_data.number_of_sales }}
-                        transactions immobilières à {{ city_name }},
-                        en 2021,
-                        nous observons un prix au m2 de {{ city_data.median_m2_price_appartement.value }} € pour les
-                        appartements,
-                        et de {{ city_data.median_m2_price_maison.value }} € pour les maisons.
-                    </div>
-                    <div class="div-block-30 ">
-                        <div class="columns-12 w-row">
-                            <div class="w-col w-col-6"><img
-                                    src="{% static 'estimer/images/5ff4e2b0c5090619d5965a09_appartement.svg' %}"
-                                    loading="lazy" alt="appartement" class="image-6">
-                                <div class="text-block-25">Appartement</div>
-                            </div>
-                            <div class="w-col w-col-6">
-                                <div class="text-block-26">Prix m2 moyen en 2021</div>
-                                <div class="text-block-28">{{ city_data.median_m2_price_appartement.value }} €</div>
-                                {% if city_data.median_m2_price_appartement_rooms.four %}
-                                    <div class="div-block-22">
-                                        <span>4 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.four }} € m2</span>
-                                    </div>
-                                {% endif %}
-                                {% if city_data.median_m2_price_appartement_rooms.three %}
-                                    <div class="div-block-22">
-                                        <span>3 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.three }} € m2</span>
-                                    </div>
-                                {% endif %}
-                                {% if city_data.median_m2_price_appartement_rooms.two %}
-                                    <div class="div-block-22">
-                                        <span>2 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.two }} € m2</span>
-                                    </div>
-                                {% endif %}
-                                {% if city_data.median_m2_price_appartement_rooms.one %}
-                                    <div class="div-block-22">
-                                        <span>1 pièce</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_appartement_rooms.one }} € m2</span>
-                                    </div>
-                                {% endif %}
-
-                            </div>
-                        </div>
-                        <div class="div-block-31"></div>
-                        <div class="columns-12 w-row">
-                            <div class="w-col w-col-6"><img
-                                    src="{% static 'estimer/images/5ff4e2bcf745434ac10876ea_home.svg' %}"
-                                    loading="lazy" alt="maison" class="image-6">
-                                <div class="text-block-25">Maison</div>
-                            </div>
-                            <div class="w-col w-col-6">
-                                <div class="text-block-26">Prix m2 moyen en 2021</div>
-                                <div class="text-block-28">{{ city_data.median_m2_price_maison.value }} €</div>
-
-                                {% if city_data.median_m2_price_maison_rooms.four %}
-                                    <div class="div-block-22">
-                                        <span>4 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.four }} € m2</span>
-                                    </div>
-                                {% endif %}
-                                {% if city_data.median_m2_price_maison_rooms.three %}
-                                    <div class="div-block-22">
-                                        <span>3 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.three }} € m2</span>
-                                    </div>
-                                {% endif %}
-                                {% if city_data.median_m2_price_maison_rooms.two %}
-                                    <div class="div-block-22">
-                                        <span>2 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.two }} € m2</span>
-                                    </div>
-                                {% endif %}
-                                {% if city_data.median_m2_price_maison_rooms.one %}
-                                    <div class="div-block-22">
-                                        <span>1 pièces</span>
-                                        <span style="float: right;">{{ city_data.median_m2_price_maison_rooms.one }} € m2</span>
-                                    </div>
-                                {% endif %}
-                            </div>
-
-                        </div>
-                    </div>
+<div class="container-fluid bg-primary-blue-200 pb-10">
+    <div class="flex">
+        <img src="{% static 'images/icons/crown.svg' %}" class="mx-8 w-16 h-16 mt-8 md:ml-auto md:mr-5">
+        <div class="mx-auto ml-3 mt-8 w-7/12 md:grid md:grid-cols-3">
+            <p class="text-l text-secondary-blue-darkest">
+                <strong>Nom de l'agence</strong> est disponible pour
+                estimer gratuitement votre bien à {{ city_name }}.
+            </p>
+            <div class="md:flex md:grid md:grid-cols-1 md:mx-12">
+                <p class="text-secondary-blue-darkest mt-8 md:mt-0">Prénom Nom</p>
+                <p class="text-secondary-blue-darkest">www.nom-agence.com</p>
+                <p class="text-secondary-blue-darkest">00.00.00.00.00</p>
+            </div>
+            <button class="btn-secondary w-11/12 mx-auto mt-8 text-secondary-blue-darkest md:w-11/12">
+                Contacter par mail
+            </button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <h2 class="mt-8 mx-auto text-center w-1/2 text-secondary-blue-darkest">Prix au m2 à {{ city_name }}</h2>
+    <h2 class="mt-6 mx-auto text-center w-1/2 text-secondary-blue-darkest mb-14"> 0000 €</h2>
+</div>
+<div class="container-fluid bg-primary-blue-200 pb-16">
+    <h2 class="text-secondary-blue-darkest p-8 mx-auto w-10/12">Prix au m2</h2>
+    <p class="text-secondary-blue-darkest mx-auto px-8 pb-8 w-10/12">Suite à l'analyse des 23052 transactions
+        immobilières à {{ city_name }}, en 220,
+        nous observons un prix au m2 de 0000 € pour les appartements, et de 0000 € pour les maisons.
+    </p>
+    <div class="md:grid md:grid-cols-2">
+        <div class="container-fluid bg-white w-10/12 mx-auto rounded-lg pb-12">
+            <div class="flex">
+                <img src="{% static 'images/icons/appartment.svg' %}" class="mx-auto mr-0 w-18 h-18 mt-10">
+                <div class="mx-auto ml-3">
+                    <h3 class="text-secondary-blue-darkest mt-16">Appartement</h3>
                 </div>
             </div>
-            <div class="column-12 w-col w-col-6 ">
-                <h2 class="heading-historique">Évolution du prix du m2 moyen
-                    à {{ city_name }}</h2>
-                <div class="div-block-35"></div>
-                <div class="text-block-29">
-                    {{ city_data.price_evolution_text }}
-                </div>
-                <div class="columns-14 w-row">
-                    <div class="div-block-34">
-                        <img
-                                src='data:image/svg+xml;base64,{{ city_data.chart_b64_svg }}'
-                                alt="prix m2 {{ city_name }}"
-                        >
-                    </div>
-                </div>
+            <p class="mx-auto w-7/12 mt-8 text-secondary-blue-darkest">Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Exercitationem rem nesciunt dicta ut aut ab minus,
+                laboriosam impedit. Pariatur nulla commodi placeat natus! Numquam, distinctio? In dicta beatae eaque
+                veniam.
+            </p>
 
-                <div class="div-block-26">
-                    <div>
-                        <img alt="photo de {{ city_data.agent.name }}" class="agent-img"
-                             src="{{ city_data.agent.picture }}"/>
-                    </div>
-                    <div class="text-block-18">{{ city_data.agent.name }}</div>
-                    <div class="text-block-19">{{ city_data.agent.agence }}</div>
-                    <div class="text-block-20 ">{{ city_data.agent.description }}
-                    </div>
-                    <div class="text-block-21">Contact</div>
-                    <div class="text-block-20">{{ city_data.agent.phoneNumber }}</div>
-                    <div class="text-block-20">{{ city_data.agent.email }}</div>
-                    <div class="text-block-20">{{ city_data.agent.website }}</div>
+            <p class="bg-secondary-blue-darkest w-9/12 rounded-lg p-3 text-center text-white mx-auto my-8">Prix moyen au
+                m2 <strong class="text-xl ml-5">0000 €</strong></p>
+            <div class="grid grid-cols-2 grid-rows-2">
+                <p class="text-secondary-blue-darkest ml-16">4 pièces</p>
+                <p class="text-secondary-blue-darkest ml-16">0000 €</p>
+                <p class="text-secondary-blue-darkest ml-16">3 pièces</p>
+                <p class="text-secondary-blue-darkest ml-16">0000 €</p>
+                <p class="text-secondary-blue-darkest ml-16">2 pièces</p>
+                <p class="text-secondary-blue-darkest ml-16">0000 €</p>
+                <p class="text-secondary-blue-darkest ml-16">1 pièces</p>
+                <p class="text-secondary-blue-darkest ml-16">0000 €</p>
+            </div>
+        </div>
+        <div class="container-fluid bg-white w-10/12 mx-auto rounded-lg mt-12 md:mt-0 pb-12">
+            <div class="flex">
+                <img src="{% static 'images/icons/house.svg' %}" class="mx-auto mr-0 w-18 h-18 mt-10">
+                <div class="mx-auto ml-3">
+                    <h3 class="text-secondary-blue-darkest mt-16">Maison</h3>
                 </div>
+            </div>
+            <p class="mx-auto w-7/12 mt-8 text-secondary-blue-darkest">Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Exercitationem rem nesciunt dicta ut aut ab minus,
+                laboriosam impedit. Pariatur nulla commodi placeat natus! Numquam, distinctio? In dicta beatae eaque
+                veniam.
+            </p>
+
+            <p class="bg-secondary-blue-darkest w-9/12 rounded-lg p-3 text-center text-white mx-auto my-8">Prix moyen au
+                m2 <strong class="text-xl ml-5">0000 €</strong></p>
+            <div class="grid grid-cols-2 grid-rows-2">
+                <p class="text-secondary-blue-darkest ml-16">4 pièces</p>
+                <p class="text-secondary-blue-darkest ml-16">0000 €</p>
+                <p class="text-secondary-blue-darkest ml-16">3 pièces</p>
+                <p class="text-secondary-blue-darkest ml-16">0000 €</p>
+                <p class="text-secondary-blue-darkest ml-16">2 pièces</p>
+                <p class="text-secondary-blue-darkest ml-16">0000 €</p>
+                <p class="text-secondary-blue-darkest ml-16">1 pièces</p>
+                <p class="text-secondary-blue-darkest ml-16">0000 €</p>
             </div>
         </div>
     </div>
-
-
-    <div class="section-7">
-        <div class="columns-14 w-row">
-
-
-            <div class="w-col w-col-6 "><h3 class="heading-historique">Rues les
-                plus chères à
-                {{ city_name }}</h3>
-                <div class="div-block-43"></div>
-                <div class="div-block-42">
-                    <div class="div-block-45">
-                        {% for street in city_data.most_expensive_streets %}
-                            <div class="div-block-22">
-                <span
-                        class="capitalize">{{ street.nom_voie }}</span>
-                                <span style="float: right;">{{ street.avg_m2_price }} € m2</span>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="column-10  w-col w-col-6 "><h3 class="heading-historique">Rues les moins chères
-                à
-                {{ city_name }}</h3>
-                <div class="div-block-43"></div>
-                <div class="div-block-42">
-                    <div class="div-block-45">
-                        {% for street in city_data.less_expensive_streets %}
-                            <div class="div-block-22">
-                                <span class="capitalize">{{ street.nom_voie }}</span>
-                                <span style="float: right;">{{ street.avg_m2_price }} € m2</span>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
+</div>
+<div class="container-fluid mt-32">
+    <div class="md:flex md:grid md:grid-cols-2 md:mx-auto">
+        <div class="md:w-12/12 md:ml-auto">
+            <h2 class="text-secondary-blue-darkest mx-auto w-7/12 text-center">Evolution du prix au m2</h2>
+            <p class="text-secondary-blue-darkest mx-auto w-7/12 text-center mt-8 md:mt-5"> Entre 2019 et 220, les prix
+                de l'immobilier ont augmenté de 3%, atteignant 3095 € en 2020</p>
+        </div>
+        <div class="flex md:w-12/12 md:h-5/6 md:mr-32">
+            <select
+                class="mt-8 mx-auto text-center form-select appearance-none block text-secondary-blue-darkest w-8/12 py-4 bg-white bg-clip-padding bg-no-repeat border border-solid border-primary-blue-300 rounded-lg transition ease-in-outm-0
+               focus:text-secondary-blue-darkest focus:bg-white focus:border-blue-600 focus:outline-none md:w-5/12 md:mt-0 md:mb-8"
+                aria-label="">
+                <option disabled selected>Entre le nom de quartier</option>
+                <option value="">Quartier 1</option>
+                <option value="">Quartier 2</option>
+                <option value="">Quartier 3</option>
+            </select>
         </div>
     </div>
-    <div class="section-7">
+</div>
+<div class="mt-8">
+    <img src='data:image/svg+xml;base64,{{ city_data.chart_b64_svg }}' alt="prix m2 {{ city_name }}"
+        class="md:w-5/12 md:mx-auto">
+</div>
+<div class="container-fluid bg-primary-blue-200 mt-16 pb-16">
+    <div class="md:flex md:mt-16">
+        <h2 class="text-secondary-blue-darkest p-8 md:p-0 md:w-4/12 md:mb-24 md:ml-auto md:mt-32">Carte des prix</h2>
+        <p class="text-secondary-blue-darkest p-8 md:p-0 md:w-5/12 md:mb-24 md:mr-auto md:mt-32">Lorem ipsum dolor sit
+            amet consectetur adipisicing elit. Exercitationem rem nesciunt dicta ut aut ab minus,
+            laboriosam impedit. Pariatur nulla commodi placeat natus! Numquam, distinctio? In dicta beatae eaque veniam.
+        </p>
+    </div>
+    {% include 'map/map.html' %}
+</div>
+<div class="container-fluid md:flex">
+    <div class="container-fluid mt-10 md:flex md:w-1/2 md:flex-col">
+        <div class="flex">
+            <h3 class="text-secondary-blue-darkest mt-8 ml-8 md:mt-0 md:ml-36">Rues les plus chères</h3>
+            <img src="{% static 'images/icons/euros_many.svg' %}" class="ml-5 mt-4 md:mt-0 md:ml-64 md:w-16">
+        </div>
+        <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+        </div>
 
-        <h2 class="heading-historique">Dernières transactions
-            immobilières à {{ city_name }}</h2>
-        <div class="div-block-35"></div>
-
-
-        <div class="map-container">
-            {% include 'map/map.html' %}
+    </div>
+    <div class="bg-primary-blue-300 w-10/12 h-[2px] mx-auto rounded-full mt-10 md:w-[2px] md:h-[300px]"></div>
+    <div class="container-fluid md:flex md:w-1/2 md:flex-col md:mt-10">
+        <div class="flex md:w-8/12 md:mx-auto">
+            <h3 class="text-secondary-blue-darkest mt-8 ml-8 md:mt-0 md:ml-0">Rues les moins chères</h3>
+            <img src="{% static 'images/icons/euros_few.svg' %}" class="ml-5 mt-4 md:mt-0 md:ml-0 md:w-12 md:ml-52">
+        </div>
+        <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
+            <div class="mx-auto text-secondary-blue-darkest">Rue Nom de la rue</div>
+            <div class="mx-auto text-secondary-blue-darkest">0000 €/m2</div>
         </div>
     </div>
-    <div class="section-7">
-
-        <h2 class="heading-historique">Communes à proximité de {{ city_name }}</h2>
-        <div class="div-block-35"></div>
-
-        <div class="links-container">
-            <div class="w-col w-col-6">
-                {% for city in closeby_cities|slice:":10" %}
-                    <div class="city-link">
-                        <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="w-col w-col-6">
-                {% for city in closeby_cities|slice:"10:20" %}
-                    <div class="city-link">
-                        <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="w-col w-col-6">
-                {% for city in closeby_cities|slice:"20:30" %}
-                    <div class="city-link">
-                        <a href="/commune/{{ city.slug }}">{{ city.nom_commune }}</a>
-                    </div>
-                {% endfor %}
-            </div>
+</div>
+<div class="container-fluid bg-secondary-blue-darkest w-10/12 rounded-lg mx-auto mt-16 pb-10">
+    <div class="flex md:container-fluid md:text-center">
+        <img src="{% static 'images/icons/map_pointer.svg' %}" class="mx-auto mt-12 md:w-18 md:h-18 md:mt-8 md:mx-0 md:ml-auto">
+        <h4 class="text-white w-1/2 mt-12 md:mr-auto md:text-2xl"> Communes à proximité</h4>
+    </div>
+    <div class="md:flex md:flex-row">
+    <div class="md:flex md:ml-auto">
+        <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
         </div>
     </div>
+        <div class=" hidden md:flex bg-primary-blue-300 h-[2px] mx-auto rounded-full mt-5 md:w-[2px] md:h-[230px]"></div>
+    <div class="hidden md:flex md:mr-auto md:ml-0">
+        <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+        </div>
+    </div>
+     </div>
+</div>
+</div>
+<div class="container-fluid mt-12 text-center">
+    <h2 class="text-secondary-blue-darkest">Questions fréquentes</h2>
+    <ul class="flex flex-col mt-12 w-9/12 mx-auto text-secondary-blue-darkest">
+        <li class="bg-white my-2" x-data="accordion(1)">
+            <p @click="handleClick()"
+                class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
+                    ?</span>
+                <svg :class="handleRotate()"
+                    class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10">
+                    </path>
+                </svg>
+            </p>
+            <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
+                <p class="p-3 text-secondary-blue-darkest text-xs">
+                    Oui, nous vous garantissons l'exclusivité dans votre commune.
+                </p>
+            </div>
+        </li>
+        <div class="my-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></div>
+        <li class="bg-white my-2" x-data="accordion(2)">
+            <p @click="handleClick()"
+                class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
+                    ?</span>
+                <svg :class="handleRotate()"
+                    class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10">
+                    </path>
+                </svg>
+            </p>
+            <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
+                <p class="p-3 text-secondary-blue-darkest text-xs">
+                    Oui, nous vous garantissons l'exclusivité dans votre commune.
+                </p>
+            </div>
+        </li>
+        <div class="my-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></div>
+        <li class="bg-white my-2" x-data="accordion(3)">
+            <p @click="handleClick()"
+                class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
+                    ?</span>
+                <svg :class="handleRotate()"
+                    class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10">
+                    </path>
+                </svg>
+            </p>
+            <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
+                <p class="p-3 text-secondary-blue-darkest text-xs">
+                    Oui, nous vous garantissons l'exclusivité dans votre commune.
+                </p>
+            </div>
+        </li>
+        <div class="my-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></div>
+        <li class="bg-white my-2" x-data="accordion(4)">
+            <p @click="handleClick()"
+                class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
+                    ?</span>
+                <svg :class="handleRotate()"
+                    class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10">
+                    </path>
+                </svg>
+            </p>
+            <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
+                <p class="p-3 text-secondary-blue-darkest text-xs">
+                    Oui, nous vous garantissons l'exclusivité dans votre commune.
+                </p>
+            </div>
+        </li>
+        <div class="my-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></div>
+        <li class="bg-white my-2" x-data="accordion(5)">
+            <p @click="handleClick()"
+                class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
+                    ?</span>
+                <svg :class="handleRotate()"
+                    class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
+                    viewBox="0 0 20 20">
+                    <path
+                        d="M13.962,8.885l-3.736,3.739c-0.086,0.086-0.201,0.13-0.314,0.13S9.686,12.71,9.6,12.624l-3.562-3.56C5.863,8.892,5.863,8.611,6.036,8.438c0.175-0.173,0.454-0.173,0.626,0l3.25,3.247l3.426-3.424c0.173-0.172,0.451-0.172,0.624,0C14.137,8.434,14.137,8.712,13.962,8.885 M18.406,10c0,4.644-3.763,8.406-8.406,8.406S1.594,14.644,1.594,10S5.356,1.594,10,1.594S18.406,5.356,18.406,10 M17.521,10c0-4.148-3.373-7.521-7.521-7.521c-4.148,0-7.521,3.374-7.521,7.521c0,4.147,3.374,7.521,7.521,7.521C14.148,17.521,17.521,14.147,17.521,10">
+                    </path>
+                </svg>
+            </p>
+            <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
+                <p class="p-3 text-secondary-blue-darkest text-xs">
+                    Oui, nous vous garantissons l'exclusivité dans votre commune.
+                </p>
+            </div>
+        </li>
+        <div class="mt-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></div>
+    </ul>
+</div>
 {% endblock %}
