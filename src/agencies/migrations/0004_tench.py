@@ -5,19 +5,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('agencies', '0003_auto_20210526_2323'),
-    ]
+    dependencies = [("agencies", "0003_auto_20210526_2323")]
 
     operations = [
         migrations.CreateModel(
-            name='Tench',
+            name="Tench",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tench_name', models.CharField(max_length=255)),
-                ('min_inhabitant', models.PositiveIntegerField()),
-                ('max_inhabitant', models.PositiveIntegerField()),
-                ('pricing', models.FloatField()),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("tench_name", models.CharField(max_length=255)),
+                ("min_inhabitant", models.PositiveIntegerField()),
+                ("max_inhabitant", models.PositiveIntegerField()),
+                ("pricing", models.FloatField()),
             ],
-        ),
+        )
     ]

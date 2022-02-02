@@ -5,23 +5,10 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('agencies', '0005_auto_20211202_1337'),
-    ]
+    dependencies = [("agencies", "0005_auto_20211202_1337")]
 
     operations = [
-        migrations.RenameModel(
-            old_name='Tench',
-            new_name='Pricing',
-        ),
-        migrations.RenameField(
-            model_name='pricing',
-            old_name='max_inhabitant',
-            new_name='max_population',
-        ),
-        migrations.RenameField(
-            model_name='pricing',
-            old_name='min_inhabitant',
-            new_name='min_population',
-        ),
+        migrations.RenameModel(old_name="Tench", new_name="Pricing"),
+        migrations.RenameField(model_name="pricing", old_name="max_inhabitant", new_name="max_population"),
+        migrations.RenameField(model_name="pricing", old_name="min_inhabitant", new_name="min_population"),
     ]
