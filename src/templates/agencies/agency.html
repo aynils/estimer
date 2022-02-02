@@ -48,21 +48,26 @@
 </div>
     </div>
     <div class="container-fluid bg-primary-blue-200 mt-14 w-9/12 mx-auto p-2 rounded-lg">
+    <div class="md:flex md:mt-24">
+    <div class="md:flex md:flex-col md:w-2/4">
         <h2 class="text-center text-secondary-blue-darkest mt-5">Renforcez votre notoriété</h2>
-        <p class="p-3 mt-3 text-secondary-blue-darkest">Les agences immobilières utilisent Estimer.com pour renforcer leur notoriété dans leur ville
+        <p class="p-3 mt-3 text-secondary-blue-darkest md:text-center md:w-3/4 md:mx-auto">Les agences immobilières utilisent Estimer.com pour renforcer leur notoriété dans leur ville
             et signé de nouveaux mandats</p>
         <div class="text-center mt-5">
-        <button class="btn-secondary w-8/12 p-3 text-secondary-blue-darkest">
+        <button class="btn-secondary w-8/12 p-3 text-secondary-blue-darkest md:w-2/4">
                     Démarrez notre offre
         </button>
         </div>
-        <div class="mt-14 mb-12">
+    </div>
+        <div class="mt-14 mb-12 md:w-2/4 md:flex md:mt-0">
             <img src="{% static 'images/illustrations/houses_premium.svg' %}" class="w-9/12 mx-auto">
         </div>
     </div>
-
+    </div>
+    <div class="container-fluid">
+    <h2 class="mx-auto text-center text-secondary-blue-darkest mt-5 w-1/2 md:mt-24">Pourquoi choisir notre offre</h2>
+<div class="md:grid md:grid-cols-3">
     <div class="container-fluid mt-14">
-        <h2 class="mx-auto text-center text-secondary-blue-darkest mt-5 w-1/2">Pourquoi choisir notre offre</h2>
         <img src="{% static 'images/icons/eye.svg' %}" class="mx-auto mt-14">
         <h4 class="mx-auto text-center text-secondary-blue-darkest mt-8">Plus de visibilité</h4>
         <p class="mx-auto w-1/2 text-secondary-blue-darkest mt-11">Des vendeurs viennent tous les jours sur Estimer.com
@@ -85,15 +90,28 @@
             les pages de vos communes. Obetenez tous les mois la visibilité que vous méritez auprès des vendeurs
             dans votre commune.</p>
     </div>
-
+</div>
     <div class="container-fluid mt-14 text-center mb-12">
-        <button class="btn-secondary mx-auto w-8/12 p-3 text-secondary-blue-darkest">
+        <button class="btn-secondary mx-auto w-8/12 p-3 text-secondary-blue-darkest md:w-1/4 md:mb-24">
                     Représentez vos communes
         </button>
     </div>
+    </div>
     <div class="container-fluid bg-secondary-blue-darkest mt-12 p-5">
-        <h3 class="p-3 mx-auto text-white w-8/12 text-center mb-8">Ils nous font confiance</h3>
+        <h3 class="p-3 mx-auto text-white w-8/12 text-center mb-8 md:text-left md:text-2xl md:mx-0 md:mb-12">Ils nous font confiance</h3>
+        <div class="md:grid md:grid-cols-3 md:w-11/12 md:mx-auto md:mb-24">
         <div class="bg-white bg-opacity-25 mx-auto p-8 rounded-lg">
+            <div class="flex ">
+                <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">
+                <div class="mx-auto ml-3">
+                    <h4 class="text-white">Julie B.</h4>
+                    <p class="text-xs text-white ">Agence Lorem</p>
+                </div>
+            </div>
+            <p class="mt-5 mx-auto text-white md:w-3/4 md:mt-8">"Lorem ipsum dolor sit amet. Quo ducimus esse eos debitis recusandae sed minima maxime aut quisquam
+                    dicta. Non perferendis commodi qui ipsam"</p>
+        </div>
+         <div class="bg-white bg-opacity-25 mx-auto p-8 rounded-lg hidden md:ml-5 md:block">
             <div class="flex ">
                 <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">
                 <div class="mx-auto ml-3">
@@ -101,8 +119,20 @@
                     <p class="text-xs text-white">Agence Lorem</p>
                 </div>
             </div>
-            <p class="mt-5 mx-auto text-white">"Lorem ipsum dolor sit amet. Quo ducimus esse eos debitis recusandae sed minima maxime aut quisquam
+            <p class="mt-5 mx-auto text-white md:w-3/4 md:mt-8">"Lorem ipsum dolor sit amet. Quo ducimus esse eos debitis recusandae sed minima maxime aut quisquam
                     dicta. Non perferendis commodi qui ipsam"</p>
+        </div>
+         <div class="bg-white bg-opacity-25 mx-auto p-8 rounded-lg hidden md:ml-5 md:block">
+            <div class="flex ">
+                <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">
+                <div class="mx-auto ml-3">
+                    <h4 class="text-white">Julie B.</h4>
+                    <p class="text-xs text-white">Agence Lorem</p>
+                </div>
+            </div>
+            <p class="mt-5 mx-auto text-white md:w-3/4 md:mt-8">"Lorem ipsum dolor sit amet. Quo ducimus esse eos debitis recusandae sed minima maxime aut quisquam
+                    dicta. Non perferendis commodi qui ipsam"</p>
+        </div>
         </div>
     </div>
     <div class="container-fluid mt-14">
