@@ -13,19 +13,21 @@
 
 {% block body %}
     <div class="container-fluid">
-        <h2 class="w-7/12 mx-auto mt-8 text-secondary-blue-darkest">Plus de visibilité, plus de mandats</h2>
-        <p class="w-3/5 mx-auto mt-8 text-center text-secondary-blue-darkest">Devenez l'agence immobilière exclusive qui représentera votre commune sur Estimer.com
+        <h2 class="w-7/12 mx-auto mt-8 text-secondary-blue-darkest md:text-center">Plus de visibilité, plus de mandats</h2>
+        <p class="w-3/5 mx-auto mt-8 text-center text-secondary-blue-darkest md:text-center md:w-4/12 md:p-1">Devenez l'agence immobilière exclusive qui représentera votre commune sur Estimer.com
             et obtenez de nouveaux mandats</p>
     </div>
-    <div class="container-fluid mt-14">
-        <img src="{% static 'images/illustrations/computer_agency.png' %}" class="w-3/4 mx-auto mt-8">
+    <div class="md:flex md:mt-16">
+    <div class="container-fluid mt-14 md:flex md:w-2/4">
+        <img src="{% static 'images/illustrations/computer_agency.png' %}" class="w-3/4 mx-auto mt-8 md:w-3/4 md:h-3/4 md:mx-0 md:ml-auto">
     </div>
+    <div class="md:flex md:flex-wrap md:w-2/4">
     <div class="container-fluid mt-14">
-        <p class="w-3/5 mx-auto mt-8 text-secondary-blue-darkest">" Lorem ipsum dolor sit amet. Qui aliquam quaerat ex tempora consequatur ut quos earum ut galisum expedita.
+        <p class="w-3/5 mx-auto mt-8 text-secondary-blue-darkest md:w-5/5">" Lorem ipsum dolor sit amet. Qui aliquam quaerat ex tempora consequatur ut quos earum ut galisum expedita.
             Et ratione minus aut voluptatum veniam a dolorem dolores sed totam quas ut repellat similique et similique
             voluptatum cum odit deserunt."</p>
     </div>
-    <div class="container mt-14">
+    <div class="container mt-14 md:mt-4">
     <div class="flex">
         <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">
         <div class="mx-auto ml-3">
@@ -34,16 +36,17 @@
         </div>
     </div>
     </div>
-    <div class="container mt-14 text-center mb-8">
-        <button class="btn-secondary mx-auto w-8/12 p-3 text-secondary-blue-darkest">
+    <div class="container mt-14 text-center mb-8 md:mt-0">
+        <button class="btn-secondary mx-auto w-8/12 p-3 text-secondary-blue-darkest md:w-1/4 md:p-1">
                     Obtenez l'exclusivité
         </button>
 
-        <button class="btn-primary mx-auto w-8/12 p-3 mt-8 text-secondary-blue-darkest">
+        <button class="btn-primary mx-auto w-8/12 p-3 mt-8 text-secondary-blue-darkest md:w-2/12 md:p-1 md:mt-0">
                     Default
         </button>
     </div>
-
+</div>
+    </div>
     <div class="container-fluid bg-primary-blue-200 mt-14 w-9/12 mx-auto p-2 rounded-lg">
         <h2 class="text-center text-secondary-blue-darkest mt-5">Renforcez votre notoriété</h2>
         <p class="p-3 mt-3 text-secondary-blue-darkest">Les agences immobilières utilisent Estimer.com pour renforcer leur notoriété dans leur ville
