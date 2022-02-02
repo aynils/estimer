@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    h1 {
+        @apply text-3xl font-bold;
+    }
+
+    h2 {
+        @apply text-2xl font-bold;
+    }
+
+    h3 {
+        @apply text-xl font-bold;
+    }
+
+    h4 {
+        @apply text-l font-bold;
+    }
+
+    a {
+        @apply font-medium;
+        @apply text-secondary-blue-darkest;
+        @apply underline;
+    }
+
+    a:hover {
+        @apply text-secondary-blue-lightest;
+    }
+
+    .body-m {
+        @apply text-m font-normal;
+    }
+
+    .body-s {
+        @apply text-s font-normal;
+    }
+
+    .body-xs {
+        @apply text-xs font-normal;
+    }
+
+    .btn {
+        @apply py-4 px-8 rounded-full;
+        @apply text-black;
+        @apply font-medium;
+    }
+
+    .btn-primary {
+        @apply btn;
+        @apply bg-primary-blue-400;
+    }
+
+    .btn-primary:hover {
+        @apply bg-primary-blue-200;
+    }
+
+    .btn-primary:active {
+        @apply bg-primary-blue-500;
+    }
+
+    .btn-secondary {
+        @apply btn;
+        @apply bg-secondary-orange-regular;
+    }
+
+    .btn-secondary:hover {
+        @apply bg-secondary-orange-light;
+    }
+
+    .btn-secondary:active {
+        @apply bg-secondary-orange-dark;
+    }
+}

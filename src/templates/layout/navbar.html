@@ -1,0 +1,35 @@
+{% load static %}
+
+<div class="h-l px-10 flex justify-between bg-primary-blue-100">
+    <a href="/"
+       aria-current="page"
+       class="flex"
+       aria-label="home">
+        <img src="{% static 'images/logo/logo_horizontal_initial.svg' %}"
+             loading="lazy"
+             alt="Logo Estimer.com"
+             class="h-3/6 my-auto">
+    </a>
+    <nav role="navigation" class="my-auto flex justify-between">
+        <a href="mailto:contact@estimer.com"
+           target="_blank"
+           rel="noreferrer noopener"
+           class="mx-20"
+        >
+
+            Vous êtes une agence ?</a>
+        <a href="mailto:contact@estimer.com"
+           target="_blank"
+           rel="noreferrer noopener"
+           class="flex justify-between no-underline"
+        >
+            <img  src="{% static 'images/icons/mail-outline.svg' %}"
+                  loading="lazy"
+                  alt="envelope"
+                  class="h-3/5 my-auto mx-1"
+            >
+         Contact</a>
+    </nav>
+
+
+</div>

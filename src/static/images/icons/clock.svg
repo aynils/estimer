@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="63.412" height="61.172" viewBox="0 0 63.412 61.172">
+  <defs>
+    <filter id="Tracé_248">
+      <feOffset dx="3" dy="3" input="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood flood-color="#3f80f1" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Groupe_1300" data-name="Groupe 1300" transform="translate(-687.25 -1794.458)">
+    <rect id="Rectangle_98" data-name="Rectangle 98" width="57" height="57" rx="16" transform="translate(693.662 1798.63)" fill="#ffa42b" opacity="0.5"/>
+    <path id="Tracé_240" data-name="Tracé 240" d="M28.341,55.183A26.841,26.841,0,1,1,55.183,28.341,26.872,26.872,0,0,1,28.341,55.183Z" transform="translate(686.5 1793.708)" fill="#bfd5fa"/>
+    <path id="Tracé_244" data-name="Tracé 244" d="M24.783,26.763V5a21.7,21.7,0,0,0-15.39,6.374Z" transform="translate(690.059 1795.286)" fill="#dfeafd"/>
+    <path id="Tracé_246" data-name="Tracé 246" d="M20.9,18a2.9,2.9,0,1,0,2.9,2.9A2.9,2.9,0,0,0,20.9,18Z" transform="translate(693.939 1801.147)" fill="#141457"/>
+    <path id="Tracé_247" data-name="Tracé 247" d="M28.341,55.183A26.841,26.841,0,1,1,55.183,28.341,26.872,26.872,0,0,1,28.341,55.183Z" transform="translate(686.5 1793.708)" fill="none" stroke="#141457" stroke-width="1.5"/>
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 687.25, 1794.46)" filter="url(#Tracé_248)">
+        <path id="Tracé_248-2" data-name="Tracé 248" d="M26.989,49.477A22.489,22.489,0,1,1,49.477,26.989,22.514,22.514,0,0,1,26.989,49.477Z" transform="translate(0.6 0.6)" fill="#fff"/>
+      </g>
+      <path id="Tracé_248-3" data-name="Tracé 248" d="M26.989,49.477A22.489,22.489,0,1,1,49.477,26.989,22.514,22.514,0,0,1,26.989,49.477Z" transform="translate(687.853 1795.06)" fill="none" stroke="#141457" stroke-width="1.5"/>
+    </g>
+    <path id="Tracé_245" data-name="Tracé 245" d="M11,11,24.058,24.058,16.8,34.214" transform="translate(690.783 1797.991)" fill="none" stroke="#141457" stroke-linecap="round" stroke-width="2"/>
+  </g>
+</svg>

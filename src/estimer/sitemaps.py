@@ -1,7 +1,7 @@
 import datetime
 
 from django.contrib.sitemaps import Sitemap
-from dvf.models import Commune
+from src.dvf.models import Commune
 
 
 class CitySitemap(Sitemap):

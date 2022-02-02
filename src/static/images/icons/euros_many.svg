@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="87.438" height="57" viewBox="0 0 87.438 57">
+  <defs>
+    <filter id="Tracé_233">
+      <feOffset dx="-3" dy="-3" input="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood flood-color="#3f80f1" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <filter id="Tracé_233-2">
+      <feOffset dx="-3" dy="-3" input="SourceAlpha"/>
+      <feGaussianBlur result="blur-2"/>
+      <feFlood flood-color="#3f80f1" result="color-2"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color-2"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <filter id="Tracé_233-3">
+      <feOffset dx="-3" dy="-3" input="SourceAlpha"/>
+      <feGaussianBlur result="blur-3"/>
+      <feFlood flood-color="#3f80f1" result="color-3"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-3"/>
+      <feComposite operator="in" in="color-3"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <filter id="Tracé_235">
+      <feOffset dx="-3" dy="-3" input="SourceAlpha"/>
+      <feGaussianBlur result="blur-4"/>
+      <feFlood flood-color="#3f80f1" result="color-4"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-4"/>
+      <feComposite operator="in" in="color-4"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Groupe_1267" data-name="Groupe 1267" transform="translate(-483.563 -3220)">
+    <rect id="Rectangle_96" data-name="Rectangle 96" width="57" height="57" rx="16" transform="translate(514 3220)" fill="#ffa42b" opacity="0.5"/>
+    <g id="Groupe_666" data-name="Groupe 666" transform="translate(61.801 87.886)">
+      <g data-type="innerShadowGroup">
+        <path id="Tracé_233-4" data-name="Tracé 233" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(451.012 3129.614)" fill="#bfd5fa"/>
+        <g transform="matrix(1, 0, 0, 1, 421.76, 3132.11)" filter="url(#Tracé_233)">
+          <path id="Tracé_233-5" data-name="Tracé 233" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(29.25 -2.5)" fill="#fff"/>
+        </g>
+      </g>
+      <path id="Tracé_234" data-name="Tracé 234" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(451.012 3129.614)" fill="none" stroke="#141457" stroke-width="1.5"/>
+    </g>
+    <g id="Groupe_665" data-name="Groupe 665" transform="translate(51.801 87.886)">
+      <g data-type="innerShadowGroup">
+        <path id="Tracé_233-6" data-name="Tracé 233" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(451.012 3129.614)" fill="#bfd5fa"/>
+        <g transform="matrix(1, 0, 0, 1, 431.76, 3132.11)" filter="url(#Tracé_233-2)">
+          <path id="Tracé_233-7" data-name="Tracé 233" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(19.25 -2.5)" fill="#fff"/>
+        </g>
+      </g>
+      <path id="Tracé_234-2" data-name="Tracé 234" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(451.012 3129.614)" fill="none" stroke="#141457" stroke-width="1.5"/>
+    </g>
+    <g id="Groupe_664" data-name="Groupe 664" transform="translate(41.801 87.886)">
+      <g data-type="innerShadowGroup">
+        <path id="Tracé_233-8" data-name="Tracé 233" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(451.012 3129.614)" fill="#bfd5fa"/>
+        <g transform="matrix(1, 0, 0, 1, 441.76, 3132.11)" filter="url(#Tracé_233-3)">
+          <path id="Tracé_233-9" data-name="Tracé 233" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(9.25 -2.5)" fill="#fff"/>
+        </g>
+      </g>
+      <path id="Tracé_234-3" data-name="Tracé 234" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(451.012 3129.614)" fill="none" stroke="#141457" stroke-width="1.5"/>
+    </g>
+    <g id="Groupe_663" data-name="Groupe 663" transform="translate(41 80.986)">
+      <g id="Groupe_662" data-name="Groupe 662">
+        <g id="Groupe_661" data-name="Groupe 661">
+          <g data-type="innerShadowGroup">
+            <path id="Tracé_235-2" data-name="Tracé 235" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(441.813 3136.514)" fill="#bfd5fa"/>
+            <g transform="matrix(1, 0, 0, 1, 442.56, 3139.01)" filter="url(#Tracé_235)">
+              <path id="Tracé_235-3" data-name="Tracé 235" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(-0.75 -2.5)" fill="#fff"/>
+            </g>
+          </g>
+          <path id="Tracé_236" data-name="Tracé 236" d="M25.268,55.035A23.768,23.768,0,1,1,49.035,31.268,23.794,23.794,0,0,1,25.268,55.035Z" transform="translate(441.813 3136.514)" fill="none" stroke="#141457" stroke-width="1.5"/>
+          <text id="_" data-name="€" transform="translate(456.68 3178.582)" fill="#141457" font-size="30" font-family="Inter-Bold, Inter" font-weight="700"><tspan x="0" y="0">€</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

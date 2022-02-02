@@ -5,9 +5,10 @@ from typing import List, Tuple
 
 import pandas as pd
 from django.contrib.gis.geos import Point
+from django.conf import settings
 
-from agencies.models import Agency
-from dvf.data.classes import (
+from src.agencies.models import Agency
+from src.dvf.data.classes import (
     Address,
     Agent,
     CityData,
@@ -19,10 +20,9 @@ from dvf.data.classes import (
     Sale,
     StreetMedianPrice,
 )
-from dvf.models import Commune, ValeursFoncieres
-from estimer.settings import CACHE_TTL_ONE_DAY, CACHE_TTL_SIX_MONTH
-from helpers.cache import cached_function
-from iris.models import IRIS
+from src.dvf.models import Commune, ValeursFoncieres
+from src.helpers.cache import cached_function
+from src.iris.models import IRIS
 
 # from helpers.timer import timer
 
@@ -73,7 +73,7 @@ def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
 
 
 # @timer
-@cached_function(ttl=CACHE_TTL_ONE_DAY)
+@cached_function(ttl=settings.CACHE_TTL_ONE_DAY)
 def get_city_data(code_commune: str) -> CityData:
 
     ventes = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO)
@@ -198,7 +198,7 @@ def get_all_cities() -> list:
 
 
 # @timer
-@cached_function(ttl=CACHE_TTL_SIX_MONTH)
+@cached_function(ttl=settings.CACHE_TTL_SIX_MONTH)
 def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) -> pd.DataFrame:
     columns = [
         "valeur_fonciere",
@@ -240,12 +240,12 @@ def cleanup_mutations(mutations: pd.DataFrame) -> pd.DataFrame:
     return remove_outliers(unique_mutations, "prix_m2")
 
 
-@cached_function(ttl=CACHE_TTL_SIX_MONTH)
+@cached_function(ttl=settings.CACHE_TTL_SIX_MONTH)
 def get_cities() -> List[Commune]:
     return Commune.objects.all()
 
 
-@cached_function(ttl=CACHE_TTL_SIX_MONTH)
+@cached_function(ttl=settings.CACHE_TTL_SIX_MONTH)
 def get_city_from_slug(slug: str) -> Commune or None:
     try:
         return Commune.objects.get(slug=slug)
@@ -254,7 +254,7 @@ def get_city_from_slug(slug: str) -> Commune or None:
 
 
 # @timer
-@cached_function(ttl=CACHE_TTL_SIX_MONTH)
+@cached_function(ttl=settings.CACHE_TTL_SIX_MONTH)
 def get_city_from_code(code: str) -> Commune or None:
     try:
         return Commune.objects.get(code_commune=code)
