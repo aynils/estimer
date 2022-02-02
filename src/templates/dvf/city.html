@@ -11,32 +11,46 @@
 {% block body %}
 <div class="container-fluid bg-primary-blue-200 pb-10">
     <div class="flex">
-        <img src="{% static 'images/icons/crown.svg' %}" class="mx-8 w-16 h-16 mt-8 md:ml-auto md:mr-5">
+        <img src="{{ city_data.agent.picture }}" class="mx-8 w-16 h-16 mt-8 md:ml-auto md:mr-5">
         <div class="mx-auto ml-3 mt-8 w-7/12 md:grid md:grid-cols-3">
             <p class="text-l text-secondary-blue-darkest">
-                <strong>Nom de l'agence</strong> est disponible pour
+                <strong>{{ city_data.agent.agency }}</strong> est disponible pour
                 estimer gratuitement votre bien à {{ city_name }}.
             </p>
             <div class="md:flex md:grid md:grid-cols-1 md:mx-12">
-                <p class="text-secondary-blue-darkest mt-8 md:mt-0">Prénom Nom</p>
-                <p class="text-secondary-blue-darkest">www.nom-agence.com</p>
-                <p class="text-secondary-blue-darkest">00.00.00.00.00</p>
+                <p class="text-secondary-blue-darkest mt-8 md:mt-0">{{ city_data.agent.name }}</p>
+                <p class="text-secondary-blue-darkest">{{ city_data.agent.website_url }}</p>
+                <p class="text-secondary-blue-darkest">{{ city_data.agent.phone_number }}</p>
             </div>
-            <button class="btn-secondary w-11/12 mx-auto mt-8 text-secondary-blue-darkest md:w-11/12">
+            <a href="mailto:{{ city_data.agent.email }}"><button class="btn-secondary w-11/12 mx-auto mt-8 text-secondary-blue-darkest md:w-11/12" >
                 Contacter par mail
-            </button>
+            </button></a>
         </div>
     </div>
 </div>
 <div class="container-fluid">
     <h2 class="mt-8 mx-auto text-center w-1/2 text-secondary-blue-darkest">Prix au m2 à {{ city_name }}</h2>
-    <h2 class="mt-6 mx-auto text-center w-1/2 text-secondary-blue-darkest mb-14"> 0000 €</h2>
+    <h2 class="mt-6 mx-auto text-center w-1/2 text-secondary-blue-darkest mb-14">
+        {% for price_median in city_data.median_m2_prices_years %}
+            {% if price_median.year == 2021 %}  <!-- changer 2021 par quelque choses de plus dynamique exemple : (now -1)  -->
+                {{ price_median.value|floatformat:'0' }}
+            {% endif %}
+        {% endfor %}
+        €
+    </h2>
 </div>
 <div class="container-fluid bg-primary-blue-200 pb-16">
     <h2 class="text-secondary-blue-darkest p-8 mx-auto w-10/12">Prix au m2</h2>
-    <p class="text-secondary-blue-darkest mx-auto px-8 pb-8 w-10/12">Suite à l'analyse des 23052 transactions
-        immobilières à {{ city_name }}, en 220,
-        nous observons un prix au m2 de 0000 € pour les appartements, et de 0000 € pour les maisons.
+    <p class="text-secondary-blue-darkest mx-auto px-8 pb-8 w-10/12">
+        {% if not city_data.median_m2_price_appartement == None %}
+        Suite à l'analyse des {{ city_data.number_of_sales }} transactions immobilières à {{ city_name }}, en 2021,
+        nous observons un prix au m2 de {{ city_data.median_m2_price_appartement }} € pour les appartements,
+            et de {{ city_data.median_m2_price_maison }} € pour les maisons.
+        {% else %}
+            Suite à l'analyse des 0 transactions immobilières à {{ city_name }}, en 2021,
+            nous observons un prix au m2 de 0 € pour les appartements,
+            et de 0 € pour les maisons.
+        {% endif %}
     </p>
     <div class="md:grid md:grid-cols-2">
         <div class="container-fluid bg-white w-10/12 mx-auto rounded-lg pb-12">
