@@ -172,24 +172,45 @@
     </div>
 </div>
 <div class="container-fluid bg-secondary-blue-darkest w-10/12 rounded-lg mx-auto mt-16 pb-10">
-    <div class="flex">
-        <img src="{% static 'images/icons/map_pointer.svg' %}" class="mx-auto mt-12">
-        <h4 class="text-white w-1/2 mt-12"> Communes à proximité</h4>
+    <div class="flex md:container-fluid md:text-center">
+        <img src="{% static 'images/icons/map_pointer.svg' %}" class="mx-auto mt-12 md:w-18 md:h-18 md:mt-8 md:mx-0 md:ml-auto">
+        <h4 class="text-white w-1/2 mt-12 md:mr-auto md:text-2xl"> Communes à proximité</h4>
     </div>
-    <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
-        <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
-        <div class="mx-auto text-white">0000 €/m2</div>
-        <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
-        <div class="mx-auto text-white">0000 €/m2</div>
-        <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
-        <div class="mx-auto text-white">0000 €/m2</div>
-        <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
-        <div class="mx-auto text-white">0000 €/m2</div>
-        <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
-        <div class="mx-auto text-white">0000 €/m2</div>
-        <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
-        <div class="mx-auto text-white">0000 €/m2</div>
+    <div class="md:flex md:flex-row">
+    <div class="md:flex md:ml-auto">
+        <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+        </div>
     </div>
+        <div class=" hidden md:flex bg-primary-blue-300 h-[2px] mx-auto rounded-full mt-5 md:w-[2px] md:h-[230px]"></div>
+    <div class="hidden md:flex md:mr-auto md:ml-0">
+        <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+            <a class="mx-auto text-white" href="#"><strong>Commune</strong></a>
+            <div class="mx-auto text-white">0000 €/m2</div>
+        </div>
+    </div>
+     </div>
 </div>
 </div>
 <div class="container-fluid mt-12 text-center">
@@ -198,7 +219,8 @@
         <li class="bg-white my-2" x-data="accordion(1)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
@@ -218,7 +240,8 @@
         <li class="bg-white my-2" x-data="accordion(2)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
@@ -238,7 +261,8 @@
         <li class="bg-white my-2" x-data="accordion(3)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
@@ -258,7 +282,8 @@
         <li class="bg-white my-2" x-data="accordion(4)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
@@ -278,7 +303,8 @@
         <li class="bg-white my-2" x-data="accordion(5)">
             <p @click="handleClick()"
                 class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune
+                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma
+                    commune
                     ?</span>
                 <svg :class="handleRotate()"
                     class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
