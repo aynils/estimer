@@ -32,8 +32,8 @@ from src.iris.models import IRIS
 # from helpers.timer import timer
 
 TODAY = datetime.date.today()
-ONE_YEAR_AGO = datetime.date(year=TODAY.year, month=1, day=1)
-FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 4, month=1, day=1)
+ONE_YEAR_AGO = datetime.date(year=TODAY.year - 1, month=1, day=1)
+FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 5, month=1, day=1)
 
 
 # @timer
