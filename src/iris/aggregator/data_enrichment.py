@@ -21,11 +21,11 @@ def create_mutation_iris_relation(request):
             print(f"----No mutation from {ONE_YEAR_AGO} for {commune.nom_commune} ({commune.code_commune})")
             continue
         print(f"----Adding mutations for {commune.nom_commune}...")
-        mutations = add_iris_to_mutations(mutations=mutations)
+        mutations = add_iris_to_mutations(code_commune=commune.code_commune, mutations=mutations)
         all_mutations = all_mutations.append(mutations, ignore_index=True)
         print(f"{index + 1}/{len(communes)} -  {commune.nom_commune} ({commune.code_commune}) DONE")
 
     ids = all_mutations[["code_iris", "id_mutation"]]
     ids.to_csv(f"{settings.BASE_DIR}/code_iris_mutation_id_relation.csv", index=False)
     print("Done")
-    return {"heho", "lol"}
+    return ""

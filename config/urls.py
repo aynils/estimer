@@ -37,5 +37,5 @@ urlpatterns = [
     path("agence", agency, name="agency"),
     path("", cache_page(settings.CACHE_TTL_ONE_DAY)(home), name="home"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
-    path("test/", create_mutation_iris_relation, name="test"),
+    # path("test/", create_mutation_iris_relation, name="test"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
