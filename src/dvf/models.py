@@ -1,5 +1,7 @@
 from django.db import models
 
+from src.iris.models import IRIS
+
 
 class ValeursFoncieres(models.Model):
     """
@@ -49,6 +51,12 @@ class ValeursFoncieres(models.Model):
     latitude = models.DecimalField(max_digits=20, decimal_places=15, null=True)
     section_prefixe = models.CharField(max_length=5, null=True)
 
+    @property
+    def code_iris(self):
+        mutation_iris = MutationIris.objects.find(id_mutation=self.id_mutation).first()
+        if mutation_iris:
+            return mutation_iris.code_iris
+
     class Meta:
         indexes = [
             models.Index(fields=["code_commune", "type_local", "date_mutation", "longitude", "latitude"]),
@@ -73,3 +81,14 @@ class Commune(models.Model):
 
     def get_absolute_url(self):
         return f"/commune/{self.slug}"
+
+
+class MutationIris(models.Model):
+    id_mutation = models.CharField(max_length=255, null=False)
+    code_iris = models.CharField(max_length=255, null=False)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["id_mutation"]),
+            models.Index(fields=["code_iris"]),
+        ]
