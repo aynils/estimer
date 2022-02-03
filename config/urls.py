@@ -20,6 +20,7 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
+from src.iris.aggregator.data_enrichment import create_mutation_iris_relation
 from src.agencies.views import agency
 from src.dvf.views import city
 
@@ -36,5 +37,5 @@ urlpatterns = [
     path("agence", agency, name="agency"),
     path("", cache_page(settings.CACHE_TTL_ONE_DAY)(home), name="home"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
-    # path("test/<str:code_iris>", get_mutations_by_iris, name="test"),
+    path("test/", create_mutation_iris_relation, name="test"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
