@@ -25,9 +25,11 @@ from src.dvf.data.classes import (
     Neighbourhood,
     PolygonColor,
 )
-from src.dvf.models import Commune, ValeursFoncieres
+from src.dvf.models import Commune, ValeursFoncieres, MutationIris
 from src.helpers.cache import cached_function
 from src.iris.models import IRIS
+
+pd.options.mode.chained_assignment = None
 
 # from helpers.timer import timer
 
@@ -246,6 +248,7 @@ def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) 
         "longitude",
         "latitude",
         "id_mutation",
+        "id",
     ]
 
     queryset = (
@@ -462,8 +465,10 @@ def get_iris_code_for_coordinates(longitude: float, latitude: float):
     point.transform(2154)
 
     iris = IRIS.objects.filter(geometry__contains=point).first()
-
-    return iris.code_iris
+    if iris:
+        return iris.code_iris
+    else:
+        return None
 
 
 def get_mutations_for_iris(code_iris: str, date_from: datetime.date) -> pd.DataFrame:
@@ -471,22 +476,26 @@ def get_mutations_for_iris(code_iris: str, date_from: datetime.date) -> pd.DataF
     code_commune = iris.insee_commune
 
     mutations = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=date_from)
-    mutations = add_iris_to_mutations(mutations=mutations)
+    mutations = add_iris_to_mutations(code_commune=code_commune, mutations=mutations)
     filtered_mutations = mutations[mutations["code_iris"] == code_iris]
 
     return filtered_mutations
 
 
-def add_iris_to_mutations(mutations: pd.DataFrame) -> pd.DataFrame:
-    mutations["code_iris"] = mutations.apply(
-        lambda row: get_iris_code_for_coordinates(float(row["longitude"]), float(row["latitude"])), axis=1
-    )
-    return mutations
+def add_iris_to_mutations(code_commune: str, mutations: pd.DataFrame) -> pd.DataFrame:
+
+    columns = ["id_mutation", "code_iris"]
+
+    queryset = MutationIris.objects.filter(code_iris__startswith=code_commune).values_list(*columns)
+
+    iris = pd.DataFrame.from_records(queryset, columns=columns)
+
+    return mutations.merge(iris, on="id_mutation", how="left", sort=False)
 
 
 def get_avg_m2_price_per_iris(code_commune: str, date_from: datetime.date, types: tuple) -> pd.DataFrame:
     mutations = get_simple_sales(code_commune=code_commune, types=types, date_from=date_from)
-    mutations = add_iris_to_mutations(mutations=mutations)
+    mutations = add_iris_to_mutations(code_commune=code_commune, mutations=mutations)
     return mutations.groupby("code_iris").mean().round(2)["prix_m2"].to_dict()
 
 
