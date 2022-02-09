@@ -5,7 +5,9 @@
 <title>{{ title }}</title>
 <meta name="description" content="Découvrez les prix du m2 à {{ city_name }} et l’évolution du marché de l’immobilier
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement." />
-<script src="{% static 'js/agencyAsk.js' %}"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="{% static 'js/faq.js' %}"></script>
+    <script src="{% static 'js/city.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -112,7 +114,7 @@
                 class="mt-8 mx-auto text-center form-select appearance-none block text-secondary-blue-darkest w-8/12 py-4 bg-white bg-clip-padding bg-no-repeat border border-solid border-primary-blue-300 rounded-lg transition ease-in-outm-0
                focus:text-secondary-blue-darkest focus:bg-white focus:border-blue-600 focus:outline-none md:w-5/12 md:mt-0 md:mb-8"
                 aria-label="">
-                <option disabled selected>Entre le nom de quartier</option>
+                <option disabled selected>-- Quartier -- </option>
                 {% for neighbourhood in city_data.neighbourhoods %}
                 <option value="">{{ neighbourhood.properties.nom_iris }}</option>
                 {% endfor %}
