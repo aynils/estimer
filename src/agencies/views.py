@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
-from src.agencies.data.calculator import get_cities_not_owned_by_agencies
+from src.agencies.data.calculator import get_pricing_for_cities
 
 
 def agency(request):
-    test = get_cities_not_owned_by_agencies()
+    test = get_pricing_for_cities()
     context = {"test": test}
     return render(request, "agencies/agency.html", context)
