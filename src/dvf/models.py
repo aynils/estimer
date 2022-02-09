@@ -1,5 +1,6 @@
 from django.db import models
 
+from src.agencies.models import Agency
 from src.iris.models import IRIS
 
 
@@ -70,6 +71,7 @@ class Commune(models.Model):
     nom_commune = models.CharField(max_length=255, null=True)
     code_departement = models.CharField(max_length=255, null=True)
     slug = models.CharField(max_length=255, null=True)
+    agency = models.ForeignKey(Agency, on_delete=models.DO_NOTHING, related_name="agencies", null=True)
 
     class Meta:
         indexes = [
@@ -88,7 +90,4 @@ class MutationIris(models.Model):
     code_iris = models.CharField(max_length=255, null=False)
 
     class Meta:
-        indexes = [
-            models.Index(fields=["id_mutation"]),
-            models.Index(fields=["code_iris"]),
-        ]
+        indexes = [models.Index(fields=["id_mutation"]), models.Index(fields=["code_iris"])]
