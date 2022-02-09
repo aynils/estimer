@@ -31,7 +31,6 @@ def city(request, slug):
                 f"| Prix immobilier et estimation à {commune.nom_commune}",
                 "MAPBOX_PUBLIC_TOKEN": settings.MAPBOX_PUBLIC_TOKEN,
                 "neighbourhoods": json.dumps(neighbourhoods, cls=DjangoJSONEncoder),
-                # "neighbourhoods": neighbourhoods,
                 "closeby_cities": closeby_cities,
             }
 

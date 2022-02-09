@@ -33,10 +33,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("mentions-legales", mentions_legales, name="mentions-legales"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
-    path("iris", include("src.iris.urls")),
-    path("commune", include("src.dvf.urls")),
-    path("agence", include("src.agencies.urls")),
-    path("agence", agency, name="agency"),
+    path("iris/", include("src.iris.urls")),
+    path("commune/", include("src.dvf.urls")),
+    path("agence/", include("src.agencies.urls")),
     path("", cache_page(settings.CACHE_TTL_ONE_DAY)(home), name="home"),
     path("test/", create_mutation_iris_relation, name="test"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
