@@ -88,6 +88,7 @@ class Neighbourhood:
     average_m2_price: str
     code_iris: str
     color: PolygonColor
+    nom_iris: str
 
 
 @dataclass

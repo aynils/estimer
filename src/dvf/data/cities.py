@@ -209,17 +209,19 @@ def get_city_data(code_commune: str) -> CityData:
 
 
 def get_neighbourhoods_data(code_commune: str, date_from: datetime.date, types: tuple) -> List[NeighbourhoodPolygon]:
-    iris_list = IRIS.objects.values("geometry", "code_iris").filter(insee_commune=code_commune).all()
+    iris_list = IRIS.objects.values("geometry", "code_iris", "nom_iris").filter(insee_commune=code_commune).all()
     neighbourhoods = []
     mutations = get_avg_m2_price_per_iris(code_commune=code_commune, date_from=date_from, types=types)
     for iris in iris_list:
         code_iris = iris.get("code_iris")
+        nom_iris = iris.get("nom_iris")
         average_m2_price = mutations.get(code_iris)
         if average_m2_price:
             neighbourhood = Neighbourhood(
                 average_m2_price=f"{int(average_m2_price)} €",
                 code_iris=code_iris,
                 color=define_polygon_color(m2_price=average_m2_price),
+                nom_iris=nom_iris,
             )
             geometry = iris.get("geometry")
             geojson = json.loads(geometry.geojson)
@@ -451,8 +453,8 @@ def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
 
 
 def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
-    cities_under = Commune.objects.filter(code_postal__lt=code_postal).order_by("-code_postal")[:15].all()
-    cities_over = Commune.objects.filter(code_postal__gt=code_postal).order_by("code_postal")[:15].all()
+    cities_under = Commune.objects.filter(code_postal__lt=code_postal).order_by("-code_postal")[:5].all()
+    cities_over = Commune.objects.filter(code_postal__gt=code_postal).order_by("code_postal")[:5].all()
     return [
         ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(cities_under) + list(cities_over)
     ]
