@@ -54,22 +54,18 @@ function citySearch() {
                 return city;
             });
         },
+        selectDepartement(event) {
+            const codeDepartement = event.target.value
+            const url = new URL(CITIES_PRICING_PATH, document.location)
+            url.searchParams.append("code_departement", codeDepartement);
+            fetch(url, {method: "GET"})
+                .then(result => result.json())
+                .then(json => {
+                    console.log('result', json)
+                    this.cities = json.cities_pricing
+                })
+
+        }
 
     };
-}
-
-
-function selectDepartement(event) {
-    const codeDepartement = event.target.value
-    const url = new URL(CITIES_PRICING_PATH, document.location)
-    url.searchParams.append("code_departement", codeDepartement);
-    fetch(url, {method: "GET"})
-        .then(result => result.json())
-        .then(json => {
-            console.log('result', json)
-            this.cities = json.cities_pricing
-            this.departements = DEPARTEMENTS
-            this.selectedDepartement = codeDepartement
-        })
-
 }
