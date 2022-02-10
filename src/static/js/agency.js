@@ -2,7 +2,7 @@ function citySearch()
         {
             return {
                 selectedCity: "",
-                cities: [{id : 100, price : 25, name: "Montpellier", zipcode: 34000},{id : 15, price : 25, name: "Testouille", zipcode: 38090},{id : 88, price : 25, name: "Test", zipcode: 34800}],
+                cities: JSON.parse(document.getElementById('cities_pricing').textContent),
                 selectedCities: [],
                 addCities()
                 {

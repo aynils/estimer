@@ -8,6 +8,10 @@
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement." />
 <script src="{% static 'js/agency.js' %}"></script>
 <script src="{% static 'js/agencyAsk.js' %}"></script>
+    <!-- Counter fail XSS -->
+    {{cities_pricing |json_script:'cities_pricing'}};
+
+
 {% endblock %}
 
 {% block body %}
