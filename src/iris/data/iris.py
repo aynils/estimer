@@ -3,7 +3,7 @@ import datetime
 import pandas as pd
 from django.conf import settings
 
-from iris.data.classes import IRISData
+from src.iris.data.classes import IRISData
 from src.dvf.data.cities import (
     generate_chart_b64_svg,
     generate_price_evolution_text,

@@ -1,7 +1,6 @@
 const IRIS_DATA_PATH = '/iris/data/'
 
 function irisData() {
-    console.log('coucou')
     return {
         irisData: {
             iris_name: city_name,
@@ -14,7 +13,6 @@ function irisData() {
 
 function selectIris(event) {
     const IRISCode = event.target.value
-    console.log("IRIS Selected:", IRISCode)
     const url = new URL(IRIS_DATA_PATH, document.location)
     url.searchParams.append("iris", IRISCode);
     fetch(url, {method: "GET"})
