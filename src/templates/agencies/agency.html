@@ -9,6 +9,9 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="{% static 'js/agency.js' %}"></script>
     <script src="{% static 'js/faq.js' %}"></script>
+    <!-- Counter fail XSS -->
+    {{cities_pricing |json_script:'cities_pricing'}};
+
 {% endblock %}
 
 {% block body %}
