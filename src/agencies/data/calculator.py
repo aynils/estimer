@@ -63,5 +63,5 @@ def get_cities_with_pricing(code_departement: int):
     cities = get_cities_not_owned_by_agencies(code_departement)
     cities = add_population_to_cities(cities)
     cities = add_pricing_to_cities(cities)
-    cities_pricing = add_pricing_to_cities(cities)
-    return cities_pricing
+
+    return cities

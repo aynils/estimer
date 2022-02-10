@@ -1,4 +1,4 @@
-from src.dvf.data.cities import get_simple_sales, get_cities, ONE_YEAR_AGO, add_iris_to_mutations
+from src.dvf.data.cities import get_simple_sales, get_cities, ONE_YEAR_AGO, add_iris_to_mutations, FIVE_YEARS_AGO
 import pandas as pd
 from django.conf import settings
 
@@ -15,10 +15,10 @@ def create_mutation_iris_relation(request):
     for index, commune in enumerate(communes):
         print(f"----Getting mutations for {commune.nom_commune}...")
         mutations = get_simple_sales(
-            code_commune=commune.code_commune, types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
+            code_commune=commune.code_commune, types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO
         )
         if mutations.empty:
-            print(f"----No mutation from {ONE_YEAR_AGO} for {commune.nom_commune} ({commune.code_commune})")
+            print(f"----No mutation from {FIVE_YEARS_AGO} for {commune.nom_commune} ({commune.code_commune})")
             continue
         print(f"----Adding mutations for {commune.nom_commune}...")
         mutations = add_iris_to_mutations(code_commune=commune.code_commune, mutations=mutations)
@@ -26,6 +26,6 @@ def create_mutation_iris_relation(request):
         print(f"{index + 1}/{len(communes)} -  {commune.nom_commune} ({commune.code_commune}) DONE")
 
     ids = all_mutations[["code_iris", "id_mutation"]]
-    ids.to_csv(f"{settings.BASE_DIR}/code_iris_mutation_id_relation.csv", index=False)
+    ids.to_csv(f"{settings.BASE_DIR}/code_iris_mutation_id_relation_5_years.csv", index=False)
     print("Done")
     return ""

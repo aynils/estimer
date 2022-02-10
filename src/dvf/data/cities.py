@@ -184,7 +184,7 @@ def get_city_data(code_commune: str) -> CityData:
 
     city_name = "La cité merveilleuse"
 
-    chart_b64_svg = generate_chart_b64_svg(bar_heights=bar_heights, city_name=city_name)
+    chart_b64_svg = generate_chart_b64_svg(bar_heights=bar_heights, place_name=city_name)
 
     neighbourhoods = get_neighbourhoods_data(
         code_commune=code_commune, date_from=FIVE_YEARS_AGO, types=("Maison", "Appartement")
@@ -301,31 +301,32 @@ def get_city_from_code(code: str) -> Commune or None:
 
 # @timer
 def get_agent(code_commune: str) -> Agent:
-    try:
-        agency = Agency.objects.get(code_commune=code_commune)
-        agent = Agent(
-            picture=agency.picture_url,
-            name=agency.agent,
-            agency=agency.name,
-            description=agency.description,
-            phone_number=agency.phone_number,
-            email=agency.email,
-            website_url=agency.website_url,
-        )
-
-    except Agency.DoesNotExist:
-        agent = Agent(
-            picture="https://estimer.com/static/estimer/images/olivier.jpeg",
-            name="Olivier Pourquier",
-            agency="estimer.com",
-            description="""Vous souhaitez obtenir une estimation précise de votre bien ?
-                            Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.""",
-            phone_number="06.81.37.36.33",
-            email="contact@estimer.com",
-            website_url="estimer.com",
-        )
-
-    return agent
+    pass
+    # try:
+    #     agency = Agency.objects.get(code_commune=code_commune)
+    #     agent = Agent(
+    #         picture=agency.picture_url,
+    #         name=agency.agent,
+    #         agency=agency.name,
+    #         description=agency.description,
+    #         phone_number=agency.phone_number,
+    #         email=agency.email,
+    #         website_url=agency.website_url,
+    #     )
+    #
+    # except Agency.DoesNotExist:
+    #     agent = Agent(
+    #         picture="https://estimer.com/static/estimer/images/olivier.jpeg",
+    #         name="Olivier Pourquier",
+    #         agency="estimer.com",
+    #         description="""Vous souhaitez obtenir une estimation précise de votre bien ?
+    #                         Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.""",
+    #         phone_number="06.81.37.36.33",
+    #         email="contact@estimer.com",
+    #         website_url="estimer.com",
+    #     )
+    #
+    # return agent
 
 
 # @timer
@@ -383,7 +384,7 @@ def generate_map_markers(last_sales: List[Sale]) -> List[MapMarker]:
     ]
 
 
-def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
+def generate_chart_b64_svg(bar_heights: dict, place_name: str) -> str:
     svg = f"""<svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -391,8 +392,8 @@ def generate_chart_b64_svg(bar_heights: dict, city_name: str) -> str:
     role="img"
     aria-labelledby="svg-title svg-desc"
         >
-            <title id="svg-title">prix m2 {city_name}</title>
-            <desc id="svg-desc">Evolution du prix au m2 à {city_name} pour les 5 dernières années</desc>
+            <title id="svg-title">prix m2 {place_name}</title>
+            <desc id="svg-desc">Evolution du prix au m2 à {place_name} pour les 5 dernières années</desc>
             <text font-family="Rubik, sans-serif"
             class="svg-text" x="35"
             y="{bar_heights.get('2017', {}).get('text_y')}">

@@ -17,7 +17,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
-from django.urls import path
+from django.urls import path, include
 from django.views.decorators.cache import cache_page
 
 from src.iris.aggregator.data_enrichment import create_mutation_iris_relation
@@ -31,11 +31,11 @@ sitemaps = {"city": CitySitemap}
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # path('account/', include('django.contrib.auth.urls')),
-    path("commune/<str:slug>", cache_page(settings.CACHE_TTL_ONE_DAY)(city), name="city"),
     path("mentions-legales", mentions_legales, name="mentions-legales"),
-    path("agence", agency, name="agency"),
-    path("", cache_page(settings.CACHE_TTL_ONE_DAY)(home), name="home"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
-    # path("test/", create_mutation_iris_relation, name="test"),
+    path("iris/", include("src.iris.urls")),
+    path("commune/", include("src.dvf.urls")),
+    path("agence/", include("src.agencies.urls")),
+    path("", cache_page(settings.CACHE_TTL_ONE_DAY)(home), name="home"),
+    path("test/", create_mutation_iris_relation, name="test"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
