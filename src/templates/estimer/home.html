@@ -11,10 +11,10 @@
 
 {% block body %}
     <div class="container-fluid mx-auto bg-primary-blue-100 border-t-1">
-        <h1 class="pt-36 text-secondary-blue-darkest text-center font-light"><strong class="font-bold">Estimez</strong>
-            votre
-            bien immobilier</h1>
-        <p class="text-center mt-2">Nous ne collectons pas vos données personnelles.</p>
+        <h1 class="pt-12 md:pt-36 text-secondary-blue-darkest text-center font-light">
+            <strong class="font-bold">Estimez</strong> votre bien immobilier
+        </h1>
+        <p class="text-center mt-4 md:mt-2">Nous ne collectons pas vos données personnelles.</p>
         <div class="flex items-center justify-center mt-10">
             <form name="address-form" data-name="Address Form" action="/commune/search" method="POST">
                 {% csrf_token %}
@@ -41,20 +41,20 @@
         </div>
         <img src="{% static 'images/illustrations/city.svg' %}" class="object-cover h-full w-full">
         <div class="bg-secondary-blue-darkest text-white text-center">
-            <div class="p-20 md:grid md:grid-cols-4">
-                <div class="md:block w-8/12 mx-auto">
+            <div class="px-4 py-20 md:px-20 md:grid md:grid-cols-4">
+                <div class="md:block md:w-8/12 mx-auto">
                     <h3 class="mb-2">15 millions</h3>
                     <p>de ventes listées</p>
                 </div>
-                <div class="md:block w-8/12 mx-auto">
+                <div class="md:block w-8/12 mx-auto mt-10 md:mt-0">
                     <h3 class="mb-2">5 années</h3>
                     <p>d'historique de transactions</p>
                 </div>
-                <div class="md:block w-8/12 mx-auto">
+                <div class="md:block w-8/12 mx-auto  mt-10 md:mt-0">
                     <h3 class="mb-2">31 000</h3>
                     <p>communes analysées</p>
                 </div>
-                <div class="md:block w-8/12 mx-auto">
+                <div class="md:block w-8/12 mx-auto  mt-10 md:mt-0">
                     <h3 class="mb-2">0</h3>
                     <p>données personnelles collectées</p>
                 </div>
@@ -69,14 +69,14 @@
                     <p class="font-bold text-xl h-5/6 my-auto">1</p>
                 </div>
                 <h3 class="mt-8 text-secondary-blue-darkest">Cherchez</h3>
-                <p class="mt-5 text-center">Entrez l'adresse du bien à estimer dans la barre de recherche.</p>
+                <p class="mt-5 pb-10  text-center">Entrez l'adresse du bien à estimer dans la barre de recherche.</p>
             </div>
             <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
                 <div class="box-content w-10 h-8 p-2 border-4 rounded-xl border-none bg-primary-blue-200 text-primary-blue-700 mx-auto">
                     <p class="font-bold text-xl h-5/6 my-auto">2</p>
                 </div>
                 <h3 class="mt-8 text-secondary-blue-darkest">Découvrez</h3>
-                <p class="mt-5 text-center">Découvrez tous les prix des biens vendus à proximité sur les 5 dernières
+                <p class="mt-5 pb-10 text-center">Découvrez tous les prix des biens vendus à proximité sur les 5 dernières
                     années, et estimez votre bien en fonction.</p>
             </div>
             <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
@@ -99,22 +99,22 @@
     <div class="container-fluid bg-primary-blue-200 mt-36 pb-8">
         <h2 class="text-center text-secondary-blue-darkest pt-24 mb-12">Pourquoi utiliser estimer.com ?</h2>
         <div class="md:grid md:grid-cols-2">
-            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
+            <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
                 <img src="{% static 'images/icons/euros_crossed.svg' %}" class="ml-8" style="height:72px; width:72px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
                     <h4 class="text-secondary-blue-darkest">Gratuit</h4>
                     L'utilisation du site estimer.com est 100% gratuite, sans aucune restriction.
                 </div>
             </div>
-            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
+            <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
                 <img src="{% static 'images/icons/cloud.svg' %}" class="ml-8" style="height:72px; width:72px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
                     <h4 class="text-secondary-blue-darkest">Confidentiel</h4>
-                    À l'opposé des autres sites d'estimations immobilières, nous ne stockons aucune de vos données
+                    Contrairement aux autres sites d'estimation immobilière, nous ne stockons aucune de vos données
                     personnelles.
                 </div>
             </div>
-            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
+            <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
                 <img src="{% static 'images/icons/map.svg' %}" class="ml-8" style="height:72px; width:72px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
                     <h4 class="text-secondary-blue-darkest">Agent immobilier local</h4>
@@ -122,7 +122,7 @@
                     gratuitement, pour en maximiser la valeur.
                 </div>
             </div>
-            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
+            <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
                 <img src="{% static 'images/icons/clock.svg' %}" class="ml-10 md:ml-10"
                      style="height:64px; width:64px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
@@ -130,11 +130,11 @@
                     Pas de formulaire compliqué à remplir, l'estimation est simple et rapide.
                 </div>
             </div>
-            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
+            <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
                 <img src="{% static 'images/icons/database.svg' %}" class="ml-10 md:ml-10"
                      style="height:64px; width:64px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h4 class="text-secondary-blue-darkest">Données réelles</h4>
+                    <h4 class="text-secondary-blue-darkest">Données vérifiées</h4>
                     Nous nous basons sur les transactions réelles historiques produites par la direction générale des
                     Finances publiques.
                 </div>
@@ -164,7 +164,10 @@
             </div>
 
             <div class="mt-auto">
-                <img src="{% static 'images/illustrations/houses_question.svg' %}" style="width:2000px;">
+                <img
+                        src="{% static 'images/illustrations/houses_question.svg' %}" style="width:2000px;"
+                        alt="houses asking  illustration"
+                >
             </div>
         </div>
     </div>
@@ -198,7 +201,10 @@
                 </div>
             </div>
             <div class="mx-auto md:mt-8 md:w-12/12">
-                <img src="{% static 'images/illustrations/city_light.svg' %}">
+                <img class="rounded-b-xl"
+                     alt="city illustration"
+                        src="{% static 'images/illustrations/city_light.svg' %}"
+                >
             </div>
         </div>
     </div>
