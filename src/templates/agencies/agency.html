@@ -10,7 +10,7 @@
     <script src="{% static 'js/agency.js' %}"></script>
     <script src="{% static 'js/faq.js' %}"></script>
     <!-- Counter fail XSS -->
-    {{ cities_pricing |json_script:'cities_pricing' }};
+    {{ cities_pricing |json_script:'cities_pricing' }}
 
 {% endblock %}
 
@@ -24,7 +24,7 @@
     </div>
     <div class="md:flex md:mt-16">
         <div class="container-fluid mt-14 md:flex md:w-2/4">
-            <img src="{% static 'images/illustrations/computer_agency.png' %}"
+            <img src="{% static 'images/illustrations/computer_agency.svg' %}"
                  class="w-3/4 mx-auto mt-8 md:w-3/4 md:h-3/4 md:mx-0 md:ml-auto">
         </div>
         <div class="md:flex md:flex-wrap md:w-2/4">
@@ -46,11 +46,11 @@
                 </div>
             </div>
             <div class="container mt-14 text-center mb-8 md:mt-0">
-                <button class="btn-secondary mx-auto w-8/12 p-3 text-secondary-blue-darkest md:w-1/4 md:p-1">
+                <button class="btn-secondary mx-auto w-8/12 p-3 text-secondary-blue-darkest md:w-2/4 md:p-1 xl:md-1/4">
                     Obtenez l'exclusivité
                 </button>
 
-                <button class="btn-primary mx-auto w-8/12 p-3 mt-8 text-secondary-blue-darkest md:w-2/12 md:p-1 md:mt-0">
+                <button class="btn-primary mx-auto w-8/12 p-3 mt-8 text-secondary-blue-darkest md:w-3/12 md:p-1 md:mt-3 xl:w-2/12">
                     Default
                 </button>
             </div>
@@ -94,7 +94,7 @@
                 <p class="mx-auto w-1/2 text-secondary-blue-darkest mt-11">Votre agence immobilière est mise en
                     concurrence
                     sur
-                    la plupart des plateformes existantes. Sur Estimer;com, vous bénéficiez de l'exclusivité sur votre
+                    la plupart des plateformes existantes. Sur Estimer.com, vous bénéficiez de l'exclusivité sur votre
                     commune
                     afin de renforcer au maximum votre notoriété.</p>
             </div>
