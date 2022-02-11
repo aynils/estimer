@@ -197,19 +197,18 @@
         </div>
         <div class="md:flex md:flex-row">
             <div class="md:flex md:ml-auto">
-                <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
+                <div class="grid grid-rows-1 grid-cols-1 gap-4 flex mt-8">
                     {% for citiesclose in closeby_cities|slice:":15" %}
-                        <a class="mx-auto text-white" href="#"><strong>{{ citiesclose.nom_commune }}</strong></a>
-                        <div class="mx-auto text-white">0000 €/m2</div>
+                        <a class="mx-auto text-white" href="{% url 'city' slug=citiesclose.slug %}"><strong>{{ citiesclose.nom_commune }}</strong></a>
+
                     {% endfor %}
                 </div>
             </div>
             <div class=" hidden md:flex bg-primary-blue-300 h-[2px] mx-auto rounded-full mt-5 md:w-[2px] md:h-[400px]"></div>
             <div class="hidden md:flex md:mr-auto md:ml-0">
-                <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
+                <div class="grid grid-rows-1 grid-cols-1 gap-4 flex mt-8">
                     {% for citiesclose in closeby_cities|slice:":15" %}
-                        <a class="mx-auto text-white" href="#"><strong>{{ citiesclose.nom_commune }}</strong></a>
-                        <div class="mx-auto text-white">0000 €/m2</div>
+                        <a class="mx-auto text-white" href="{% url 'city' slug=citiesclose.slug %}"><strong>{{ citiesclose.nom_commune }}</strong></a>
                     {% endfor %}
                 </div>
             </div>

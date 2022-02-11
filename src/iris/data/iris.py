@@ -46,8 +46,4 @@ def get_iris_data(code_iris: str) -> IRISData:
 
     chart_b64_svg = generate_chart_b64_svg(bar_heights=bar_heights, place_name=iris_name)
 
-    return IRISData(
-        iris_name=iris_name,
-        chart_b64_svg=chart_b64_svg,
-        price_evolution_text=price_evolution_text,
-    )
+    return IRISData(iris_name=iris_name, chart_b64_svg=chart_b64_svg, price_evolution_text=price_evolution_text)
