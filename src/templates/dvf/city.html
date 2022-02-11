@@ -166,67 +166,89 @@
                 </p>
             </div>
             <div class="mt-16">
-            {% include 'map/map.html' %}
+                {% include 'map/map.html' %}
             </div>
         </div>
 
     </div>
-    <div class="container-fluid md:flex">
-        <div class="container-fluid mt-10 md:flex md:w-1/2 md:flex-col">
-            <div class="flex">
-                <h3 class="text-secondary-blue-darkest mt-8 ml-8 md:mt-0 md:ml-36">Rues les plus chères</h3>
-                <img src="{% static 'images/icons/euros_many.svg' %}" class="ml-5 mt-4 md:mt-0 md:ml-64 md:w-16">
+{#    TODO: Ajouter les majuscules aux rues#}
+    <div id="streets" class="flex my-16">
+        <div class="mt-10 md:flex md:w-1/2 md:flex-col">
+            <div class="w-10/12 md:w-8/12 mx-auto">
+                <div class="flex justify-between">
+                    <h3 class="text-secondary-blue-darkest mt-8 md:mt-0 ">Rues les plus chères</h3>
+                    <img src="{% static 'images/icons/euros_many.svg' %}"
+                         class="mt-4 md:mt-0 md:w-16"
+                         alt="few euros"
+                    >
+                </div>
+                <div class="mt-8">
+                    {% for street in city_data.most_expensive_streets %}
+                        <div class="flex justify-between my-6">
+                            <div class="text-secondary-blue-darkest">{{ street.nom_voie }}</div>
+                            <div class="text-secondary-blue-darkest">{{ street.avg_m2_price }} €/m2</div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
-                {% for streetmost in city_data.most_expensive_streets %}
-                    <div class="mx-auto text-secondary-blue-darkest">{{ streetmost.nom_voie }}</div>
-                    <div class="mx-auto text-secondary-blue-darkest">{{ streetmost.avg_m2_price }} €/m2</div>
-                {% endfor %}
-            </div>
-
         </div>
         <div class="bg-primary-blue-300 w-10/12 h-[2px] mx-auto rounded-full mt-10 md:w-[2px] md:h-[300px]"></div>
-        <div class="container-fluid md:flex md:w-1/2 md:flex-col md:mt-10">
-            <div class="flex md:w-8/12 md:mx-auto">
-                <h3 class="text-secondary-blue-darkest mt-8 ml-8 md:mt-0 md:ml-0">Rues les moins chères</h3>
-                <img src="{% static 'images/icons/euros_few.svg' %}" class="ml-5 mt-4 md:mt-0 md:ml-0 md:w-12 md:ml-52">
-            </div>
-            <div class="grid grid-rows-2 grid-cols-2 gap-4 flex mt-8">
-                {% for streetless in city_data.less_expensive_streets %}
-                    <div class="mx-auto text-secondary-blue-darkest">{{ streetless.nom_voie }}</div>
-                    <div class="mx-auto text-secondary-blue-darkest">{{ streetless.avg_m2_price }} €/m2</div>
-                {% endfor %}
+        <div class="mt-10 md:flex md:w-1/2 md:flex-col">
+            <div class="w-10/12 md:w-8/12 mx-auto">
+                <div class="flex justify-between">
+                    <h3 class="text-secondary-blue-darkest mt-8 md:mt-0 ">Rues les plus chères</h3>
+                    <img src="{% static 'images/icons/euros_few.svg' %}"
+                         class="mt-4 md:mt-0 md:w-16"
+                         alt="few euros"
+                    >
+                </div>
+                <div class="mt-8">
+                    {% for street in city_data.less_expensive_streets %}
+                        <div class="flex justify-between my-6">
+                            <div class="text-secondary-blue-darkest">{{ street.nom_voie }}</div>
+                            <div class="text-secondary-blue-darkest">{{ street.avg_m2_price }} €/m2</div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid bg-secondary-blue-darkest w-10/12 rounded-xl mx-auto mt-16 pb-10">
-        <div class="flex md:container-fluid md:text-center">
+    <div id="closeby-cities"
+         class="container-fluid bg-secondary-blue-darkest w-10/12 rounded-xl mx-auto mt-32 pb-16">
+        <div class="flex items-center justify-around w-10/12 md:w-8/12 mx-auto py-16">
             <img src="{% static 'images/icons/map_pointer.svg' %}"
-                 class="mx-auto mt-12 md:w-18 md:h-18 md:mt-8 md:mx-0 md:ml-auto">
-            <h4 class="text-white w-1/2 mt-12 md:mr-auto md:text-2xl"> Communes à proximité</h4>
+                 class="w-16"
+                 alt="pin on a map"
+            >
+            <h2 class="text-white w-4/6"> Communes à proximité</h2>
         </div>
-        <div class="md:flex md:flex-row">
-            <div class="md:flex md:ml-auto">
-                <div class="grid grid-rows-1 grid-cols-1 gap-4 flex mt-8">
-                    {% for citiesclose in closeby_cities|slice:":15" %}
+        <div class="md:flex">
+            <div class="md:flex md:mx-auto">
+                <div class="mt-8">
+                    {% for citiesclose in closeby_cities|slice:":10" %}
                         <a class="mx-auto text-white"
-                           href="{% url 'city' slug=citiesclose.slug %}"><strong>{{ citiesclose.nom_commune }}</strong></a>
+                           href="{% url 'city' slug=citiesclose.slug %}">
+                            <p class="font-semibold leading-loose">{{ citiesclose.nom_commune }}</p>
+                        </a>
 
                     {% endfor %}
                 </div>
             </div>
-            <div class=" hidden md:flex bg-primary-blue-300 h-[2px] mx-auto rounded-full mt-5 md:w-[2px] md:h-[400px]"></div>
-            <div class="hidden md:flex md:mr-auto md:ml-0">
-                <div class="grid grid-rows-1 grid-cols-1 gap-4 flex mt-8">
-                    {% for citiesclose in closeby_cities|slice:":15" %}
+            <div class="hidden md:flex mx-auto rounded-full mt-5 w-[2px] h-[400px] bg-secondary-blue-lightest"></div>
+            <div class="hidden md:flex md:mx-auto">
+                <div class="mt-8">
+                    {% for citiesclose in closeby_cities|slice:"10:" %}
                         <a class="mx-auto text-white"
-                           href="{% url 'city' slug=citiesclose.slug %}"><strong>{{ citiesclose.nom_commune }}</strong></a>
+                           href="{% url 'city' slug=citiesclose.slug %}">
+                            <p class="font-semibold leading-loose">{{ citiesclose.nom_commune }}</p>
+                        </a>
+
                     {% endfor %}
                 </div>
             </div>
-        </div>
+            </div>
     </div>
-    </div>
+
     <div class="container-fluid mt-12 text-center">
         <h2 class="text-secondary-blue-darkest">Questions fréquentes</h2>
         <ul class="flex flex-col mt-12 w-9/12 mx-auto text-secondary-blue-darkest">
@@ -244,13 +266,13 @@
                 </p>
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
-                        Le prix de l'immobilier moyen est de
+                        Le prix de l'immobilier à {{ city_name }} est en moyenne de
                         {% for price_year in city_data.median_m2_prices_years %}
                             {% if price_year.year == 2021 %}
                                 {{ price_year.value|floatformat:"0" }}
                             {% endif %}
                         {% endfor %}
-                        € à {{ city_name }}
+                        € au m2.
                     </p>
                 </div>
             </li>
@@ -269,7 +291,17 @@
                 </p>
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
-                        Le prix de l'immobilier a évolué positivement sur les 5 dernières années.
+                        Le prix de l'immobilier a évolué positivement sur les 5 dernières années. Il est passé de {% for price_year in city_data.median_m2_prices_years %}
+                        {% if price_year.year == 2017 %}
+                            {{ price_year.value|floatformat:"0" }}
+                        {% endif %}
+                    {% endfor %}
+                        € au m2 à {% for price_year in city_data.median_m2_prices_years %}
+                        {% if price_year.year == 2021 %}
+                            {{ price_year.value|floatformat:"0" }}
+                        {% endif %}
+                    {% endfor %}
+                        € au m2.
                     </p>
                 </div>
             </li>
@@ -289,7 +321,8 @@
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
                         Le quartier le plus cher à {{ city_name }}
-                        est {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }}
+                        est {{ city_data.most_expensive_neighbourhood.properties.nom_iris }} avec un prix de
+                        {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }} € au m2.
                     </p>
                 </div>
             </li>
@@ -309,7 +342,8 @@
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
                         Le Quartier le moins cher à {{ city_name }}
-                        est {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }}
+                        est {{ city_data.less_expensive_neighbourhood.properties.nom_iris }} avec un prix de
+                        {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }} € au m2.
                     </p>
                 </div>
             </li>
