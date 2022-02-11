@@ -328,7 +328,7 @@ def get_agent(code_commune: str) -> Agent:
                             Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.""",
             phone_number="06.81.37.36.33",
             email="contact@estimer.com",
-            website_url="estimer.com",
+            website_url="Estimer.com",
         )
 
     return agent
@@ -390,64 +390,77 @@ def generate_map_markers(last_sales: List[Sale]) -> List[MapMarker]:
 
 
 def generate_chart_b64_svg(bar_heights: dict, place_name: str) -> str:
+    bar_colors = "#BAD1F8"
+    text_colors = "#15171A"
+    font_family = "sans-serif"
     svg = f"""<svg
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    viewBox="0 0 600 200"
+    viewBox="0 0 531 201"
     role="img"
     aria-labelledby="svg-title svg-desc"
         >
+
             <title id="svg-title">prix m2 {place_name}</title>
             <desc id="svg-desc">Evolution du prix au m2 à {place_name} pour les 5 dernières années</desc>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="35"
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="5"
             y="{bar_heights.get('2017', {}).get('text_y')}">
                 {bar_heights.get('2017', {}).get('value')} €
             </text>
-            <rect x="30" y="{bar_heights.get('2017', {}).get('y')}" width="60"
+            <rect x="0" y="{bar_heights.get('2017', {}).get('y')}" width="60"
                   height="{bar_heights.get('2017', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="40" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="10" y="200" style="fill:{text_colors}">
                 2017
             </text>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="155" y="{bar_heights.get('2018', {}).get('text_y')}">
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="120" y="{bar_heights.get('2018', {}).get('text_y')}">
                 {bar_heights.get('2018', {}).get('value')} €
             </text>
-            <rect x="150" y="{bar_heights.get('2018', {}).get('y')}" width="60"
+            <rect x="115" y="{bar_heights.get('2018', {}).get('y')}" width="60"
                   height="{bar_heights.get('2018', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="160" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="125" y="200" style="fill:{text_colors}">
                 2018
             </text>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="275" y="{bar_heights.get('2019', {}).get('text_y')}">
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="240" y="{bar_heights.get('2019', {}).get('text_y')}">
                 {bar_heights.get('2019', {}).get('value')} €
             </text>
-            <rect x="270" y="{bar_heights.get('2019', {}).get('y')}" width="60"
+            <rect x="235" y="{bar_heights.get('2019', {}).get('y')}" width="60"
                   height="{bar_heights.get('2019', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="280" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="245" y="200" style="fill:{text_colors}">
                 2019
             </text>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="395" y="{bar_heights.get('2020', {}).get('text_y')}">
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="360" y="{bar_heights.get('2020', {}).get('text_y')}">
                 {bar_heights.get('2020', {}).get('value')} €
             </text>
-            <rect x="390" y="{bar_heights.get('2020', {}).get('y')}" width="60"
+            <rect x="355" y="{bar_heights.get('2020', {}).get('y')}" width="60"
                   height="{bar_heights.get('2020', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="400" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="365" y="200" style="fill:{text_colors}">
                 2020
             </text>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="515" y="{bar_heights.get('2021', {}).get('text_y')}">
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="480" y="{bar_heights.get('2021', {}).get('text_y')}">
                 {bar_heights.get('2021', {}).get('value')} €
             </text>
-            <rect x="510" y="{bar_heights.get('2021', {}).get('y')}" width="60"
+            <rect x="475" y="{bar_heights.get('2021', {}).get('y')}" width="60"
                   height="{bar_heights.get('2021', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="520" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="485" y="200" style="fill:{text_colors}">
                 2021
             </text>
         </svg>"""
