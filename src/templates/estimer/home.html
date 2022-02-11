@@ -11,7 +11,8 @@
 
 {% block body %}
     <div class="container-fluid mx-auto bg-primary-blue-100 border-t-1">
-        <h1 class="pt-36 text-secondary-blue-darkest text-center font-light"><strong class="font-bold">Estimez</strong> votre
+        <h1 class="pt-36 text-secondary-blue-darkest text-center font-light"><strong class="font-bold">Estimez</strong>
+            votre
             bien immobilier</h1>
         <p class="text-center mt-2">Nous ne collectons pas vos données personnelles.</p>
         <div class="flex items-center justify-center mt-10">
@@ -20,9 +21,9 @@
                 <div class="relative">
                     <span class="m-1 absolute inset-y-0 left-0 flex items-center">
                         <img
-                            class="ml-5"
-                            src="{%  static 'images/icons/pin.png' %}"
-                            alt="pin"
+                                class="ml-5"
+                                src="{% static 'images/icons/pin.png' %}"
+                                alt="pin"
                         >
                     </span>
                     <input type="text"
@@ -60,50 +61,52 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid mt-44">
-        <h2 class="text-center text-secondary-blue-darkest mt-8">Comment ça marche ?</h2>
+    <div class="container-fluid mt-20">
+        <h2 class="text-center text-secondary-blue-darkest my-12">Comment ça marche ?</h2>
         <div class="text-center md:grid md:grid-cols-3">
-            <div class="mt-5 md:block md:mt-8">
-                <div class="box-content w-12 p-2 border-4 rounded-lg border-primary-blue-300 bg-primary-blue-300 text-primary-blue-700 mx-auto">
-                    <p class="font-bold text-lg">1</p>
+            <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
+                <div class="box-content w-10 h-8 p-2 border-4 rounded-xl border-none bg-primary-blue-200 text-primary-blue-700 mx-auto">
+                    <p class="font-bold text-xl h-5/6 my-auto">1</p>
                 </div>
                 <h3 class="mt-8 text-secondary-blue-darkest">Cherchez</h3>
                 <p class="mt-5 text-center">Entrez l'adresse du bien à estimer dans la barre de recherche.</p>
             </div>
-            <div class="mt-5 md:block md:mt-8">
-                <div class="box-content w-12 p-2 border-4 rounded-lg border-primary-blue-300 bg-primary-blue-300 text-primary-blue-700 mx-auto">
-                    <p class="font-bold text-lg">2</p>
+            <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
+                <div class="box-content w-10 h-8 p-2 border-4 rounded-xl border-none bg-primary-blue-200 text-primary-blue-700 mx-auto">
+                    <p class="font-bold text-xl h-5/6 my-auto">2</p>
                 </div>
                 <h3 class="mt-8 text-secondary-blue-darkest">Découvrez</h3>
                 <p class="mt-5 text-center">Découvrez tous les prix des biens vendus à proximité sur les 5 dernières
                     années, et estimez votre bien en fonction.</p>
             </div>
-            <div class="mt-5 md:block md:mt-8">
-                <div class="box-content w-12 p-2 border-4 rounded-lg border-primary-blue-300 bg-primary-blue-300 text-primary-blue-700 mx-auto">
-                    <p class="font-bold text-lg">3</p>
+            <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
+                <div class="box-content w-10 h-8 p-2 border-4 rounded-xl border-none bg-primary-blue-200 text-primary-blue-700 mx-auto">
+                    <p class="font-bold text-xl h-5/6 my-auto">3</p>
                 </div>
                 <h3 class="mt-8 text-secondary-blue-darkest">Affinez</h3>
                 <p class="mt-5 text-center">Contactez un agent immobilier à proximité pour une estimation plus précise
                     et gratuite.</p>
             </div>
         </div>
-        <div class="mt-8 text-center">
-            <button class="btn-secondary">
-                Estimez dès maintenant
-            </button>
+        <div class="mt-24 text-center">
+            <a href="{% url 'home' %}">
+                <button class="btn-secondary">
+                    Estimez dès maintenant
+                </button>
+            </a>
         </div>
     </div>
-    <div class="container-fluid bg-primary-blue-200 mt-44">
-        <h2 class="text-center text-secondary-blue-darkest p-8">Pourquoi utiliser estimer.com ?</h2>
+    <div class="container-fluid bg-primary-blue-200 mt-36 pb-8">
+        <h2 class="text-center text-secondary-blue-darkest pt-24 mb-12">Pourquoi utiliser estimer.com ?</h2>
         <div class="md:grid md:grid-cols-2">
-            <div class="flex md:mt-5">
+            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
                 <img src="{% static 'images/icons/euros_crossed.svg' %}" class="ml-8" style="height:72px; width:72px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
                     <h4 class="text-secondary-blue-darkest">Gratuit</h4>
                     L'utilisation du site estimer.com est 100% gratuite, sans aucune restriction.
                 </div>
             </div>
-            <div class="flex mt-8 md:mt-5">
+            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
                 <img src="{% static 'images/icons/cloud.svg' %}" class="ml-8" style="height:72px; width:72px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
                     <h4 class="text-secondary-blue-darkest">Confidentiel</h4>
@@ -111,7 +114,7 @@
                     personnelles.
                 </div>
             </div>
-            <div class="flex mt-8 md:mt-5">
+            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
                 <img src="{% static 'images/icons/map.svg' %}" class="ml-8" style="height:72px; width:72px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
                     <h4 class="text-secondary-blue-darkest">Agent immobilier local</h4>
@@ -119,7 +122,7 @@
                     gratuitement, pour en maximiser la valeur.
                 </div>
             </div>
-            <div class="flex mt-8 md:mt-5">
+            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
                 <img src="{% static 'images/icons/clock.svg' %}" class="ml-10 md:ml-10"
                      style="height:64px; width:64px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
@@ -127,7 +130,7 @@
                     Pas de formulaire compliqué à remplir, l'estimation est simple et rapide.
                 </div>
             </div>
-            <div class="flex mt-8 md:mt-5">
+            <div class="flex mt-8 md:mt-10 w-8/12 mx-auto">
                 <img src="{% static 'images/icons/database.svg' %}" class="ml-10 md:ml-10"
                      style="height:64px; width:64px;">
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
@@ -137,22 +140,26 @@
                 </div>
             </div>
         </div>
-        <div class="mt-8 p-8 text-center">
-            <button class="btn-secondary">
-                Obtenez une estimation
-            </button>
+        <div class="my-8 p-8 text-center">
+            <a href="{% url 'home' %}">
+                <button class="btn-secondary">
+                    Obtenez une estimation
+                </button>
+            </a>
         </div>
     </div>
-    <div class="container-fluid bg-secondary-blue-darkest w-4/5 mx-auto rounded-lg mt-44">
+    <div class="container-fluid bg-secondary-blue-darkest w-4/5 mx-auto rounded-xl mt-44">
         <div class="md:flex">
             <div class="p-5">
-                <h3 class="text-white p-5">Une Question ?</h3>
+                <h3 class="text-white p-5">Une question ?</h3>
                 <p class="text-white p-5">Si vous avez la moindre question concernant estimer.com, n'hesitez pas à nous
                     contacter. Nous ferons notre possible pour vous répondre dans les plus brefs délais.</p>
                 <div class="mt-5 text-center md:text-left md:p-5">
-                    <button class="btn-secondary">
-                        Contactez-nous
-                    </button>
+                    <a href="mailto:contact@estimer.com">
+                        <button class="btn-secondary">
+                            Contactez-nous
+                        </button>
+                    </a>
                 </div>
             </div>
 
@@ -176,16 +183,18 @@
             <li><a href="{% url 'city' slug="lyon-1er-arrondissement-69001" %}">Lyon</a></li>
         </ul>
     </div>
-    <div class="container-fluid bg-primary-blue-200 w-4/5 mx-auto rounded-lg mt-44 pt-12">
+    <div class="container-fluid bg-primary-blue-200 w-4/5 mx-auto rounded-xl mt-44 pt-12">
         <div class="md:flex justify-center">
-            <div class="p-5 md:p-0 md:absolute md:w-5/12">
-                <h2 class="text-secondary-blue-darkest p-5 text-center">Vous êtes un professionnel ?</h2>
-                <p class="text-secondary-blue-darkest p-5 text-l text-center">Nous vous proposons de représenter vos
-                    communes sur notre site</p>
+            <div class="p-5 md:p-0 md:absolute md:w-6/12">
+                <h2 class="text-secondary-blue-darkest text-center">Vous êtes un·e professionnel·le ?</h2>
+                <p class="text-secondary-blue-darkest p-5 text-l text-center">Nous vous apportons des lead
+                    qualifiés.</p>
                 <div class="mt-5 text-center md:p-5">
-                    <button class="btn-secondary w-4/5 p-3 md:w-2/4">
-                        Découvrez notre offre
-                    </button>
+                    <a href="{% url 'agence' %}">
+                        <button class="btn-secondary w-4/5 p-3 md:w-2/4">
+                            Découvrez notre offre
+                        </button>
+                    </a>
                 </div>
             </div>
             <div class="mx-auto md:mt-8 md:w-12/12">
