@@ -276,7 +276,7 @@
                 </p>
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
-                        Le quartier le plus cher à {{ city_name }} est ...
+                        Le quartier le plus cher à {{ city_name }} est {{ city_data.most_expensive_neighbourhood.properties.average_m2_price}}
                     </p>
                 </div>
             </li>
@@ -295,7 +295,7 @@
                 </p>
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
-                        Le Quartier le moins cher à {{ city_name }} est ...
+                        Le Quartier le moins cher à {{ city_name }} est {{ city_data.less_expensive_neighbourhood.properties.average_m2_price}}
                     </p>
                 </div>
             </li>
