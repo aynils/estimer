@@ -113,6 +113,8 @@ class CityData:
     chart_b64_svg: str
     price_evolution_text: str
     neighbourhoods: List[NeighbourhoodPolygon]
+    most_expensive_neighbourhood: Neighbourhood
+    less_expensive_neighbourhood: Neighbourhood
 
 
 @dataclass

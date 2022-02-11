@@ -190,6 +190,10 @@ def get_city_data(code_commune: str) -> CityData:
         code_commune=code_commune, date_from=FIVE_YEARS_AGO, types=("Maison", "Appartement")
     )
 
+    sorted_neighbourhoods = sort_neighbourhoods(neighbourhoods=neighbourhoods)
+    most_expensive_neighbourhood = sorted_neighbourhoods[-1]
+    less_expensive_neighbourhood = sorted_neighbourhoods[0]
+
     return CityData(
         median_m2_price_appartement=median_m2_price_appartement,
         median_m2_price_appartement_rooms=median_m2_prices_rooms_appartement,
@@ -205,6 +209,8 @@ def get_city_data(code_commune: str) -> CityData:
         price_evolution_text=price_evolution_text,
         # map_markers=map_markers,
         neighbourhoods=neighbourhoods,
+        most_expensive_neighbourhood=most_expensive_neighbourhood,
+        less_expensive_neighbourhood=less_expensive_neighbourhood,
     )
 
 
@@ -538,3 +544,10 @@ def define_polygon_color(m2_price: float) -> PolygonColor:
         return PolygonColor(background="#DFEAFD", text="#15171A")
     else:
         return PolygonColor(background="#F2F7FF", text="#15171A")
+
+
+def sort_neighbourhoods(neighbourhoods: List[Neighbourhood]) -> List[Neighbourhood]:
+    sort_neighbourhoods = lambda x: int(x.properties.average_m2_price.strip(" €"))
+    neighbourhoods.sort(key=sort_neighbourhoods)
+
+    return neighbourhoods
