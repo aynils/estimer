@@ -66,6 +66,7 @@
     .btn-secondary {
         @apply btn;
         @apply bg-secondary-orange-regular;
+        @apply text-secondary-blue-darkest;
     }
 
     .btn-secondary:hover {

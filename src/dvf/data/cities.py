@@ -307,32 +307,31 @@ def get_city_from_code(code: str) -> Commune or None:
 
 # @timer
 def get_agent(code_commune: str) -> Agent:
-    pass
-    # try:
-    #     agency = Agency.objects.get(code_commune=code_commune)
-    #     agent = Agent(
-    #         picture=agency.picture_url,
-    #         name=agency.agent,
-    #         agency=agency.name,
-    #         description=agency.description,
-    #         phone_number=agency.phone_number,
-    #         email=agency.email,
-    #         website_url=agency.website_url,
-    #     )
-    #
-    # except Agency.DoesNotExist:
-    #     agent = Agent(
-    #         picture="https://estimer.com/static/estimer/images/olivier.jpeg",
-    #         name="Olivier Pourquier",
-    #         agency="estimer.com",
-    #         description="""Vous souhaitez obtenir une estimation précise de votre bien ?
-    #                         Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.""",
-    #         phone_number="06.81.37.36.33",
-    #         email="contact@estimer.com",
-    #         website_url="estimer.com",
-    #     )
-    #
-    # return agent
+    try:
+        agency = Agency.objects.get(code_commune=code_commune)
+        agent = Agent(
+            picture=agency.picture_url,
+            name=agency.agent,
+            agency=agency.name,
+            description=agency.description,
+            phone_number=agency.phone_number,
+            email=agency.email,
+            website_url=agency.website_url,
+        )
+
+    except:
+        agent = Agent(
+            picture="https://estimer.com/static/estimer/images/olivier.jpeg",
+            name="Olivier Pourquier",
+            agency="estimer.com",
+            description="""Vous souhaitez obtenir une estimation précise de votre bien ?
+                            Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.""",
+            phone_number="06.81.37.36.33",
+            email="contact@estimer.com",
+            website_url="estimer.com",
+        )
+
+    return agent
 
 
 # @timer

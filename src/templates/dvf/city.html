@@ -16,26 +16,26 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid bg-primary-blue-200 pb-10">
-        <div class="flex">
-            <img src="{{ city_data.agent.picture }}" class="mx-8 w-16 h-16 mt-8 md:ml-auto md:mr-5">
-            <div class="mx-auto ml-3 mt-8 w-7/12 md:grid md:grid-cols-3">
-                <p class="text-l text-secondary-blue-darkest">
+    <div id="agency-banner" class="container-fluid bg-primary-blue-100 py-5">
+        <div class="flex px-20 items-center">
+            <img alt="logo of agency {{ city_data.agent.agency }}"
+                 src="{{ city_data.agent.picture }}"
+                 class="my-auto mr-20 w-16 h-16 rounded-full">
+                <p class="text-l text-secondary-blue-darkest w-6/12">
                     <strong>{{ city_data.agent.agency }}</strong> est disponible pour
                     estimer gratuitement votre bien à {{ city_name }}.
                 </p>
-                <div class="md:flex md:grid md:grid-cols-1 md:mx-12">
+                <div class="w-3/12 ml-10">
                     <p class="text-secondary-blue-darkest mt-8 md:mt-0">{{ city_data.agent.name }}</p>
                     <p class="text-secondary-blue-darkest">{{ city_data.agent.website_url }}</p>
                     <p class="text-secondary-blue-darkest">{{ city_data.agent.phone_number }}</p>
                 </div>
-                <a href="mailto:{{ city_data.agent.email }}">
-                    <button class="btn-secondary w-11/12 mx-auto mt-8 text-secondary-blue-darkest md:w-11/12">
-                        Contacter par mail
+                <a href="mailto:contact@estimer.com" class="w-40">
+                    <button class="btn-secondary">
+                        Contacter
                     </button>
                 </a>
-            </div>
-        </div>
+    </div>
     </div>
     <div class="container-fluid">
         <h2 class="mt-8 mx-auto text-center w-1/2 text-secondary-blue-darkest">Prix au m2 à {{ city_name }}</h2>
@@ -47,7 +47,7 @@
             {% endfor %}
             €</h2>
     </div>
-    <div class="container-fluid bg-primary-blue-200 pb-16">
+    <div class="container-fluid bg-primary-blue-100 pb-16">
         <h2 class="text-secondary-blue-darkest p-8 mx-auto w-10/12">Prix au m2</h2>
         <p class="text-secondary-blue-darkest mx-auto px-8 pb-8 w-10/12">
             Suite à l'analyse des {{ city_data.number_of_sales }} transactions immobilières à {{ city_name }}, en 220,
