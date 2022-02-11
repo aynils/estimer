@@ -541,13 +541,13 @@ def convert_coordinates_srid(
 
 def define_polygon_color(m2_price: float) -> PolygonColor:
     if m2_price >= 4500:
-        return PolygonColor(background="#0B3C93", text="#F2F7FF")
+        return PolygonColor(background="#0B3C93", text="#15171A")
     elif m2_price >= 4000:
-        return PolygonColor(background="#105ADC", text="#F2F7FF")
+        return PolygonColor(background="#105ADC", text="#15171A")
     elif m2_price >= 3500:
-        return PolygonColor(background="#3F80F1", text="#F2F7FF")
+        return PolygonColor(background="#3F80F1", text="#15171A")
     elif m2_price >= 3000:
-        return PolygonColor(background="#7FAAF6", text="#F2F7FF")
+        return PolygonColor(background="#7FAAF6", text="#15171A")
     elif m2_price >= 2500:
         return PolygonColor(background="#BAD1F8", text="#15171A")
     elif m2_price >= 2000:

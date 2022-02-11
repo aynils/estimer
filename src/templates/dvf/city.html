@@ -158,18 +158,18 @@
         </div>
     </div>
 
-    <div class="container-fluid bg-primary-blue-200 mt-16 pb-16">
-        <div class="md:flex md:mt-16">
-            <h2 class="text-secondary-blue-darkest p-8 md:p-0 md:w-4/12 md:mb-24 md:ml-auto md:mt-32">Carte des
-                prix</h2>
-            <p class="text-secondary-blue-darkest p-8 md:p-0 md:w-5/12 md:mb-24 md:mr-auto md:mt-32">Lorem ipsum dolor
-                sit
-                amet consectetur adipisicing elit. Exercitationem rem nesciunt dicta ut aut ab minus,
-                laboriosam impedit. Pariatur nulla commodi placeat natus! Numquam, distinctio? In dicta beatae eaque
-                veniam.
-            </p>
+    <div class="container-fluid bg-primary-blue-100 mt-16 pb-16">
+        <div class="md:py-16 md:w-8/12 mx-auto">
+            <div class="flex justify-between">
+                <h2 class="text-secondary-blue-darkest py-8 md:p-0 md:w-4/12">Carte des prix</h2>
+                <p class="text-secondary-blue-darkest py-8 md:p-0 md:w-8/12">
+                </p>
+            </div>
+            <div class="mt-16">
+            {% include 'map/map.html' %}
+            </div>
         </div>
-        {% include 'map/map.html' %}
+
     </div>
     <div class="container-fluid md:flex">
         <div class="container-fluid mt-10 md:flex md:w-1/2 md:flex-col">
