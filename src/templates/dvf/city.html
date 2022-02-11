@@ -171,21 +171,20 @@
         </div>
 
     </div>
-{#    TODO: Ajouter les majuscules aux rues#}
     <div id="streets" class="flex my-16">
         <div class="mt-10 md:flex md:w-1/2 md:flex-col">
             <div class="w-10/12 md:w-8/12 mx-auto">
                 <div class="flex justify-between">
                     <h3 class="text-secondary-blue-darkest mt-8 md:mt-0 ">Rues les plus chères</h3>
                     <img src="{% static 'images/icons/euros_many.svg' %}"
-                         class="mt-4 md:mt-0 md:w-16"
-                         alt="few euros"
+                         class="mt-4 md:mt-0 h-12"
+                         alt="lots of euros"
                     >
                 </div>
                 <div class="mt-8">
                     {% for street in city_data.most_expensive_streets %}
                         <div class="flex justify-between my-6">
-                            <div class="text-secondary-blue-darkest">{{ street.nom_voie }}</div>
+                            <div class="text-secondary-blue-darkest capitalize">{{ street.nom_voie }}</div>
                             <div class="text-secondary-blue-darkest">{{ street.avg_m2_price }} €/m2</div>
                         </div>
                     {% endfor %}
@@ -198,14 +197,14 @@
                 <div class="flex justify-between">
                     <h3 class="text-secondary-blue-darkest mt-8 md:mt-0 ">Rues les plus chères</h3>
                     <img src="{% static 'images/icons/euros_few.svg' %}"
-                         class="mt-4 md:mt-0 md:w-16"
+                         class="mt-4 md:mt-0 h-12"
                          alt="few euros"
                     >
                 </div>
                 <div class="mt-8">
                     {% for street in city_data.less_expensive_streets %}
                         <div class="flex justify-between my-6">
-                            <div class="text-secondary-blue-darkest">{{ street.nom_voie }}</div>
+                            <div class="text-secondary-blue-darkest capitalize">{{ street.nom_voie }}</div>
                             <div class="text-secondary-blue-darkest">{{ street.avg_m2_price }} €/m2</div>
                         </div>
                     {% endfor %}
