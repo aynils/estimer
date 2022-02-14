@@ -230,32 +230,31 @@
         </div>
     </div>
     <div id="closeby-cities"
-         class=" bg-secondary-blue-darkest w-10/12 rounded-xl mx-auto mt-32 pb-16">
-        <div class="flex items-center justify-around w-10/12 md:w-8/12 mx-auto py-16">
+         class=" bg-secondary-blue-darkest w-10/12 rounded-xl mx-auto pb-16">
+        <div class="md:flex md:items-center text-center md:text-left w-11/12 md:w-8/12 mx-auto md:py-16 py-8">
             <img src="{% static 'images/icons/map_pointer.svg' %}"
-                 class="w-16"
+                 class="w-16 mx-auto mb-4 md:mb-0"
                  alt="pin on a map"
             >
-            <h2 class="text-white w-4/6"> Communes à proximité</h2>
+            <h2 class="text-white w-8/12 mx-auto">Communes à proximité</h2>
         </div>
-        <div class="flex">
-            <div class="mt-8">
-                {% for citiesclose in closeby_cities|slice:":10" %}
+        <div class="flex text-center">
+            <div class="mt-8 text-center mx-auto md:w-6/12">
+                {% for city in closeby_cities|slice:":10" %}
                     <a class="mx-auto text-white"
-                       href="{% url 'city' slug=citiesclose.slug %}">
-                        <p class="font-semibold leading-loose">{{ citiesclose.nom_commune }}</p>
+                       href="{% url 'city' slug=city.slug %}">
+                        <p class="font-semibold leading-loose">{{ city.nom_commune }}</p>
                     </a>
 
                 {% endfor %}
             </div>
             <div class="hidden md:flex mx-auto rounded-full mt-5 w-[2px] h-[400px] bg-secondary-blue-lightest"></div>
-            <div class="hidden mt-8">
-                {% for citiesclose in closeby_cities|slice:"10:" %}
+            <div class="hidden md:block mt-8 md:w-6/12">
+                {% for city in closeby_cities|slice:"10:20" %}
                     <a class="mx-auto text-white"
-                       href="{% url 'city' slug=citiesclose.slug %}">
-                        <p class="font-semibold leading-loose">{{ citiesclose.nom_commune }}</p>
+                       href="{% url 'city' slug=city.slug %}">
+                        <p class="font-semibold leading-loose">{{ city.nom_commune }}</p>
                     </a>
-
                 {% endfor %}
             </div>
 
@@ -336,7 +335,7 @@
                     <p class="p-3 text-secondary-blue-darkest text-xs">
                         Le quartier le plus cher à {{ city_name }}
                         est {{ city_data.most_expensive_neighbourhood.properties.nom_iris }} avec un prix de
-                        {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }} € au m2.
+                        {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }} au m2.
                     </p>
                 </div>
             </li>
@@ -357,7 +356,7 @@
                     <p class="p-3 text-secondary-blue-darkest text-xs">
                         Le Quartier le moins cher à {{ city_name }}
                         est {{ city_data.less_expensive_neighbourhood.properties.nom_iris }} avec un prix de
-                        {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }} € au m2.
+                        {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }} au m2.
                     </p>
                 </div>
             </li>
