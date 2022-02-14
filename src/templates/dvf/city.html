@@ -143,7 +143,7 @@
     </div>
     <div id="prix-m2-quartier" x-data="irisData">
         <div class="w-10/12 md:w-8/12 mx-auto my-32">
-            <div class="flex justify-between items-baseline">
+            <div class="md:flex justify-between items-baseline text-center md:text-left">
                 <div class="md:w-12/12 md:ml-auto">
                     <h2 class="text-secondary-blue-darkest mx-auto">Evolution du prix au m2</h2>
                     <p class="text-secondary-blue-darkest mx-auto mt-8 md:mt-5"
@@ -167,7 +167,7 @@
                 </select>
             </div>
 
-            <div class="mt-20">
+            <div class="mt-10 md:mt-20">
                 <img x-bind:src="'data:image/svg+xml;base64,' + irisData.chart_b64_svg"
                      x-bind:alt="'prix m2 ' + irisData.iris_name"
                      class="md:mx-auto">
