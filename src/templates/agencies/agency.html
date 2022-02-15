@@ -15,48 +15,39 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <h2 class="w-7/12 mx-auto mt-8 text-secondary-blue-darkest md:text-center">Plus de visibilité, plus de
+    <div id="title-section">
+        <h2 class="w-7/12 mx-auto mt-12 md:text-center">Plus de visibilité, plus de
             mandats</h2>
-        <p class="w-3/5 mx-auto mt-8 text-center text-secondary-blue-darkest md:text-center md:w-4/12 md:p-1">Devenez
-            l'agence immobilière exclusive qui représentera votre commune sur Estimer.com
+        <p class="w-3/5 mx-auto mt-8 text-center md:text-center md:w-5/12">Devenez
+            l'agence immobilière exclusive qui représentera vos communes sur Estimer.com
             et obtenez de nouveaux mandats</p>
     </div>
-    <div class="md:flex md:mt-16">
-        <div class="container-fluid mt-14 md:flex md:w-2/4">
-            <img src="{% static 'images/illustrations/computer_agency.svg' %}"
-                 class="w-3/4 mx-auto mt-8 md:w-3/4 md:h-3/4 md:mx-0 md:ml-auto">
-        </div>
-        <div class="md:flex md:flex-wrap md:w-2/4">
-            <div class="container-fluid mt-14">
-                <p class="w-3/5 mx-auto mt-8 text-secondary-blue-darkest md:w-5/5">" Lorem ipsum dolor sit amet. Qui
-                    aliquam
-                    quaerat ex tempora consequatur ut quos earum ut galisum expedita.
-                    Et ratione minus aut voluptatum veniam a dolorem dolores sed totam quas ut repellat similique et
-                    similique
-                    voluptatum cum odit deserunt."</p>
-            </div>
-            <div class="container mt-14 md:mt-4">
+    <div id="testimonial-section" class="md:flex md:mt-16 justify-between md:w-10/12 mx-auto">
+        <img src="{% static 'images/illustrations/computer_agency.svg' %}"
+                 class="w-2/4 mt-8 md:w-2/4">
+        <div class="md:w-5/12">
+            <p class="mt-8 text-secondary-blue-darkest">"Être la seule agence qui représente
+                mon secteur est un réel plus pour ma visibilité et ma notoriété."</p>
+            <div class="mt-10">
                 <div class="flex">
-                    <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">
-                    <div class="mx-auto ml-3">
-                        <h3 class="text-secondary-blue-darkest">Prénom Nom</h3>
-                        <p class="text-xs">Agence Lorem</p>
+                    <img src="{% static 'images/testimonials/logo_helium.webp' %}" class="w-14 h-14 mr-4">
+                    <div class="">
+                        <h3 class="text-secondary-blue-darkest">Nabil Benaboura</h3>
+                        <p class="text-xs">Helium Immobilier</p>
                     </div>
                 </div>
             </div>
-            <div class="container mt-14 text-center mb-8 md:mt-0">
-                <button class="btn-secondary mx-auto w-8/12 p-3 text-secondary-blue-darkest md:w-2/4 md:p-1 xl:md-1/4">
+            <div class="mt-10 mb-0 md:mt-14 flex justify-between md:w-11/12">
+                <button class="btn-secondary">
                     Obtenez l'exclusivité
                 </button>
-
-                <button class="btn-primary mx-auto w-8/12 p-3 mt-8 text-secondary-blue-darkest md:w-3/12 md:p-1 md:mt-3 xl:w-2/12">
-                    Default
-                </button>
+{#                <button class="btn-primary">#}
+{#                    Default#}
+{#                </button>#}
             </div>
         </div>
     </div>
-    <div class="container-fluid bg-primary-blue-200 mt-14 w-9/12 mx-auto p-2 rounded-xl">
+    <div class=" bg-primary-blue-200 mt-14 w-9/12 mx-auto p-2 rounded-xl">
         <div class="md:flex md:mt-24">
             <div class="md:flex md:flex-col md:w-2/4">
                 <h2 class="text-center text-secondary-blue-darkest mt-5">Renforcez votre notoriété</h2>
@@ -75,11 +66,11 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="">
         <h2 class="mx-auto text-center text-secondary-blue-darkest mt-5 w-1/2 md:mt-24">Pourquoi choisir notre
             offre</h2>
         <div class="md:grid md:grid-cols-3">
-            <div class="container-fluid mt-14">
+            <div class=" mt-14">
                 <img src="{% static 'images/icons/eye.svg' %}" class="mx-auto mt-14">
                 <h4 class="mx-auto text-center text-secondary-blue-darkest mt-8">Plus de visibilité</h4>
                 <p class="mx-auto w-1/2 text-secondary-blue-darkest mt-11">Des vendeurs viennent tous les jours sur
@@ -88,7 +79,7 @@
                     Nous vous mettons en avant afin de vous rendre visible auprès des vendeurs dans votre ville</p>
             </div>
 
-            <div class="container-fluid mt-14">
+            <div class=" mt-14">
                 <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mt-14">
                 <h4 class="mx-auto text-center text-secondary-blue-darkest mt-8">Exclusivité</h4>
                 <p class="mx-auto w-1/2 text-secondary-blue-darkest mt-11">Votre agence immobilière est mise en
@@ -99,7 +90,7 @@
                     afin de renforcer au maximum votre notoriété.</p>
             </div>
 
-            <div class="container-fluid mt-14">
+            <div class=" mt-14">
                 <img src="{% static 'images/icons/chart.svg' %}" class="mx-auto mt-14">
                 <h4 class="mx-auto text-center text-secondary-blue-darkest mt-8">Traffic garanti</h4>
                 <p class="mx-auto w-1/2 text-secondary-blue-darkest mt-11">Nous générons du trafic naturel et payant sur
@@ -107,13 +98,13 @@
                     dans votre commune.</p>
             </div>
         </div>
-        <div class="container-fluid mt-14 text-center mb-12">
+        <div class=" mt-14 text-center mb-12">
             <button class="btn-secondary mx-auto w-8/12 p-3 text-secondary-blue-darkest md:w-1/4 md:mb-24">
                 Représentez vos communes
             </button>
         </div>
     </div>
-    <div class="container-fluid bg-secondary-blue-darkest mt-12 p-5">
+    <div class=" bg-secondary-blue-darkest mt-12 p-5">
         <h3 class="p-3 mx-auto text-white w-8/12 text-center mb-8 md:text-left md:text-2xl md:mx-0 md:mb-12">Ils nous
             font
             confiance</h3>
@@ -156,7 +147,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid mt-14">
+    <div class=" mt-14">
         <h2 class="text-center text-secondary-blue-darkest mb-12"> Comment s'incrire ?</h2>
         <div class="md:grid md:grid-cols-3">
             <div class="bg-primary-blue-200 w-11/12 mx-auto rounded-xl md:mt-12">
@@ -188,7 +179,7 @@
         <h3 class="text-secondary-blue-darkest text-center py-6 w-6/12 pr-1 mx-auto">Des tarifs adaptés à vos
             communes</h3>
         <div class="md:grid md:grid-cols-3 md:mx-auto" x-model="selectedCity">
-            <div class="md:ml-auto" >
+            <div class="md:ml-auto">
                 <p class="text-secondary-blue-darkest text-center text-l w-6/12 mx-auto md:w-8/12">Calculez le prix de
                     votre
                     abonnement</p>
@@ -207,7 +198,7 @@
                     </select>
                 </div>
                 <div class="text-center">
-                    <select type="text"  class="p-2 text-sm rounded-full mt-8 w-9/12 md:w-11/12"
+                    <select type="text" class="p-2 text-sm rounded-full mt-8 w-9/12 md:w-11/12"
                             maxlength="256" required x-on:change="addCities()">
                         <option value="" disabled selected>Choisissez vos communes</option>
                         <template x-for="(city, id) in cities" :key="id">
@@ -217,7 +208,7 @@
                         </template>
                     </select>
                 </div>
-                <div class="container-fluid mt-5 bg-white w-9/12 rounded-xl mx-auto h-32 mb-8 overflow-auto md:w-11/12">
+                <div class=" mt-5 bg-white w-9/12 rounded-xl mx-auto h-32 mb-8 overflow-auto md:w-11/12">
                     <ul>
                         <template x-for="(city, index) in selectedCities" :key="index">
                             <div class="flex mx-2 my-1">
@@ -250,13 +241,13 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid mt-12 text-center">
+    <div class=" mt-12 text-center">
         <h2 class="text-secondary-blue-darkest md:mt-24">Questions fréquentes</h2>
         <ul class="flex flex-col mt-12 w-9/12 mx-auto text-secondary-blue-darkest">
             <li class="bg-white my-2" x-data="accordion(1)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune ?</span>
+                    <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune ?</span>
                     <svg :class="handleRotate()"
                          class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
                          viewBox="0 0 20 20">
@@ -267,7 +258,8 @@
                 </p>
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
-                        Oui ! La particularité de notre offre est que vous soyez la seule agence à représenter votre commune pour un maximum de visibilité et de notoriété.
+                        Oui ! La particularité de notre offre est que vous soyez la seule agence à représenter votre
+                        commune pour un maximum de visibilité et de notoriété.
                     </p>
                 </div>
             </li>
@@ -275,7 +267,7 @@
             <li class="bg-white my-2" x-data="accordion(2)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left md:mx-auto">Est-ce que je peux arrêter mon abonnement à tout moment ?</span>
+                    <span class="text-left md:mx-auto">Est-ce que je peux arrêter mon abonnement à tout moment ?</span>
                     <svg :class="handleRotate()"
                          class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
                          viewBox="0 0 20 20">
@@ -294,7 +286,7 @@
             <li class="bg-white my-2" x-data="accordion(3)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left md:mx-auto">Offrez vous un tarif annuel ? </span>
+                    <span class="text-left md:mx-auto">Offrez vous un tarif annuel ? </span>
                     <svg :class="handleRotate()"
                          class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
                          viewBox="0 0 20 20">
@@ -313,7 +305,7 @@
             <li class="bg-white my-2" x-data="accordion(4)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                <span class="text-left md:mx-auto">Est-ce qu’il est possible de représenter plusieurs communes sur Estimer.com ? </span>
+                    <span class="text-left md:mx-auto">Est-ce qu’il est possible de représenter plusieurs communes sur Estimer.com ? </span>
                     <svg :class="handleRotate()"
                          class="fill-current text-purple-700 h-6 w-6 transform transition-transform duration-500"
                          viewBox="0 0 20 20">
@@ -325,7 +317,8 @@
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
                         Oui ! Vous pouvez représenter autant de communes que vous souhaitez.
-La seule condition est de disposer une réelle expertise et présence sur les communes sélectionnées.
+                        La seule condition est de disposer une réelle expertise et présence sur les communes
+                        sélectionnées.
                     </p>
                 </div>
             </li>
