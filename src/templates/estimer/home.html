@@ -22,7 +22,7 @@
                     <span class="m-1 absolute inset-y-0 left-0 flex items-center">
                         <img
                                 class="ml-5"
-                                src="{% static 'images/icons/pin.png' %}"
+                                src="{% static 'images/icons/pin.svg' %}"
                                 alt="pin"
                         >
                     </span>
@@ -39,23 +39,26 @@
                 </div>
             </form>
         </div>
-        <img src="{% static 'images/illustrations/city.svg' %}" class="object-cover h-full w-full">
+        <img src="{% static 'images/illustrations/city.svg' %}"
+             class="object-cover h-full w-full"
+             alt="city illustration"
+        >
         <div class="bg-secondary-blue-darkest text-white text-center">
             <div class="px-4 py-20 md:px-20 md:grid md:grid-cols-4">
                 <div class="md:block md:w-8/12 mx-auto">
-                    <h3 class="mb-2">15 millions</h3>
+                    <h2 class="mb-2">15 millions</h2>
                     <p>de ventes listées</p>
                 </div>
                 <div class="md:block w-8/12 mx-auto mt-10 md:mt-0">
-                    <h3 class="mb-2">5 années</h3>
+                    <h2 class="mb-2">5 années</h2>
                     <p>d'historique de transactions</p>
                 </div>
                 <div class="md:block w-8/12 mx-auto  mt-10 md:mt-0">
-                    <h3 class="mb-2">31 000</h3>
+                    <h2 class="mb-2">31 000</h2>
                     <p>communes analysées</p>
                 </div>
                 <div class="md:block w-8/12 mx-auto  mt-10 md:mt-0">
-                    <h3 class="mb-2">0</h3>
+                    <h2 class="mb-2">0</h2>
                     <p>données personnelles collectées</p>
                 </div>
             </div>
@@ -100,41 +103,58 @@
         <h2 class="text-center text-secondary-blue-darkest pt-24 mb-12">Pourquoi utiliser estimer.com ?</h2>
         <div class="md:grid md:grid-cols-2">
             <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
-                <img src="{% static 'images/icons/euros_crossed.svg' %}" class="ml-8" style="height:72px; width:72px;">
+                <img src="{% static 'images/icons/euros_crossed.svg' %}"
+                     class="ml-8"
+                     style="height:72px; width:72px;"
+                     alt="euro crossed"
+
+                >
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h4 class="text-secondary-blue-darkest">Gratuit</h4>
+                    <h3 class="text-secondary-blue-darkest">Gratuit</h3>
                     L'utilisation du site estimer.com est 100% gratuite, sans aucune restriction.
                 </div>
             </div>
             <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
-                <img src="{% static 'images/icons/cloud.svg' %}" class="ml-8" style="height:72px; width:72px;">
+                <img src="{% static 'images/icons/cloud.svg' %}"
+                     class="ml-8"
+                     style="height:72px; width:72px;"
+                     alt="cloud"
+                >
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h4 class="text-secondary-blue-darkest">Confidentiel</h4>
+                    <h3 class="text-secondary-blue-darkest">Confidentiel</h3>
                     Contrairement aux autres sites d'estimation immobilière, nous ne stockons aucune de vos données
                     personnelles.
                 </div>
             </div>
             <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
-                <img src="{% static 'images/icons/map.svg' %}" class="ml-8" style="height:72px; width:72px;">
+                <img src="{% static 'images/icons/map.svg' %}"
+                     class="ml-8"
+                     style="height:72px; width:72px;"
+                     alt="map illustration"
+                >
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h4 class="text-secondary-blue-darkest">Agent immobilier local</h4>
+                    <h3 class="text-secondary-blue-darkest">Agent immobilier local</h3>
                     Nous avons sélectionné, pour chaque commune, une agence locale à même d'estimer votre bien
                     gratuitement, pour en maximiser la valeur.
                 </div>
             </div>
             <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
                 <img src="{% static 'images/icons/clock.svg' %}" class="ml-10 md:ml-10"
-                     style="height:64px; width:64px;">
+                     style="height:64px; width:64px;"
+                     alt="clock illustration"
+                >
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h4 class="text-secondary-blue-darkest">Rapide</h4>
+                    <h3 class="text-secondary-blue-darkest">Rapide</h3>
                     Pas de formulaire compliqué à remplir, l'estimation est simple et rapide.
                 </div>
             </div>
             <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
                 <img src="{% static 'images/icons/database.svg' %}" class="ml-10 md:ml-10"
-                     style="height:64px; width:64px;">
+                     style="height:64px; width:64px;"
+                     alt="database illustration"
+                >
                 <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h4 class="text-secondary-blue-darkest">Données vérifiées</h4>
+                    <h3 class="text-secondary-blue-darkest">Données vérifiées</h3>
                     Nous nous basons sur les transactions réelles historiques produites par la direction générale des
                     Finances publiques.
                 </div>
@@ -148,7 +168,7 @@
             </a>
         </div>
     </div>
-    <div class="container-fluid bg-secondary-blue-darkest w-7/12 mx-auto rounded-xl mt-44">
+    <div class="bg-secondary-blue-darkest w-10/12 md:w-7/12 mx-auto rounded-xl mt-24 md:mt-44">
         <div class="md:flex">
             <div class="p-5">
                 <h3 class="text-white p-5">Une question ?</h3>
@@ -171,22 +191,22 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid mt-44">
+    <div class="container-fluid mt-24 md:mt-44">
         <h2 class="text-secondary-blue-darkest text-center">Les communes les plus populaires</h2>
         <ul class="text-center text-xs mt-8 md:grid md:grid-cols-3">
-            <li><a href="{% url 'city' slug="toulouse-31100" %}">Toulouse</a></li>
-            <li><a href="{% url 'city' slug="nice-06200" %}">Nice</a></li>
-            <li><a href="{% url 'city' slug="nantes-44100" %}">Nantes</a></li>
-            <li><a href="{% url 'city' slug="bordeaux-33200" %}">Bordeaux</a></li>
-            <li><a href="{% url 'city' slug="montpellier-34080" %}">Montpellier</a></li>
-            <li><a href="{% url 'city' slug="lille-59000" %}">Lille</a></li>
-            <li><a href="{% url 'city' slug="rennes-35000" %}">Rennes</a></li>
-            <li><a href="{% url 'city' slug="toulouse-31100" %}">Nîmes</a></li>
-            <li><a href="{% url 'city' slug="saint-etienne-42000" %}">Saint-Etienne</a></li>
-            <li><a href="{% url 'city' slug="lyon-1er-arrondissement-69001" %}">Lyon</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="toulouse-31100" %}">Toulouse</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="nice-06200" %}">Nice</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="nantes-44100" %}">Nantes</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="bordeaux-33200" %}">Bordeaux</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="montpellier-34080" %}">Montpellier</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="lille-59000" %}">Lille</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="rennes-35000" %}">Rennes</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="toulouse-31100" %}">Nîmes</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="saint-etienne-42000" %}">Saint-Etienne</a></li>
+            <li class="py-2"><a href="{% url 'city' slug="lyon-1er-arrondissement-69001" %}">Lyon</a></li>
         </ul>
     </div>
-    <div class="container-fluid bg-primary-blue-200 w-4/5 mx-auto rounded-xl mt-44 pt-12">
+    <div class="container-fluid bg-primary-blue-200 w-4/5 mx-auto rounded-xl mt-24 md:mt-44 pt-12">
         <div class="md:flex justify-center">
             <div class="p-5 md:p-0 md:absolute md:w-6/12">
                 <h2 class="text-secondary-blue-darkest text-center">L'immobilier est votre métier ?</h2>
