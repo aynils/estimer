@@ -26,8 +26,8 @@ function citySearch() {
         cities: JSON.parse(document.getElementById('cities_pricing').textContent),
         departements: DEPARTEMENTS,
         selectedCities: [],
-        price ()  {
-            return  this.selectedCities.reduce((total, city) => {
+        price() {
+            return this.selectedCities.reduce((total, city) => {
                 return total + city.price
             }, 0)
         },
@@ -54,6 +54,11 @@ function citySearch() {
                 return city;
             });
         },
+        mailto() {
+            const formattedBody = `Bonjour Olivier, \n\nJe souhaiterais obtenir l'exclusivité sur les communes suivantes : \n${this.selectedCities.map(city => `  - ${city.name} (${city.zipcode})`).join('\n')}\n\n Bien à vous,\n`
+            const formattedSubject = `Je voudrais l'exclusivité sur ces communes.`
+            return "mailto:contact@estimer.com?subject=" + formattedSubject + "&body=" + encodeURIComponent(formattedBody);
+        }
 
     };
 }

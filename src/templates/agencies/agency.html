@@ -24,13 +24,17 @@
     </div>
     <div id="testimonial-section" class="md:flex md:mt-16 justify-between md:w-10/12 mx-auto">
         <img src="{% static 'images/illustrations/computer_agency.svg' %}"
-                 class="w-2/4 mt-8 md:w-2/4">
+             alt="computer showing an announce on estimer.com"
+             class="w-2/4 mt-8 md:w-2/4">
         <div class="md:w-5/12">
             <p class="mt-8 text-secondary-blue-darkest">"Être la seule agence qui représente
                 mon secteur est un réel plus pour ma visibilité et ma notoriété."</p>
             <div class="mt-10">
                 <div class="flex">
-                    <img src="{% static 'images/testimonials/logo_helium.webp' %}" class="w-14 h-14 mr-4">
+                    <img src="{% static 'images/testimonials/logo_helium.webp' %}"
+                         class="w-14 h-14 mr-4"
+                         alt="Helium immobilier's logo"
+                    >
                     <div class="">
                         <h3 class="text-secondary-blue-darkest">Nabil Benaboura</h3>
                         <p class="text-xs">Helium Immobilier</p>
@@ -41,148 +45,156 @@
                 <button class="btn-secondary">
                     Obtenez l'exclusivité
                 </button>
-{#                <button class="btn-primary">#}
-{#                    Default#}
-{#                </button>#}
+                {#                <button class="btn-primary">#}
+                {#                    Default#}
+                {#                </button>#}
             </div>
         </div>
     </div>
-    <div class=" bg-primary-blue-200 mt-14 w-9/12 mx-auto p-2 rounded-xl">
-        <div class="md:flex md:mt-24">
-            <div class="md:flex md:flex-col md:w-2/4">
-                <h2 class="text-center text-secondary-blue-darkest mt-5">Renforcez votre notoriété</h2>
-                <p class="p-3 mt-3 text-secondary-blue-darkest md:text-center md:w-3/4 md:mx-auto">Les agences
+    <div id="reinforce-section" class="bg-primary-blue-200 mt-24 w-11/12 mx-auto p-2 rounded-xl">
+        <div class="md:flex md:my-24">
+            <div class="md:w-2/4 text-center md:text-left md:px-10">
+                <h2>Renforcez votre notoriété</h2>
+                <p class="mt-8">Les agences
                     immobilières
                     utilisent Estimer.com pour renforcer leur notoriété dans leur ville
-                    et signé de nouveaux mandats</p>
-                <div class="text-center mt-5">
-                    <button class="btn-secondary w-8/12 p-3 text-secondary-blue-darkest md:w-2/4">
-                        Démarrez notre offre
-                    </button>
-                </div>
+                    et signer de nouveaux mandats</p>
+                <button class="btn-secondary mt-20">
+                    Profitez de notre offre
+                </button>
+
             </div>
-            <div class="mt-14 mb-12 md:w-2/4 md:flex md:mt-0">
-                <img src="{% static 'images/illustrations/houses_premium.svg' %}" class="w-9/12 mx-auto">
+            <div class="md:w-2/4">
+                <img src="{% static 'images/illustrations/houses_premium.svg' %}"
+                     alt="houses illustration"
+                >
             </div>
         </div>
     </div>
-    <div class="">
-        <h2 class="mx-auto text-center text-secondary-blue-darkest mt-5 w-1/2 md:mt-24">Pourquoi choisir notre
-            offre</h2>
+    <div id="why-section">
+        <h2 class="mx-auto text-center mt-5 w-1/2 md:mt-24">Pourquoi choisir Estimer.com
+            ?</h2>
         <div class="md:grid md:grid-cols-3">
-            <div class=" mt-14">
-                <img src="{% static 'images/icons/eye.svg' %}" class="mx-auto mt-14">
-                <h4 class="mx-auto text-center text-secondary-blue-darkest mt-8">Plus de visibilité</h4>
-                <p class="mx-auto w-1/2 text-secondary-blue-darkest mt-11">Des vendeurs viennent tous les jours sur
-                    Estimer.com
-                    pour suivre le prix de l'immobilier et pour évaluer leur bien.
-                    Nous vous mettons en avant afin de vous rendre visible auprès des vendeurs dans votre ville</p>
+            <div class="mt-14">
+                <img src="{% static 'images/icons/eye.svg' %}"
+                     class="mx-auto mt-14"
+                     alt="eye illustration"
+                >
+                <h4 class="mx-auto text-center mt-8">Plus de visibilité</h4>
+                <p class="mx-auto w-8/12 mt-11">
+                    Des vendeurs visitent Estimer.com tous les jours.</p>
+                <p class="mx-auto w-8/12 mt-11">
+                    Nous mettons votre agence en avant afin de vous rendre visible auprès des vendeurs dans votre ville.</p>
             </div>
 
-            <div class=" mt-14">
-                <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mt-14">
-                <h4 class="mx-auto text-center text-secondary-blue-darkest mt-8">Exclusivité</h4>
-                <p class="mx-auto w-1/2 text-secondary-blue-darkest mt-11">Votre agence immobilière est mise en
-                    concurrence
-                    sur
-                    la plupart des plateformes existantes. Sur Estimer.com, vous bénéficiez de l'exclusivité sur votre
-                    commune
-                    afin de renforcer au maximum votre notoriété.</p>
+            <div class="mt-14">
+                <img src="{% static 'images/icons/crown.svg' %}"
+                     class="mx-auto mt-14"
+                     alt="crown illustration"
+                >
+                <h4 class="mx-auto text-center mt-8">Exclusivité</h4>
+                <p class="mx-auto w-8/12 mt-11">Sur la plupart des plateformes existantes, votre agence immobilière est mise en concurrence.</p>
+                <p class="mx-auto w-8/12 mt-11">Sur Estimer.com, vous bénéficiez de l'exclusivité sur votre commune afin de renforcer au maximum votre notoriété.</p>
             </div>
 
-            <div class=" mt-14">
-                <img src="{% static 'images/icons/chart.svg' %}" class="mx-auto mt-14">
+            <div class="mt-14">
+                <img src="{% static 'images/icons/chart.svg' %}"
+                     class="mx-auto mt-14"
+                     alt="chart going up illustration"
+                >
                 <h4 class="mx-auto text-center text-secondary-blue-darkest mt-8">Traffic garanti</h4>
-                <p class="mx-auto w-1/2 text-secondary-blue-darkest mt-11">Nous générons du trafic naturel et payant sur
-                    les pages de vos communes. Obetenez tous les mois la visibilité que vous méritez auprès des vendeurs
+                <p class="mx-auto w-8/12 text-secondary-blue-darkest mt-11">Nous générons du trafic naturel et payant sur
+                    les pages de vos communes. </p>
+                <p class="mx-auto w-8/12 text-secondary-blue-darkest mt-11">Obtenez tous les mois la visibilité que vous méritez auprès des vendeurs
                     dans votre commune.</p>
             </div>
         </div>
         <div class=" mt-14 text-center mb-12">
             <button class="btn-secondary mx-auto w-8/12 p-3 text-secondary-blue-darkest md:w-1/4 md:mb-24">
-                Représentez vos communes
+                Réservez vos communes
             </button>
         </div>
     </div>
-    <div class=" bg-secondary-blue-darkest mt-12 p-5">
-        <h3 class="p-3 mx-auto text-white w-8/12 text-center mb-8 md:text-left md:text-2xl md:mx-0 md:mb-12">Ils nous
-            font
-            confiance</h3>
-        <div class="md:grid md:grid-cols-3 md:w-11/12 md:mx-auto md:mb-24">
-            <div class="bg-white bg-opacity-25 mx-auto p-8 rounded-xl">
-                <div class="flex ">
-                    <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">
-                    <div class="mx-auto ml-3">
-                        <h4 class="text-white">Julie B.</h4>
-                        <p class="text-xs text-white ">Agence Lorem</p>
-                    </div>
-                </div>
-                <p class="mt-5 mx-auto text-white md:w-3/4 md:mt-8">"Lorem ipsum dolor sit amet. Quo ducimus esse eos
-                    debitis recusandae sed minima maxime aut quisquam
-                    dicta. Non perferendis commodi qui ipsam"</p>
-            </div>
-            <div class="bg-white bg-opacity-25 mx-auto p-8 rounded-xl hidden md:ml-5 md:block">
-                <div class="flex ">
-                    <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">
-                    <div class="mx-auto ml-3">
-                        <h4 class="text-white">Julie B.</h4>
-                        <p class="text-xs text-white">Agence Lorem</p>
-                    </div>
-                </div>
-                <p class="mt-5 mx-auto text-white md:w-3/4 md:mt-8">"Lorem ipsum dolor sit amet. Quo ducimus esse eos
-                    debitis recusandae sed minima maxime aut quisquam
-                    dicta. Non perferendis commodi qui ipsam"</p>
-            </div>
-            <div class="bg-white bg-opacity-25 mx-auto p-8 rounded-xl hidden md:ml-5 md:block">
-                <div class="flex ">
-                    <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">
-                    <div class="mx-auto ml-3">
-                        <h4 class="text-white">Julie B.</h4>
-                        <p class="text-xs text-white">Agence Lorem</p>
-                    </div>
-                </div>
-                <p class="mt-5 mx-auto text-white md:w-3/4 md:mt-8">"Lorem ipsum dolor sit amet. Quo ducimus esse eos
-                    debitis recusandae sed minima maxime aut quisquam
-                    dicta. Non perferendis commodi qui ipsam"</p>
-            </div>
-        </div>
-    </div>
-    <div class=" mt-14">
-        <h2 class="text-center text-secondary-blue-darkest mb-12"> Comment s'incrire ?</h2>
+{#    TESTIMONIALS p2: to be displayed when we have enough of them. #}
+{#    <div class=" bg-secondary-blue-darkest mt-12 p-5">#}
+{#        <h3 class="p-3 mx-auto text-white w-8/12 text-center mb-8 md:text-left md:text-2xl md:mx-0 md:mb-12">Ils nous#}
+{#            font#}
+{#            confiance</h3>#}
+{#        <div class="md:grid md:grid-cols-3 md:w-11/12 md:mx-auto md:mb-24">#}
+{#            <div class="bg-white bg-opacity-25 mx-auto p-8 rounded-xl">#}
+{#                <div class="flex ">#}
+{#                    <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">#}
+{#                    <div class="mx-auto ml-3">#}
+{#                        <h4 class="text-white">Julie B.</h4>#}
+{#                        <p class="text-xs text-white ">Agence Lorem</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <p class="mt-5 mx-auto text-white md:w-3/4 md:mt-8">"Lorem ipsum dolor sit amet. Quo ducimus esse eos#}
+{#                    debitis recusandae sed minima maxime aut quisquam#}
+{#                    dicta. Non perferendis commodi qui ipsam"</p>#}
+{#            </div>#}
+{#            <div class="bg-white bg-opacity-25 mx-auto p-8 rounded-xl hidden md:ml-5 md:block">#}
+{#                <div class="flex ">#}
+{#                    <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">#}
+{#                    <div class="mx-auto ml-3">#}
+{#                        <h4 class="text-white">Julie B.</h4>#}
+{#                        <p class="text-xs text-white">Agence Lorem</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <p class="mt-5 mx-auto text-white md:w-3/4 md:mt-8">"Lorem ipsum dolor sit amet. Quo ducimus esse eos#}
+{#                    debitis recusandae sed minima maxime aut quisquam#}
+{#                    dicta. Non perferendis commodi qui ipsam"</p>#}
+{#            </div>#}
+{#            <div class="bg-white bg-opacity-25 mx-auto p-8 rounded-xl hidden md:ml-5 md:block">#}
+{#                <div class="flex ">#}
+{#                    <img src="{% static 'images/icons/crown.svg' %}" class="mx-auto mr-0 w-18 h-18">#}
+{#                    <div class="mx-auto ml-3">#}
+{#                        <h4 class="text-white">Julie B.</h4>#}
+{#                        <p class="text-xs text-white">Agence Lorem</p>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <p class="mt-5 mx-auto text-white md:w-3/4 md:mt-8">"Lorem ipsum dolor sit amet. Quo ducimus esse eos#}
+{#                    debitis recusandae sed minima maxime aut quisquam#}
+{#                    dicta. Non perferendis commodi qui ipsam"</p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+    <div class="mt-14 w-10/12 mx-auto">
+        <h2 class="text-center text-secondary-blue-darkest mb-12">Comment en profiter ?</h2>
         <div class="md:grid md:grid-cols-3">
             <div class="bg-primary-blue-200 w-11/12 mx-auto rounded-xl md:mt-12">
-                <img src="{% static 'images/icons/one.svg' %}" class="pt-12 mx-auto">
+                <img src="{% static 'images/icons/one.svg' %}"
+                     class="pt-12 mx-auto"
+                     alt="1"
+                >
                 <h4 class="text-secondary-blue-darkest text-center mt-8">Ajoutez des communes</h4>
-                <p class="w-9/12 mx-auto text-center text-secondary-blue-darkest p-10">Lorem ipsum dolor sit amet,
-                    consetetur sadipscing elitr, sed</p>
+                <p class="w-11/12 mx-auto text-center text-secondary-blue-darkest p-10">Choisissez les communes pour lesquelles vous voulez l'exclusivité.</p>
             </div>
             <div class="bg-primary-blue-200 w-11/12 mx-auto rounded-xl mt-12">
-                <img src="{% static 'images/icons/two.svg' %}" class="pt-12 mx-auto">
+                <img src="{% static 'images/icons/two.svg' %}"
+                     class="pt-12 mx-auto"
+                     alt="2"
+                >
                 <h4 class="text-secondary-blue-darkest text-center mt-8">Obtenez votre tarif</h4>
-                <p class="w-9/12 mx-auto text-center text-secondary-blue-darkest p-10">Lorem ipsum dolor sit amet,
-                    consetetur sadipscing elitr, sed</p>
+                <p class="w-11/12 mx-auto text-center text-secondary-blue-darkest p-10">Notre calculateur vous propose un prix directement, en toute transparence.</p>
             </div>
             <div class="bg-primary-blue-200 w-11/12 mx-auto rounded-xl mt-12">
-                <img src="{% static 'images/icons/three.svg' %}" class="pt-12 mx-auto">
-                <h4 class="text-secondary-blue-darkest text-center mt-8">Payer votre abonnement</h4>
-                <p class="w-9/12 mx-auto text-center text-secondary-blue-darkest p-10">Lorem ipsum dolor sit amet,
-                    consetetur sadipscing elitr, sed</p>
+                <img src="{% static 'images/icons/three.svg' %}"
+                     class="pt-12 mx-auto"
+                     alt="3"
+                >
+                <h4 class="text-secondary-blue-darkest text-center mt-8">Signez plus de mandats</h4>
+                <p class="w-11/12 mx-auto text-center text-secondary-blue-darkest p-10">Estimer.com envoie des leads qualifiés directement dans votre boite mail.</p>
             </div>
-        </div>
-        <div class="text-center mt-16">
-            <button class="btn-secondary w-11/12 p-3 text-secondary-blue-darkest md:w-2/12 md:mb-16">
-                Démarrez notre offre
-            </button>
         </div>
     </div>
-    <div x-data="citySearch()" class="container bg-primary-blue-200 mt-16 w-11/12 mx-auto rounded-xl">
-        <h3 class="text-secondary-blue-darkest text-center py-6 w-6/12 pr-1 mx-auto">Des tarifs adaptés à vos
-            communes</h3>
+    <div id="calculator-section" x-data="citySearch()" class="bg-primary-blue-200 mt-24 w-11/12 mx-auto rounded-xl">
+        <h3 class="text-secondary-blue-darkest text-center py-16 w-6/12 pr-1 mx-auto">
+            Un tarif transparent</h3>
         <div class="md:grid md:grid-cols-3 md:mx-auto" x-model="selectedCity">
             <div class="md:ml-auto">
-                <p class="text-secondary-blue-darkest text-center text-l w-6/12 mx-auto md:w-8/12">Calculez le prix de
-                    votre
-                    abonnement</p>
+                <p class="text-secondary-blue-darkest text-center text-l mx-auto md:w-11/12">
+                    Calculez le prix de votre abonnement</p>
                 <div class="text-center">
                     <select type="text" class="p-2 text-sm rounded-full mt-8 w-9/12 md:w-11/12"
                             maxlength="256" required x-on:change="selectDepartement">
@@ -227,16 +239,16 @@
             <div class="my-8 w-11/12 h-0.5 bg-primary-blue-300 mx-auto md:w-[2px] md:h-3/4"></div>
             <div class="md:flex md:flex-col md:mr-auto">
                 <div class="mt-12">
-                    <h2 class="text-center text-secondary-blue-darkest"><span x-text="price"></span> €/mois</h2>
-                    <p class="text-secondary-blue-darkest text-center w-1/2 mx-auto mt-4">coût rentabilisé dès le
+                    <h2 class="text-center text-secondary-blue-darkest"><span x-text="price"></span> €/mois *</h2>
+                    <p class="text-secondary-blue-darkest text-center mx-auto mt-4">* coût rentabilisé dès le
                         premier
                         mandat</p>
                 </div>
                 <div class="text-center mt-10">
-                    <button class="btn-secondary w-10/12 p-3 text-secondary-blue-darkest">
-                        Payez votre abonnement
-                    </button>
-                    <p class="mt-4 text-secondary-blue-darkest pb-14">Pas d'engagement, résiliable à tout moment</p>
+                    <a :href="mailto">
+                    <button class="btn-secondary">
+                        Réservez l'exclusivité
+                    </button></a>
                 </div>
             </div>
         </div>
@@ -258,7 +270,7 @@
                 </p>
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
-                        Oui ! La particularité de notre offre est que vous soyez la seule agence à représenter votre
+                        Oui ! La particularité de notre offre est que vous êtes la seule agence à représenter votre
                         commune pour un maximum de visibilité et de notoriété.
                     </p>
                 </div>
@@ -317,7 +329,7 @@
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
                     <p class="p-3 text-secondary-blue-darkest text-xs">
                         Oui ! Vous pouvez représenter autant de communes que vous souhaitez.
-                        La seule condition est de disposer une réelle expertise et présence sur les communes
+                        La seule condition est de disposer d'une réelle expertise et présence sur les communes
                         sélectionnées.
                     </p>
                 </div>
