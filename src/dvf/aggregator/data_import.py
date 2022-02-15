@@ -7,7 +7,7 @@ import requests
 from django.db import connection
 from slugify import slugify
 
-from dvf.models import ValeursFoncieres, Commune
+from src.dvf.models import ValeursFoncieres, Commune
 from .config import dvf_table_columns
 
 folder_path = str(Path.home())

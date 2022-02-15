@@ -46,14 +46,14 @@ at `/estimer`
    ```
 3. Install dependencies
     ```bash
-   pip install -r requirements/local.txt 
+   pip install -r requirements/local.txt
    ```
 4. Import dvf data to your local DB
    ```bash
    python manage.py shell
    ```
    ```python
-   from dvf.aggregator.data_import import import_data
+   from src.dvf.aggregator.data_import import import_data
    for year in range(2016,2021):
       import_data(year)
    ```
