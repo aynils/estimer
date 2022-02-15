@@ -190,6 +190,10 @@ def get_city_data(code_commune: str) -> CityData:
         code_commune=code_commune, date_from=FIVE_YEARS_AGO, types=("Maison", "Appartement")
     )
 
+    sorted_neighbourhoods = sort_neighbourhoods(neighbourhoods=neighbourhoods)
+    most_expensive_neighbourhood = sorted_neighbourhoods[-1]
+    less_expensive_neighbourhood = sorted_neighbourhoods[0]
+
     return CityData(
         median_m2_price_appartement=median_m2_price_appartement,
         median_m2_price_appartement_rooms=median_m2_prices_rooms_appartement,
@@ -205,6 +209,8 @@ def get_city_data(code_commune: str) -> CityData:
         price_evolution_text=price_evolution_text,
         # map_markers=map_markers,
         neighbourhoods=neighbourhoods,
+        most_expensive_neighbourhood=most_expensive_neighbourhood,
+        less_expensive_neighbourhood=less_expensive_neighbourhood,
     )
 
 
@@ -301,32 +307,31 @@ def get_city_from_code(code: str) -> Commune or None:
 
 # @timer
 def get_agent(code_commune: str) -> Agent:
-    pass
-    # try:
-    #     agency = Agency.objects.get(code_commune=code_commune)
-    #     agent = Agent(
-    #         picture=agency.picture_url,
-    #         name=agency.agent,
-    #         agency=agency.name,
-    #         description=agency.description,
-    #         phone_number=agency.phone_number,
-    #         email=agency.email,
-    #         website_url=agency.website_url,
-    #     )
-    #
-    # except Agency.DoesNotExist:
-    #     agent = Agent(
-    #         picture="https://estimer.com/static/estimer/images/olivier.jpeg",
-    #         name="Olivier Pourquier",
-    #         agency="estimer.com",
-    #         description="""Vous souhaitez obtenir une estimation précise de votre bien ?
-    #                         Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.""",
-    #         phone_number="06.81.37.36.33",
-    #         email="contact@estimer.com",
-    #         website_url="estimer.com",
-    #     )
-    #
-    # return agent
+    try:
+        agency = Agency.objects.get(code_commune=code_commune)
+        agent = Agent(
+            picture=agency.picture_url,
+            name=agency.agent,
+            agency=agency.name,
+            description=agency.description,
+            phone_number=agency.phone_number,
+            email=agency.email,
+            website_url=agency.website_url,
+        )
+
+    except:
+        agent = Agent(
+            picture="https://estimer.com/static/estimer/images/olivier.jpeg",
+            name="Olivier Pourquier",
+            agency="estimer.com",
+            description="""Vous souhaitez obtenir une estimation précise de votre bien ?
+                            Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.""",
+            phone_number="06.81.37.36.33",
+            email="contact@estimer.com",
+            website_url="Estimer.com",
+        )
+
+    return agent
 
 
 # @timer
@@ -385,64 +390,77 @@ def generate_map_markers(last_sales: List[Sale]) -> List[MapMarker]:
 
 
 def generate_chart_b64_svg(bar_heights: dict, place_name: str) -> str:
+    bar_colors = "#BAD1F8"
+    text_colors = "#15171A"
+    font_family = "sans-serif"
     svg = f"""<svg
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    viewBox="0 0 600 200"
+    viewBox="0 0 531 201"
     role="img"
     aria-labelledby="svg-title svg-desc"
         >
+
             <title id="svg-title">prix m2 {place_name}</title>
             <desc id="svg-desc">Evolution du prix au m2 à {place_name} pour les 5 dernières années</desc>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="35"
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="5"
             y="{bar_heights.get('2017', {}).get('text_y')}">
                 {bar_heights.get('2017', {}).get('value')} €
             </text>
-            <rect x="30" y="{bar_heights.get('2017', {}).get('y')}" width="60"
+            <rect x="0" y="{bar_heights.get('2017', {}).get('y')}" width="60"
                   height="{bar_heights.get('2017', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="40" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="10" y="200" style="fill:{text_colors}">
                 2017
             </text>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="155" y="{bar_heights.get('2018', {}).get('text_y')}">
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="120" y="{bar_heights.get('2018', {}).get('text_y')}">
                 {bar_heights.get('2018', {}).get('value')} €
             </text>
-            <rect x="150" y="{bar_heights.get('2018', {}).get('y')}" width="60"
+            <rect x="115" y="{bar_heights.get('2018', {}).get('y')}" width="60"
                   height="{bar_heights.get('2018', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="160" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="125" y="200" style="fill:{text_colors}">
                 2018
             </text>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="275" y="{bar_heights.get('2019', {}).get('text_y')}">
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="240" y="{bar_heights.get('2019', {}).get('text_y')}">
                 {bar_heights.get('2019', {}).get('value')} €
             </text>
-            <rect x="270" y="{bar_heights.get('2019', {}).get('y')}" width="60"
+            <rect x="235" y="{bar_heights.get('2019', {}).get('y')}" width="60"
                   height="{bar_heights.get('2019', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="280" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="245" y="200" style="fill:{text_colors}">
                 2019
             </text>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="395" y="{bar_heights.get('2020', {}).get('text_y')}">
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="360" y="{bar_heights.get('2020', {}).get('text_y')}">
                 {bar_heights.get('2020', {}).get('value')} €
             </text>
-            <rect x="390" y="{bar_heights.get('2020', {}).get('y')}" width="60"
+            <rect x="355" y="{bar_heights.get('2020', {}).get('y')}" width="60"
                   height="{bar_heights.get('2020', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="400" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="365" y="200" style="fill:{text_colors}">
                 2020
             </text>
-            <text font-family="Rubik, sans-serif"
-            class="svg-text" x="515" y="{bar_heights.get('2021', {}).get('text_y')}">
+            <text font-family="{font_family}"
+            class="svg-text"
+            style="fill:{text_colors}"
+            x="480" y="{bar_heights.get('2021', {}).get('text_y')}">
                 {bar_heights.get('2021', {}).get('value')} €
             </text>
-            <rect x="510" y="{bar_heights.get('2021', {}).get('y')}" width="60"
+            <rect x="475" y="{bar_heights.get('2021', {}).get('y')}" width="60"
                   height="{bar_heights.get('2021', {}).get('height')}"
-                  style="fill:#1378f8"></rect>
-            <text font-family="Rubik, sans-serif" class="svg-text" x="520" y="200">
+                  style="fill:{bar_colors}"></rect>
+            <text font-family="{font_family}" class="svg-text" x="485" y="200" style="fill:{text_colors}">
                 2021
             </text>
         </svg>"""
@@ -454,8 +472,8 @@ def generate_chart_b64_svg(bar_heights: dict, place_name: str) -> str:
 
 
 def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
-    cities_under = Commune.objects.filter(code_postal__lt=code_postal).order_by("-code_postal")[:5].all()
-    cities_over = Commune.objects.filter(code_postal__gt=code_postal).order_by("code_postal")[:5].all()
+    cities_under = Commune.objects.filter(code_postal__lt=code_postal).order_by("-code_postal")[:10].all()
+    cities_over = Commune.objects.filter(code_postal__gt=code_postal).order_by("code_postal")[:10].all()
     return [
         ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(cities_under) + list(cities_over)
     ]
@@ -523,13 +541,13 @@ def convert_coordinates_srid(
 
 def define_polygon_color(m2_price: float) -> PolygonColor:
     if m2_price >= 4500:
-        return PolygonColor(background="#0B3C93", text="#F2F7FF")
+        return PolygonColor(background="#0B3C93", text="#15171A")
     elif m2_price >= 4000:
-        return PolygonColor(background="#105ADC", text="#F2F7FF")
+        return PolygonColor(background="#105ADC", text="#15171A")
     elif m2_price >= 3500:
-        return PolygonColor(background="#3F80F1", text="#F2F7FF")
+        return PolygonColor(background="#3F80F1", text="#15171A")
     elif m2_price >= 3000:
-        return PolygonColor(background="#7FAAF6", text="#F2F7FF")
+        return PolygonColor(background="#7FAAF6", text="#15171A")
     elif m2_price >= 2500:
         return PolygonColor(background="#BAD1F8", text="#15171A")
     elif m2_price >= 2000:
@@ -538,3 +556,10 @@ def define_polygon_color(m2_price: float) -> PolygonColor:
         return PolygonColor(background="#DFEAFD", text="#15171A")
     else:
         return PolygonColor(background="#F2F7FF", text="#15171A")
+
+
+def sort_neighbourhoods(neighbourhoods: List[Neighbourhood]) -> List[Neighbourhood]:
+    sort_neighbourhoods = lambda x: int(x.properties.average_m2_price.strip(" €"))
+    neighbourhoods.sort(key=sort_neighbourhoods)
+
+    return neighbourhoods

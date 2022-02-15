@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="h-l px-10 flex justify-between bg-primary-blue-100">
-    <a href="/"
+    <a href="{% url 'home' %}"
        aria-current="page"
        class="flex"
        aria-label="home">
@@ -11,13 +11,13 @@
              class="h-3/6 my-auto">
     </a>
     <nav role="navigation" class="my-auto flex justify-between">
-        <a href="mailto:contact@estimer.com"
+        <a href="{% url 'agence' %}"
            target="_blank"
            rel="noreferrer noopener"
            class="mx-20 hidden md:block"
         >
 
-            Vous êtes une agence ?</a>
+            Vous représentez une agence ?</a>
         <a href="mailto:contact@estimer.com"
            target="_blank"
            rel="noreferrer noopener"
