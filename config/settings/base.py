@@ -189,16 +189,21 @@ AWS_QUERYSTRING_AUTH = False
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 
 
-STATIC_ROOT = str(BASE_DIR / "staticfiles")
-# https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
-# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = [str(APPS_DIR / "static")]
-# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
-STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-]
+
+# if not DEBUG:
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+# STATIC_ROOT = str(BASE_DIR / "staticfiles")
+# # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+# STATIC_URL = "/static/"
+# # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+# STATICFILES_DIRS = [str(APPS_DIR / "static")]
+# # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+# STATICFILES_FINDERS = [
+#     "django.contrib.staticfiles.finders.FileSystemFinder",
+#     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+# ]
 
 INTERNAL_IPS = ["127.0.0.1"]
 
