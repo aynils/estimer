@@ -266,7 +266,7 @@
             <li class="bg-white my-2" x-data="accordion(1)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span class="text-left md:mx-auto">Quel est le prix de l'immobilier à {{ city_name }} ?</span>
+                    <span>Quel est le prix de l'immobilier à {{ city_name }} ?</span>
                     <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
 
                 </p>
@@ -282,11 +282,11 @@
                     </p>
                 </div>
             </li>
-            <li class="my-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></li>
+            <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             <li class="bg-white my-2" x-data="accordion(2)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span class="text-left md:mx-auto">Quelle est l'évolution du prix de l'immobilier à {{ city_name }} ?</span>
+                    <span>Quelle est l'évolution du prix de l'immobilier à {{ city_name }} ?</span>
                     <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
 
                 </p>
@@ -307,11 +307,11 @@
                     </p>
                 </div>
             </li>
-            <li class="my-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></li>
+            <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             <li class="bg-white my-2" x-data="accordion(3)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span class="text-left md:mx-auto">Quel est le quartier le plus cher à {{ city_name }} ?</span>
+                    <span>Quel est le quartier le plus cher à {{ city_name }} ?</span>
                     <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
 
                 </p>
@@ -323,11 +323,11 @@
                     </p>
                 </div>
             </li>
-            <li class="my-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></li>
+            <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             <li class="bg-white my-2" x-data="accordion(4)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span class="text-left md:mx-auto">Quel est le quartier le moins cher à {{ city_name }} ?</span>
+                    <span>Quel est le quartier le moins cher à {{ city_name }} ?</span>
                     <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
                 </p>
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
@@ -338,7 +338,7 @@
                     </p>
                 </div>
             </li>
-            <li class="mt-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></li>
+            <li class="mt-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
         </ul>
     </div>
 {% endblock %}

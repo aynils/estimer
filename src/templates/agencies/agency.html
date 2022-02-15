@@ -272,7 +272,7 @@
             <li class="bg-white my-2" x-data="accordion(1)">
                 <p @click="handleClick()"
                    class="flex justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span class="text-left md:mx-auto">Est-ce que je serai la seule agence immobilière qui représentera ma commune ?</span>
+                    <span>Est-ce que je serai la seule agence immobilière qui représentera ma commune ?</span>
                     <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
 
                 </p>
@@ -283,11 +283,11 @@
                     </p>
                 </div>
             </li>
-            <li class="my-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></li>
+            <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             <li class="bg-white my-2" x-data="accordion(2)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span class="text-left md:mx-auto">Est-ce que je peux arrêter mon abonnement à tout moment ?</span>
+                    <span>Est-ce que je peux arrêter mon abonnement à tout moment ?</span>
                     <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
 
                 </p>
@@ -297,11 +297,11 @@
                     </p>
                 </div>
             </li>
-            <li class="my-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></li>
+            <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             <li class="bg-white my-2" x-data="accordion(3)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span class="text-left md:mx-auto">Offrez vous un tarif annuel ?</span>
+                    <span>Offrez vous un tarif annuel ?</span>
                     <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
 
                 </p>
@@ -311,11 +311,11 @@
                     </p>
                 </div>
             </li>
-            <li class="mt-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></li>
+            <li class="mt-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             <li class="bg-white my-2" x-data="accordion(4)">
                 <p @click="handleClick()"
                    class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span class="text-left md:mx-auto">Est-ce qu’il est possible de représenter plusieurs communes sur Estimer.com ?</span>
+                    <span>Est-ce qu’il est possible de représenter plusieurs communes sur Estimer.com ?</span>
                     <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
                 </p>
                 <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
@@ -326,7 +326,7 @@
                     </p>
                 </div>
             </li>
-            <li class="mt-2 w-11/12 h-0.5 bg-secondary-blue-lightest mx-auto"></li>
+            <li class="mt-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
         </ul>
     </div>
 
