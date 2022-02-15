@@ -321,7 +321,7 @@ def get_agent(code_commune: str) -> Agent:
 
     except:
         agent = Agent(
-            picture="https://estimer.com/static/images/logo/logo_round.svg",
+            picture="https://estimer.com/static/images/logo/logo_round.png",
             name="Olivier Pourquier",
             agency="estimer.com",
             description="""Vous souhaitez obtenir une estimation précise de votre bien ?
