@@ -63,7 +63,7 @@
         center: [5.05525, 45.33675], // default values. Will be overridden by fitBounds
         zoom: 14, // default value. Will be overridden by fitBounds
     });
-    map.addControl(new mapboxgl.NavigationControl());
+
     const coordinates = neighbourhoods.features.map(feature => feature.geometry.coordinates)
     const allCoordinates = coordinates.flat(3)
     const firstPoint = {
