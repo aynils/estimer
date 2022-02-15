@@ -80,7 +80,7 @@ def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
 
 
 # @timer
-@cached_function(ttl=settings.CACHE_TTL_ONE_DAY)
+# @cached_function(ttl=settings.CACHE_TTL_ONE_DAY)
 def get_city_data(code_commune: str) -> CityData:
     ventes = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO)
 
