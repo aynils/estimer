@@ -239,7 +239,7 @@ def get_neighbourhoods_data(code_commune: str, mutations: pd.DataFrame) -> List[
 
 
 # @function_timer
-@cached_function(ttl=settings.CACHE_TTL_SIX_MONTH, prefix="v2.0")
+@cached_function(ttl=settings.CACHE_TTL_SIX_MONTH)
 def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) -> pd.DataFrame:
     columns = [
         "valeur_fonciere",
