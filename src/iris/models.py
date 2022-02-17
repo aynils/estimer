@@ -13,4 +13,10 @@ class IRIS(models.Model):
     code_iris = models.CharField(max_length=255, null=True)
     nom_iris = models.CharField(max_length=255, null=True)
     type_iris = models.CharField(max_length=1, null=True)
-    geometry = models.MultiPolygonField(srid=2154)
+    geometry = models.MultiPolygonField(srid=2154, null=True)
+    geometry_4326 = models.MultiPolygonField(srid=4326, null=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["insee_commune"]),
+        ]

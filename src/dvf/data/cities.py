@@ -31,14 +31,14 @@ from src.iris.models import IRIS
 
 pd.options.mode.chained_assignment = None
 
-# from helpers.timer import timer
+from src.helpers.timer import function_timer, Timer
 
 TODAY = datetime.date.today()
 ONE_YEAR_AGO = datetime.date(year=TODAY.year - 1, month=1, day=1)
 FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 5, month=1, day=1)
 
 
-# @timer
+@function_timer
 def get_avg_m2_price_per_year(types: Tuple, date_from: datetime.date, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
         return {}
@@ -48,6 +48,7 @@ def get_avg_m2_price_per_year(types: Tuple, date_from: datetime.date, ventes: pd
     return ventes_subset.groupby("annee").mean().round(2)["prix_m2"].to_dict()
 
 
+@function_timer
 def get_avg_m2_price_rooms(types: Tuple, date_from: datetime.date, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
         return {}
@@ -57,7 +58,7 @@ def get_avg_m2_price_rooms(types: Tuple, date_from: datetime.date, ventes: pd.Da
     return ventes_subset.groupby("nombre_pieces_principales").mean().round(0)["prix_m2"].astype(int).to_dict()
 
 
-# @timer
+@function_timer
 def get_avg_m2_price_street(limit: int, ascending: bool, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
         return {}
@@ -66,12 +67,13 @@ def get_avg_m2_price_street(limit: int, ascending: bool, ventes: pd.DataFrame) -
     return average_per_street.sort_values(by="prix_m2", ascending=ascending).head(n=limit)["prix_m2"].to_dict()
 
 
-# @timer
+@function_timer
 def get_last_sales(limit: int, ventes: pd.DataFrame) -> dict:
     ordered_sales = ventes.sort_values(by="date_mutation", ascending=False)
     return ordered_sales.head(n=limit).to_dict("records")
 
 
+@function_timer
 def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
     q1 = data_frame[column_name].quantile(0.01)
     q3 = data_frame[column_name].quantile(0.99)
@@ -79,8 +81,8 @@ def remove_outliers(data_frame: pd.DataFrame, column_name: str) -> pd.DataFrame:
     return data_frame.loc[(data_frame[column_name].between(q1, q3))]
 
 
-# @timer
-# @cached_function(ttl=settings.CACHE_TTL_ONE_DAY)
+@function_timer
+@cached_function(ttl=settings.CACHE_TTL_ONE_DAY)
 def get_city_data(code_commune: str) -> CityData:
     ventes = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO)
 
@@ -186,9 +188,7 @@ def get_city_data(code_commune: str) -> CityData:
 
     chart_b64_svg = generate_chart_b64_svg(bar_heights=bar_heights, place_name=city_name)
 
-    neighbourhoods = get_neighbourhoods_data(
-        code_commune=code_commune, date_from=FIVE_YEARS_AGO, types=("Maison", "Appartement")
-    )
+    neighbourhoods = get_neighbourhoods_data(code_commune=code_commune, mutations=ventes)
 
     price_sorted_neighbourhoods = sort_neighbourhoods_by_price(neighbourhoods=neighbourhoods)
     most_expensive_neighbourhood = price_sorted_neighbourhoods[-1]
@@ -215,14 +215,21 @@ def get_city_data(code_commune: str) -> CityData:
     )
 
 
-def get_neighbourhoods_data(code_commune: str, date_from: datetime.date, types: tuple) -> List[NeighbourhoodPolygon]:
-    iris_list = IRIS.objects.values("geometry", "code_iris", "nom_iris").filter(insee_commune=code_commune).all()
+@function_timer
+def get_neighbourhoods_data(code_commune: str, mutations: pd.DataFrame) -> List[NeighbourhoodPolygon]:
+    timer = Timer()
+    timer.start("Get IRIS from DB")
+    iris_list = IRIS.objects.values("geometry_4326", "code_iris", "nom_iris").filter(insee_commune=code_commune).all()
+    timer.stop("Get IRIS from DB")
     neighbourhoods = []
-    mutations = get_avg_m2_price_per_iris(code_commune=code_commune, date_from=date_from, types=types)
+    timer.start("get_avg_m2_price_per_iris")
+    avg_m2_price_per_iris = get_avg_m2_price_per_iris(code_commune=code_commune, mutations=mutations)
+    timer.stop("get_avg_m2_price_per_iris")
+    timer.start("loop")
     for iris in iris_list:
         code_iris = iris.get("code_iris")
         nom_iris = iris.get("nom_iris")
-        average_m2_price = mutations.get(code_iris)
+        average_m2_price = avg_m2_price_per_iris.get(code_iris)
         if average_m2_price:
             neighbourhood = Neighbourhood(
                 average_m2_price=f"{int(average_m2_price)} €",
@@ -230,18 +237,20 @@ def get_neighbourhoods_data(code_commune: str, date_from: datetime.date, types: 
                 color=define_polygon_color(m2_price=average_m2_price),
                 nom_iris=nom_iris,
             )
-            geometry = iris.get("geometry")
+            geometry = iris.get("geometry_4326")
             geojson = json.loads(geometry.geojson)
-            geojson["coordinates"] = convert_coordinates_srid(
-                initial_srid=geometry.srid, new_srid=4326, coordinates=geojson.get("coordinates")
-            )
+            timer.start("convert_coordinates_srid")
+            geojson["coordinates"] = geometry.srid
+            timer.pause("convert_coordinates_srid")
             neighbourhoods.append(NeighbourhoodPolygon(geometry=geojson, properties=neighbourhood))
 
+    timer.stop("loop")
+    timer.print()
     return neighbourhoods
 
 
-# @timer
-@cached_function(ttl=settings.CACHE_TTL_SIX_MONTH)
+@function_timer
+@cached_function(ttl=settings.CACHE_TTL_SIX_MONTH, prefix="v2.0")
 def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) -> pd.DataFrame:
     columns = [
         "valeur_fonciere",
@@ -272,7 +281,7 @@ def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) 
     return cleanup_mutations(mutations=mutations)
 
 
-# @timer
+@function_timer
 def cleanup_mutations(mutations: pd.DataFrame) -> pd.DataFrame:
     unique_mutations = mutations.drop_duplicates(subset="id_mutation", keep=False)
     unique_mutations["prix_m2"] = (
@@ -297,7 +306,7 @@ def get_city_from_slug(slug: str) -> Commune or None:
         return None
 
 
-# @timer
+@function_timer
 @cached_function(ttl=settings.CACHE_TTL_SIX_MONTH)
 def get_city_from_code(code: str) -> Commune or None:
     try:
@@ -306,7 +315,7 @@ def get_city_from_code(code: str) -> Commune or None:
         return None
 
 
-# @timer
+@function_timer
 def get_agent(code_commune: str) -> Agent:
     try:
         agency = Agency.objects.get(code_commune=code_commune)
@@ -335,7 +344,7 @@ def get_agent(code_commune: str) -> Agent:
     return agent
 
 
-# @timer
+@function_timer
 def calculate_bar_heights(avg_m2_price: dict) -> dict:
     if avg_m2_price:
         max_price = max(avg_m2_price.values())
@@ -352,7 +361,7 @@ def calculate_bar_heights(avg_m2_price: dict) -> dict:
     }
 
 
-# @timer
+@function_timer
 def generate_price_evolution_text(avg_m2_price: dict) -> str:
     if avg_m2_price:
         max_year = int(max(avg_m2_price.keys()))
@@ -382,7 +391,7 @@ def generate_price_evolution_text(avg_m2_price: dict) -> str:
     )
 
 
-# @timer
+@function_timer
 def generate_map_markers(last_sales: List[Sale]) -> List[MapMarker]:
     return [
         MapMarker(geometry=Geometry(coordinates=[sale.address.longitude, sale.address.latitude]), properties=sale)
@@ -472,6 +481,7 @@ def generate_chart_b64_svg(bar_heights: dict, place_name: str) -> str:
     return b64_svg.decode("utf-8")
 
 
+@function_timer
 def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
     cities_under = Commune.objects.filter(code_postal__lt=code_postal).order_by("-code_postal")[:10].all()
     cities_over = Commune.objects.filter(code_postal__gt=code_postal).order_by("code_postal")[:10].all()
@@ -480,6 +490,7 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
     ]
 
 
+@function_timer
 def get_iris_code_for_coordinates(longitude: float, latitude: float):
     point = Point(longitude, latitude, srid=4326)
     point.transform(2154)
@@ -491,6 +502,7 @@ def get_iris_code_for_coordinates(longitude: float, latitude: float):
         return None
 
 
+@function_timer
 def get_mutations_for_iris(code_iris: str, date_from: datetime.date) -> pd.DataFrame:
     iris = IRIS.objects.get(code_iris=code_iris)
     code_commune = iris.insee_commune
@@ -502,6 +514,7 @@ def get_mutations_for_iris(code_iris: str, date_from: datetime.date) -> pd.DataF
     return filtered_mutations
 
 
+@function_timer
 def add_iris_to_mutations(code_commune: str, mutations: pd.DataFrame) -> pd.DataFrame:
     columns = ["id_mutation", "code_iris"]
 
@@ -512,33 +525,13 @@ def add_iris_to_mutations(code_commune: str, mutations: pd.DataFrame) -> pd.Data
     return mutations.merge(iris, on="id_mutation", how="left", sort=False)
 
 
-def get_avg_m2_price_per_iris(code_commune: str, date_from: datetime.date, types: tuple) -> pd.DataFrame:
-    mutations = get_simple_sales(code_commune=code_commune, types=types, date_from=date_from)
+@function_timer
+def get_avg_m2_price_per_iris(code_commune: str, mutations: pd.DataFrame) -> pd.DataFrame:
     mutations = add_iris_to_mutations(code_commune=code_commune, mutations=mutations)
     return mutations.groupby("code_iris").mean().round(2)["prix_m2"].to_dict()
 
 
-def convert_coordinates_srid(
-    initial_srid: int, new_srid: int, coordinates: List[List[List[List[float]]]]
-) -> List[List[List[List[float]]]]:
-    initial_srid = SpatialReference(initial_srid)
-    new_srid = SpatialReference(new_srid)
-    transform_method = CoordTransform(initial_srid, new_srid)
-    converted_coordinates = []
-    for coordinate in coordinates:
-        converted_sub = []
-        for sub in coordinate:
-            converted_points = []
-            for sub_sub in sub:
-                point = Point(*sub_sub, srid=initial_srid)
-                point.transform(transform_method)
-                converted_points.append(list(point.ogr.coords))
-            converted_sub.append(converted_points)
-        converted_coordinates.append(converted_sub)
-
-    return converted_coordinates
-
-
+@function_timer
 def define_polygon_color(m2_price: float) -> PolygonColor:
     if m2_price >= 4500:
         return PolygonColor(background="#0B3C93", text="#15171A")
@@ -558,6 +551,7 @@ def define_polygon_color(m2_price: float) -> PolygonColor:
         return PolygonColor(background="#F2F7FF", text="#15171A")
 
 
+@function_timer
 def sort_neighbourhoods_by_price(neighbourhoods: List[NeighbourhoodPolygon]) -> List[NeighbourhoodPolygon]:
     sort_neighbourhoods = lambda x: int(x.properties.average_m2_price.strip(" €"))
     neighbourhoods.sort(key=sort_neighbourhoods)
@@ -565,6 +559,7 @@ def sort_neighbourhoods_by_price(neighbourhoods: List[NeighbourhoodPolygon]) -> 
     return neighbourhoods
 
 
+@function_timer
 def sort_neighbourhoods_by_name(neighbourhoods: List[NeighbourhoodPolygon]) -> List[NeighbourhoodPolygon]:
     sort_neighbourhoods = lambda x: x.properties.nom_iris
     neighbourhoods.sort(key=sort_neighbourhoods)

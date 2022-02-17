@@ -57,7 +57,7 @@ at `/estimer`
    for year in range(2016,2021):
       import_data(year)
    ```
-4. Import iris data to your local DB
+5. Import iris data to your local DB
    ```bash
    python manage.py shell
    ```
@@ -65,7 +65,11 @@ at `/estimer`
    from iris.aggregator.data_import import import_data
    import_data(2021)
    ```
-
+6. Fill `geometry_4326` column in your database
+   From a psql prompt:
+   ```sql
+   UPDATE iris_iris SET "geometry_4326" = ST_Transform(geometry,4326)
+   ```
 
 # Prod setup
 TODO: add prod setup guide
