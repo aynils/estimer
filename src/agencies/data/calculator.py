@@ -1,5 +1,7 @@
 from typing import List
 
+from django.db.models import Sum
+
 from src.agencies.models import Pricing
 from src.dvf.models import Commune
 from src.population.models import PopulationStat
@@ -16,17 +18,22 @@ def get_cities_not_owned_by_agencies(code_departement: int) -> List[Commune]:
 
 
 def add_population_to_cities(cities: List):
-    population = PopulationStat.objects.all().values("code_commune", "total_population")
-    population = {populate.get("code_commune"): populate for populate in population}
+    code_communes = [city.get("code_commune") for city in cities]
+    population = (
+        PopulationStat.objects.filter(code_commune__in=code_communes)
+        .values("code_commune", "total_population")
+        .annotate(population=Sum("total_population"))
+    )
+    population = {city.get("code_commune"): city for city in population}
     cities_with_population = []
     for city in cities:
-        code_postal = city.get("code_postal")
-        total_population = population.get(code_postal, {}).get("total_population")
+        code_commune = city.get("code_commune")
+        city_population = population.get(code_commune, {}).get("population")
         city_with_population = {
             "id": city.get("id"),
-            "code_postal": code_postal,
+            "code_postal": city.get("code_postal"),
             "nom_commune": city.get("nom_commune"),
-            "total_population": total_population,
+            "total_population": city_population,
         }
         cities_with_population.append(city_with_population)
 

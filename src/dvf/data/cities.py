@@ -2,8 +2,8 @@ import base64
 import datetime
 from typing import List, Tuple
 import json
-
 import math
+
 import pandas as pd
 from django.contrib.gis.geos import Point
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
@@ -190,9 +190,11 @@ def get_city_data(code_commune: str) -> CityData:
         code_commune=code_commune, date_from=FIVE_YEARS_AGO, types=("Maison", "Appartement")
     )
 
-    sorted_neighbourhoods = sort_neighbourhoods(neighbourhoods=neighbourhoods)
-    most_expensive_neighbourhood = sorted_neighbourhoods[-1]
-    less_expensive_neighbourhood = sorted_neighbourhoods[0]
+    price_sorted_neighbourhoods = sort_neighbourhoods_by_price(neighbourhoods=neighbourhoods)
+    most_expensive_neighbourhood = price_sorted_neighbourhoods[-1]
+    less_expensive_neighbourhood = price_sorted_neighbourhoods[0]
+
+    name_sorted_neighbourhoods = sort_neighbourhoods_by_name(neighbourhoods=price_sorted_neighbourhoods)
 
     return CityData(
         median_m2_price_appartement=median_m2_price_appartement,
@@ -207,8 +209,7 @@ def get_city_data(code_commune: str) -> CityData:
         agent=agent,
         chart_b64_svg=chart_b64_svg,
         price_evolution_text=price_evolution_text,
-        # map_markers=map_markers,
-        neighbourhoods=neighbourhoods,
+        neighbourhoods=name_sorted_neighbourhoods,
         most_expensive_neighbourhood=most_expensive_neighbourhood,
         less_expensive_neighbourhood=less_expensive_neighbourhood,
     )
@@ -502,7 +503,6 @@ def get_mutations_for_iris(code_iris: str, date_from: datetime.date) -> pd.DataF
 
 
 def add_iris_to_mutations(code_commune: str, mutations: pd.DataFrame) -> pd.DataFrame:
-
     columns = ["id_mutation", "code_iris"]
 
     queryset = MutationIris.objects.filter(code_iris__startswith=code_commune).values_list(*columns)
@@ -558,8 +558,15 @@ def define_polygon_color(m2_price: float) -> PolygonColor:
         return PolygonColor(background="#F2F7FF", text="#15171A")
 
 
-def sort_neighbourhoods(neighbourhoods: List[Neighbourhood]) -> List[Neighbourhood]:
+def sort_neighbourhoods_by_price(neighbourhoods: List[NeighbourhoodPolygon]) -> List[NeighbourhoodPolygon]:
     sort_neighbourhoods = lambda x: int(x.properties.average_m2_price.strip(" €"))
+    neighbourhoods.sort(key=sort_neighbourhoods)
+
+    return neighbourhoods
+
+
+def sort_neighbourhoods_by_name(neighbourhoods: List[NeighbourhoodPolygon]) -> List[NeighbourhoodPolygon]:
+    sort_neighbourhoods = lambda x: x.properties.nom_iris
     neighbourhoods.sort(key=sort_neighbourhoods)
 
     return neighbourhoods

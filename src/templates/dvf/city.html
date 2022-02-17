@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block headscript %}
-    <title>{{ title }}</title>
     <meta name="description" content="Découvrez les prix du m2 à {{ city_name }} et l’évolution du marché de l’immobilier
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -14,7 +13,7 @@
     <script src="{% static 'js/faq.js' %}"></script>
     <script src="{% static 'js/city.js' %}"></script>
 {% endblock %}
-
+{% block title %} {{ title }} {% endblock %}
 {% block body %}
     <div id="agency-banner" class="bg-primary-blue-200 py-5">
         <div class="md:flex text-center md:text-left md:px-20 items-center">
@@ -22,7 +21,8 @@
                  src="{{ city_data.agent.picture }}"
                  class="my-auto mx-auto md:mb-0 mb-4 md:mr-20 w-16 h-16 rounded-full">
             <p class="text-l text-secondary-blue-darkest md:w-6/12 md:mb-0 mb-4">
-                Vous représentez une agence et souhaitez obtenir plus de mandats à {{ city_name }} ? Réservez votre annonce exclusive sur cette page.
+                Vous représentez une agence et souhaitez obtenir plus de mandats à {{ city_name }} ? Réservez votre
+                annonce exclusive sur cette page.
             </p>
             <div class="md:w-3/12 md:ml-10 md:mb-0 mb-4">
                 <p class="text-secondary-blue-darkest md:mt-0">{{ city_data.agent.name }}</p>
@@ -37,14 +37,14 @@
         </div>
     </div>
     <div id="prix-m2-global" class="md:py-20">
-        <h2 class="mt-8 mx-auto text-center md:w-1/2 text-secondary-blue-darkest">Prix au m2 à {{ city_name }}</h2>
-        <h2 class="mt-6 mx-auto text-center md:w-1/2 text-secondary-blue-darkest mb-14">
+        <h1 class="mt-8 mx-auto text-center md:w-1/2 text-secondary-blue-darkest">Prix au m2 à {{ city_name }}</h1>
+        <p class="mt-6 mx-auto text-center md:w-1/2 text-secondary-blue-darkest mb-14 text-3xl font-bold">
             {% for price_year in city_data.median_m2_prices_years %}
                 {% if price_year.year == 2021 %}
                     {{ price_year.value|floatformat:"0" }}
                 {% endif %}
             {% endfor %}
-            €</h2>
+            €</p>
     </div>
     <div id="prix-m2-detail" class=" bg-primary-blue-100 pb-16">
         <div class="w-10/12 md:w-8/12 mx-auto">
@@ -156,20 +156,23 @@
                         {#                    {{ city_data.price_evolution_text }}#}
                     </p>
                 </div>
-                <select
-                        class="shadow-lg mt-8 mx-auto text-center form-select appearance-none block
-                        text-secondary-blue-darkest w-8/12 md:w-5/12 py-4 bg-white bg-clip-padding bg-no-repeat
+
+                <div class=" w-8/12 md:w-5/12 {% if city_data.neighbourhoods|length <= 1 %} invisible {% endif %}">
+                    <select
+                            class="shadow-lg mt-8 mx-auto text-center form-select appearance-none block
+                        text-secondary-blue-darkest py-4 bg-white bg-clip-padding bg-no-repeat
                         rounded-xl transition ease-in-outm-0 focus:text-secondary-blue-darkest focus:bg-white
                         focus:border-blue-600 focus:outline-none"
-                        aria-label="select neighbourhood"
-                        x-on:change="selectIris"
-                >
-                    <option disabled selected>-- Quartier --</option>
-                    {% for neighbourhood in city_data.neighbourhoods %}
-                        <option value="{{ neighbourhood.properties.code_iris }}"
-                                onclick="">{{ neighbourhood.properties.nom_iris }}</option>
-                    {% endfor %}
-                </select>
+                            aria-label="select neighbourhood"
+                            x-on:change="selectIris"
+                    >
+                        <option disabled selected>-- Quartier --</option>
+                        {% for neighbourhood in city_data.neighbourhoods %}
+                            <option value="{{ neighbourhood.properties.code_iris }}"
+                                    onclick="">{{ neighbourhood.properties.nom_iris }}</option>
+                        {% endfor %}
+                    </select></div>
+
             </div>
 
             <div class="mt-10 md:mt-20">
@@ -244,7 +247,7 @@
             <h2 class="text-white w-8/12 mx-auto">Communes à proximité</h2>
         </div>
         <div class="flex text-center">
-            <div class="mt-8 text-center mx-auto md:w-6/12">s
+            <div class="text-center mx-auto md:w-6/12">s
                 {% for city in closeby_cities|slice:":10" %}
                     <a class="mx-auto text-white"
                        href="{% url 'city' slug=city.slug %}">
@@ -304,7 +307,7 @@
                                 {{ price_year.value|floatformat:"0" }}
                             {% endif %}
                         {% endfor %}
-                        € au m2 à {% for price_year in city_data.median_m2_prices_years %}
+                        € à {% for price_year in city_data.median_m2_prices_years %}
                         {% if price_year.year == 2021 %}
                             {{ price_year.value|floatformat:"0" }}
                         {% endif %}
@@ -314,37 +317,41 @@
                 </div>
             </li>
             <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
-            <li class="bg-white my-2" x-data="accordion(3)">
-                <p @click="handleClick()"
-                   class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span>Quel est le quartier le plus cher à {{ city_name }} ?</span>
-                    <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
+            {% if city_data.neighbourhoods|length > 1 %}
+                <li class="bg-white my-2" x-data="accordion(3)">
+                    <p @click="handleClick()"
+                       class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                        <span>Quel est le quartier le plus cher à {{ city_name }} ?</span>
+                        <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
 
-                </p>
-                <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
-                    <p class="p-3 text-secondary-blue-darkest text-xs">
-                        Le quartier le plus cher à {{ city_name }}
-                        est {{ city_data.most_expensive_neighbourhood.properties.nom_iris }} avec un prix de
-                        {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }} au m2.
                     </p>
-                </div>
-            </li>
-            <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
-            <li class="bg-white my-2" x-data="accordion(4)">
-                <p @click="handleClick()"
-                   class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span>Quel est le quartier le moins cher à {{ city_name }} ?</span>
-                    <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
-                </p>
-                <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
-                    <p class="p-3 text-secondary-blue-darkest text-xs">
-                        Le Quartier le moins cher à {{ city_name }}
-                        est {{ city_data.less_expensive_neighbourhood.properties.nom_iris }} avec un prix de
-                        {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }} au m2.
+                    <div x-ref="tab" :style="handleToggle()"
+                         class="overflow-hidden max-h-0 duration-500 transition-all">
+                        <p class="p-3 text-secondary-blue-darkest text-xs">
+                            Le quartier le plus cher à {{ city_name }}
+                            est {{ city_data.most_expensive_neighbourhood.properties.nom_iris }} avec un prix de
+                            {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }} au m2.
+                        </p>
+                    </div>
+                </li>
+                <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
+                <li class="bg-white my-2" x-data="accordion(4)">
+                    <p @click="handleClick()"
+                       class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                        <span>Quel est le quartier le moins cher à {{ city_name }} ?</span>
+                        <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
                     </p>
-                </div>
-            </li>
-            <li class="mt-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
+                    <div x-ref="tab" :style="handleToggle()"
+                         class="overflow-hidden max-h-0 duration-500 transition-all">
+                        <p class="p-3 text-secondary-blue-darkest text-xs">
+                            Le Quartier le moins cher à {{ city_name }}
+                            est {{ city_data.less_expensive_neighbourhood.properties.nom_iris }} avec un prix de
+                            {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }} au m2.
+                        </p>
+                    </div>
+                </li>
+                <li class="mt-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}
