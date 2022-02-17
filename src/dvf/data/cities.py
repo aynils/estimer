@@ -233,7 +233,6 @@ def get_neighbourhoods_data(code_commune: str, mutations: pd.DataFrame) -> List[
             )
             geometry = iris.get("geometry_4326")
             geojson = json.loads(geometry.geojson)
-            geojson["coordinates"] = geometry.srid
             neighbourhoods.append(NeighbourhoodPolygon(geometry=geojson, properties=neighbourhood))
 
     return neighbourhoods
