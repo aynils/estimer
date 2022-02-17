@@ -16,7 +16,7 @@
         </h1>
         <p class="text-center mt-4 md:mt-2">Nous ne collectons pas vos données personnelles.</p>
         <div class="flex items-center justify-center mt-10">
-            <form name="address-form" data-name="Address Form" action="/commune/search" method="POST">
+            <form class="w-11/12 md:w-auto" name="address-form" data-name="Address Form" action="/commune/search" method="POST">
                 {% csrf_token %}
                 <div class="relative">
                     <span class="m-1 absolute inset-y-0 left-0 flex items-center">
@@ -28,7 +28,7 @@
                     </span>
                     <input type="text"
                            name="address"
-                           class="p-3 pl-16 text-sm rounded-full md:w-[500px] shadow-lg border-none"
+                           class="p-3 pl-16 text-sm w-full rounded-full md:w-[500px] shadow-lg border-none"
                            maxlength="256"
                            placeholder="Entrez votre adresse" autocomplete="on" required>
                     <span class="m-1 absolute inset-y-0 right-0 flex items-center">
