@@ -74,6 +74,52 @@
     }
 
     .btn-secondary:active {
-        @apply bg-secondary-orange-dark;
+
+    }
+
+    .underlined-orange {
+        @apply relative;
+        @apply whitespace-nowrap;
+        @apply z-0;
+    }
+
+    .underlined-orange::after {
+        @apply bg-secondary-orange-light;
+        @apply bottom-[-0.5rem];
+        @apply left-[-0.5rem];
+        @apply content-[""];
+        @apply block;
+        @apply h-7;
+        mask-image: url(../../images/others/underline.svg);
+        -webkit-mask-image: url(../../images/others/underline.svg);
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+        width: calc(100% + 10px);
+        @apply absolute;
+        @apply z-[-1]
+    }
+
+    .underlined-blue {
+        @apply relative;
+        @apply whitespace-nowrap;
+        @apply z-0;
+    }
+
+    .underlined-blue::after {
+        @apply bg-primary-blue-400;
+        @apply bottom-[-0.5rem];
+        @apply left-[-0.5rem];
+        @apply content-[""];
+        @apply block;
+        @apply h-7;
+        mask-image: url(../../images/others/underline.svg);
+        -webkit-mask-image: url(../../images/others/underline.svg);
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+        width: calc(100% + 10px);
+        @apply absolute;
+        @apply z-[-1]
     }
 }

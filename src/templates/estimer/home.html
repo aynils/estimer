@@ -11,10 +11,10 @@
 
 {% block body %}
     <div class="container-fluid mx-auto bg-primary-blue-100 border-t-1">
-        <h1 class="pt-12 md:pt-36 text-secondary-blue-darkest text-center font-light">
+        <h1 class="pt-12 md:pt-36  text-center font-light">
             <strong class="font-bold">Estimez</strong> votre bien immobilier
         </h1>
-        <p class="text-center mt-4 md:mt-2">Nous ne collectons pas vos données personnelles.</p>
+        <p class="text-center mt-4 md:mt-2 px-4">Nous ne collectons pas vos données personnelles.</p>
         <div class="flex items-center justify-center mt-10">
             <form class="w-11/12 md:w-auto" name="address-form" data-name="Address Form" action="/commune/search" method="POST">
                 {% csrf_token %}
@@ -65,20 +65,20 @@
         </div>
     </div>
     <div class="container-fluid mt-20">
-        <h2 class="text-center text-secondary-blue-darkest my-12">Comment ça marche ?</h2>
+        <h2 class="text-center my-12"><span class="underlined-orange">Comment ça marche ?</span></h2>
         <div class="text-center md:grid md:grid-cols-3">
             <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
                 <div class="box-content w-10 h-8 p-2 border-4 rounded-xl border-none bg-primary-blue-200 text-primary-blue-700 mx-auto">
                     <p class="font-bold text-xl h-5/6 my-auto">1</p>
                 </div>
-                <h3 class="mt-8 text-secondary-blue-darkest">Cherchez</h3>
+                <h3 class="mt-8 ">Cherchez</h3>
                 <p class="mt-5 pb-10  text-center">Entrez l'adresse du bien à estimer dans la barre de recherche.</p>
             </div>
             <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
                 <div class="box-content w-10 h-8 p-2 border-4 rounded-xl border-none bg-primary-blue-200 text-primary-blue-700 mx-auto">
                     <p class="font-bold text-xl h-5/6 my-auto">2</p>
                 </div>
-                <h3 class="mt-8 text-secondary-blue-darkest">Découvrez</h3>
+                <h3 class="mt-8 ">Découvrez</h3>
                 <p class="mt-5 pb-10 text-center">Découvrez tous les prix des biens vendus à proximité sur les 5 dernières
                     années, et estimez votre bien en fonction.</p>
             </div>
@@ -86,7 +86,7 @@
                 <div class="box-content w-10 h-8 p-2 border-4 rounded-xl border-none bg-primary-blue-200 text-primary-blue-700 mx-auto">
                     <p class="font-bold text-xl h-5/6 my-auto">3</p>
                 </div>
-                <h3 class="mt-8 text-secondary-blue-darkest">Affinez</h3>
+                <h3 class="mt-8 ">Affinez</h3>
                 <p class="mt-5 text-center">Contactez un agent immobilier à proximité pour une estimation plus précise
                     et gratuite.</p>
             </div>
@@ -100,7 +100,7 @@
         </div>
     </div>
     <div class="container-fluid bg-primary-blue-200 mt-36 pb-8">
-        <h2 class="text-center text-secondary-blue-darkest pt-24 mb-12">Pourquoi utiliser estimer.com ?</h2>
+        <h2 class="text-center  pt-24 mb-12">Pourquoi utiliser estimer.com ?</h2>
         <div class="md:grid md:grid-cols-2">
             <div class="flex mt-8 px-2 md:mt-10 md:w-8/12 mx-auto">
                 <img src="{% static 'images/icons/euros_crossed.svg' %}"
@@ -109,8 +109,8 @@
                      alt="euro crossed"
 
                 >
-                <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h3 class="text-secondary-blue-darkest">Gratuit</h3>
+                <div class="ml-5  text-xs">
+                    <h3 class="">Gratuit</h3>
                     L'utilisation du site estimer.com est 100% gratuite, sans aucune restriction.
                 </div>
             </div>
@@ -120,8 +120,8 @@
                      style="height:72px; width:72px;"
                      alt="cloud"
                 >
-                <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h3 class="text-secondary-blue-darkest">Confidentiel</h3>
+                <div class="ml-5  text-xs">
+                    <h3 class="">Confidentiel</h3>
                     Contrairement aux autres sites d'estimation immobilière, nous ne stockons aucune de vos données
                     personnelles.
                 </div>
@@ -132,8 +132,8 @@
                      style="height:72px; width:72px;"
                      alt="map illustration"
                 >
-                <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h3 class="text-secondary-blue-darkest">Agent immobilier local</h3>
+                <div class="ml-5  text-xs">
+                    <h3 class="">Agent immobilier local</h3>
                     Nous avons sélectionné, pour chaque commune, une agence locale à même d'estimer votre bien
                     gratuitement, pour en maximiser la valeur.
                 </div>
@@ -143,8 +143,8 @@
                      style="height:64px; width:64px;"
                      alt="clock illustration"
                 >
-                <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h3 class="text-secondary-blue-darkest">Rapide</h3>
+                <div class="ml-5  text-xs">
+                    <h3 class="">Rapide</h3>
                     Pas de formulaire compliqué à remplir, l'estimation est simple et rapide.
                 </div>
             </div>
@@ -153,8 +153,8 @@
                      style="height:64px; width:64px;"
                      alt="database illustration"
                 >
-                <div class="ml-5 text-secondary-blue-darkest text-xs">
-                    <h3 class="text-secondary-blue-darkest">Données vérifiées</h3>
+                <div class="ml-5  text-xs">
+                    <h3 class="">Données vérifiées</h3>
                     Nous nous basons sur les transactions réelles historiques produites par la direction générale des
                     Finances publiques.
                 </div>
@@ -192,7 +192,7 @@
         </div>
     </div>
     <div class="container-fluid mt-24 md:mt-44">
-        <h2 class="text-secondary-blue-darkest text-center">Les communes les plus populaires</h2>
+        <h2 class=" text-center">Les communes <span class="underlined-orange">les plus populaires</span></h2>
         <ul class="text-center text-xs mt-8 md:grid md:grid-cols-3">
             <li class="py-2"><a href="{% url 'city' slug="toulouse-31000" %}">Toulouse</a></li>
             <li class="py-2"><a href="{% url 'city' slug="nice-06000" %}">Nice</a></li>
@@ -208,8 +208,8 @@
     <div class="container-fluid bg-primary-blue-200 w-4/5 mx-auto rounded-xl mt-24 md:mt-44 pt-12">
         <div class="md:flex justify-center">
             <div class="p-5 md:p-0 md:absolute md:w-6/12">
-                <h2 class="text-secondary-blue-darkest text-center">L'immobilier est votre métier ?</h2>
-                <p class="text-secondary-blue-darkest p-5 text-l text-center">Nous vous apportons des lead
+                <h2 class=" text-center">L'immobilier est votre métier ?</h2>
+                <p class=" p-5 text-l text-center">Nous vous apportons des lead
                     qualifiés !</p>
                 <div class="mt-5 text-center md:p-5">
                     <a href="{% url 'agence' %}">
