@@ -5,13 +5,10 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ("iris", "0004_auto_20211027_1508"),
-    ]
+    dependencies = [("iris", "0004_auto_20211027_1508")]
 
     operations = [
         migrations.AddIndex(
-            model_name="iris",
-            index=models.Index(fields=["insee_commune"], name="iris_iris_insee_c_a0f662_idx"),
-        ),
+            model_name="iris", index=models.Index(fields=["insee_commune"], name="iris_iris_insee_c_a0f662_idx")
+        )
     ]

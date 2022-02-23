@@ -17,6 +17,4 @@ class IRIS(models.Model):
     geometry_4326 = models.MultiPolygonField(srid=4326, null=True)
 
     class Meta:
-        indexes = [
-            models.Index(fields=["insee_commune"]),
-        ]
+        indexes = [models.Index(fields=["insee_commune"])]
