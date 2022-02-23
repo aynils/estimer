@@ -1,0 +1,15 @@
+[
+{
+  "model": "agencies.Agency",
+  "fields":{
+  "id": 1,
+  "picture_url": "https://estimer.com/static/images/icons/crown.svg",
+  "agent": "Nabil Benaboura",
+  "name": "Helium Immobilier",
+  "description": "Être la seule agence qui représente mon secteur est un réel plus pour ma visibilité et ma notoriété.",
+  "phone_number": "0607265988",
+  "email": "NabilBenaboura@HeliumImmobilier.com",
+  "website_url": "https://www.heliumimmobilier.com/"
+  }
+}
+]
