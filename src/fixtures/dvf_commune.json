@@ -1,0 +1,13 @@
+[
+{
+  "model": "dvf.Commune",
+  "fields":{
+  "id": 11990,
+  "code_postal": "34080",
+  "code_commune": "34172",
+  "nom_commune": "Montpellier",
+  "code_departement": "34",
+  "slug": "montpellier-34080"
+  }
+}
+]
