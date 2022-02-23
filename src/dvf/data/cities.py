@@ -190,9 +190,14 @@ def get_city_data(code_commune: str) -> CityData:
 
     neighbourhoods = get_neighbourhoods_data(code_commune=code_commune, mutations=ventes)
 
-    price_sorted_neighbourhoods = sort_neighbourhoods_by_price(neighbourhoods=neighbourhoods)
-    most_expensive_neighbourhood = price_sorted_neighbourhoods[-1]
-    less_expensive_neighbourhood = price_sorted_neighbourhoods[0]
+    if neighbourhoods:
+        price_sorted_neighbourhoods = sort_neighbourhoods_by_price(neighbourhoods=neighbourhoods)
+        most_expensive_neighbourhood = price_sorted_neighbourhoods[-1]
+        less_expensive_neighbourhood = price_sorted_neighbourhoods[0]
+    else:
+        price_sorted_neighbourhoods = []
+        most_expensive_neighbourhood = None
+        less_expensive_neighbourhood = None
 
     name_sorted_neighbourhoods = sort_neighbourhoods_by_name(neighbourhoods=price_sorted_neighbourhoods)
 
