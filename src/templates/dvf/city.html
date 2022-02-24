@@ -28,7 +28,7 @@
                 <a target="_blank" href="{{ city_data.agent.website_url|default:"#" }}">{{ city_data.agent.short_url|default:"" }}</a>
                 <p>{{ city_data.agent.phone_number|default:"" }}</p>
             </div>
-            <a href="{{ city_data.agent.email }}" class="w-40">
+            <a href="mailto:{{ city_data.agent.email }}" class="w-40">
                 <button class="btn-secondary">
                     Contacter
                 </button>
