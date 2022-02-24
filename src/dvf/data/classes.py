@@ -62,6 +62,7 @@ class Agent:
     phone_number: str
     email: str
     website_url: str
+    short_url: str
 
 
 @dataclass

@@ -3,6 +3,7 @@ import datetime
 from typing import List, Tuple
 import json
 import math
+import tldextract
 
 import pandas as pd
 from django.contrib.gis.geos import Point
@@ -314,6 +315,8 @@ def get_agent(code_commune: str) -> Agent:
     try:
         commune = Commune.objects.get(code_commune=code_commune)
         agency = Agency.objects.get(id=commune.agency_id)
+        tld = tldextract.extract(agency.website_url)
+        short_url = f"{tld.domain}.{tld.suffix}"
         agent = Agent(
             picture=agency.picture_url,
             name=agency.agent,
@@ -322,6 +325,7 @@ def get_agent(code_commune: str) -> Agent:
             phone_number=agency.phone_number,
             email=agency.email,
             website_url=agency.website_url,
+            short_url=short_url,
         )
 
     except Agency.DoesNotExist:

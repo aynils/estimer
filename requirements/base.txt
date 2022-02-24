@@ -22,3 +22,4 @@ django-redis==5.0.0
 py7zr==0.16.2
 SQLAlchemy==1.4.27
 django-tailwind==2.2.0
+tldextract==3.2.0
