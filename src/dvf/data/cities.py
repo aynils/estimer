@@ -337,7 +337,8 @@ def get_agent(code_commune: str) -> Agent:
                 annonce exclusive sur cette page.""",
             phone_number="06.81.37.36.33",
             email="contact@estimer.com",
-            website_url="Estimer.com",
+            website_url="https://estimer.com",
+            short_url="Estimer.com",
         )
 
     return agent
