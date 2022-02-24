@@ -21,13 +21,12 @@
                  src="{{ city_data.agent.picture }}"
                  class="my-auto mx-auto md:mb-0 mb-4 md:mr-20 w-16 h-16 rounded-full">
             <p class="md:w-6/12 md:mb-0 mb-4">
-                Vous représentez une agence et souhaitez obtenir plus de mandats à {{ city_name }} ? Réservez votre
-                annonce exclusive sur cette page.
+                {{ city_data.agent.description|default:"" }}
             </p>
             <div class="md:w-3/12 md:ml-10 md:mb-0 mb-4">
-                <p>{{ city_data.agent.name }}</p>
-                <p>{{ city_data.agent.website_url }}</p>
-                <p>{{ city_data.agent.phone_number }}</p>
+                <p>{{ city_data.agent.name|default:"" }}</p>
+                <p>{{ city_data.agent.website_url|default:"" }}</p>
+                <p>{{ city_data.agent.phone_number|default:"" }}</p>
             </div>
             <a href="mailto:contact@estimer.com" class="w-40">
                 <button class="btn-secondary">
