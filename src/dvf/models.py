@@ -72,7 +72,7 @@ class Commune(models.Model):
     code_departement = models.CharField(max_length=255, null=True)
 
     slug = models.CharField(max_length=255, null=True)
-    agency = models.ForeignKey(Agency, on_delete=models.DO_NOTHING, related_name="agencies", null=True)
+    agency = models.ForeignKey(Agency, on_delete=models.DO_NOTHING, null=True)
 
     class Meta:
         indexes = [
