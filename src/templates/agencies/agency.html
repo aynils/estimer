@@ -2,8 +2,7 @@
 {% load static %}
 
 {% block headscript %}
-    <title>Estimer.com | Prix du m2 et évolution du marché de l’immobilier en France.</title>
-    <link rel="canonical" href="https://estimer.com/agency"/>
+    <link rel="canonical" href="https://estimer.com/agence"/>
     <meta name="description" content="Découvrez les prix du m2 et l’évolution du marché de l’immobilier
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -13,11 +12,12 @@
     {{ cities_pricing |json_script:'cities_pricing' }}
 
 {% endblock %}
+    {% block title %}Estimer.com | Prix du m2 et évolution du marché de l’immobilier en France.{% endblock %}
 
 {% block body %}
     <div id="title-section">
-        <h2 class="w-11/12 md:w-7/12 mx-auto mt-12 text-center">
-            Plus de <span class="underlined-orange">visibilité</span>, plus de mandats</h2>
+        <h1 class="w-11/12 md:w-7/12 mx-auto mt-12 text-center">
+            Plus de <span class="underlined-orange">visibilité</span>, plus de mandats</h1>
         <p class="w-10/12 md:w-3/5 mx-auto mt-8 text-center text-center md:w-5/12">Devenez
             l'agence immobilière exclusive qui représentera vos communes sur Estimer.com
             et obtenez de nouveaux mandats</p>

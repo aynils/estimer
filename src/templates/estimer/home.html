@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block headscript %}
-    <title>Estimer.com | Prix du m2 et évolution du marché de l’immobilier en France.</title>
     <link rel="canonical" href="https://estimer.com"/>
     <meta name="description"
           content="Découvrez les prix du m2 et l’évolution du marché de l’immobilier
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
 {% endblock %}
 
+{% block title %} Estimer.com | Prix du m2 et évolution du marché de l’immobilier en France.{% endblock %}
 {% block body %}
     <div class="container-fluid mx-auto bg-primary-blue-100 border-t-1">
         <h1 class="pt-12 md:pt-36  text-center font-light">
@@ -16,7 +16,8 @@
         </h1>
         <p class="text-center mt-4 md:mt-2 px-4">Nous ne collectons pas vos données personnelles.</p>
         <div class="flex items-center justify-center mt-10">
-            <form class="w-11/12 md:w-auto" name="address-form" data-name="Address Form" action="/commune/search" method="POST">
+            <form class="w-11/12 md:w-auto" name="address-form" data-name="Address Form" action="/commune/search"
+                  method="POST">
                 {% csrf_token %}
                 <div class="relative">
                     <span class="m-1 absolute inset-y-0 left-0 flex items-center">
@@ -46,26 +47,26 @@
         <div class="bg-secondary-blue-darkest text-white text-center">
             <div class="px-4 py-20 md:px-20 md:grid md:grid-cols-4">
                 <div class="md:block md:w-8/12 mx-auto">
-                    <h2 class="mb-2">15 millions</h2>
+                    <p class="mb-2 text-xl font-bold">15 millions</p>
                     <p>de ventes listées</p>
                 </div>
                 <div class="md:block w-8/12 mx-auto mt-10 md:mt-0">
-                    <h2 class="mb-2">5 années</h2>
+                    <p class="mb-2 text-xl font-bold">5 années</p>
                     <p>d'historique de transactions</p>
                 </div>
                 <div class="md:block w-8/12 mx-auto  mt-10 md:mt-0">
-                    <h2 class="mb-2">31 000</h2>
+                    <p class="mb-2 text-xl font-bold">31 000</p>
                     <p>communes analysées</p>
                 </div>
                 <div class="md:block w-8/12 mx-auto  mt-10 md:mt-0">
-                    <h2 class="mb-2">0</h2>
+                    <p class="mb-2 text-xl font-bold">0</p>
                     <p>données personnelles collectées</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="container-fluid mt-20">
-        <h2 class="text-center my-12"><span class="underlined-orange">Comment ça marche ?</span></h2>
+        <h2 class="text-center my-12 mx-20"><span class="underlined-orange">Comment</span> ça marche ?</h2>
         <div class="text-center md:grid md:grid-cols-3">
             <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
                 <div class="box-content w-10 h-8 p-2 border-4 rounded-xl border-none bg-primary-blue-200 text-primary-blue-700 mx-auto">
@@ -79,7 +80,8 @@
                     <p class="font-bold text-xl h-5/6 my-auto">2</p>
                 </div>
                 <h3 class="mt-8 ">Découvrez</h3>
-                <p class="mt-5 pb-10 text-center">Découvrez tous les prix des biens vendus à proximité sur les 5 dernières
+                <p class="mt-5 pb-10 text-center">Découvrez tous les prix des biens vendus à proximité sur les 5
+                    dernières
                     années, et estimez votre bien en fonction.</p>
             </div>
             <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
@@ -222,7 +224,7 @@
             <div class="mx-auto md:mt-8 md:w-12/12">
                 <img class="rounded-b-xl"
                      alt="city illustration"
-                        src="{% static 'images/illustrations/city_light.svg' %}"
+                     src="{% static 'images/illustrations/city_light.svg' %}"
                 >
             </div>
         </div>

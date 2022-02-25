@@ -18,25 +18,24 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
-from django.views.decorators.cache import cache_page
-
-from src.iris.aggregator.data_enrichment import create_mutation_iris_relation
-from src.agencies.views import agency
-from src.dvf.views import city
 
 from src.estimer.sitemaps import CitySitemap
-from src.estimer.views import home, mentions_legales
+from src.estimer.views import home, mentions_legales, cgv
 
 sitemaps = {"city": CitySitemap}
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("mentions-legales", mentions_legales, name="mentions-legales"),
+    path("mentions-legales/", mentions_legales, name="mentions-legales"),
+    path("cgv/", cgv, name="cgv"),
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("iris/", include("src.iris.urls")),
     path("commune/", include("src.dvf.urls")),
     path("agence/", include("src.agencies.urls")),
     # path("", cache_page(settings.CACHE_TTL_ONE_DAY)(home), name="home"),
     path("", home, name="home"),
-    path("test/", create_mutation_iris_relation, name="test"),
+    # path("test/", create_mutation_iris_relation, name="test"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += [path("__reload__/", include("django_browser_reload.urls"))]

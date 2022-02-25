@@ -3,6 +3,7 @@ import datetime
 from typing import List, Tuple
 import json
 import math
+import tldextract
 
 import pandas as pd
 from django.contrib.gis.geos import Point
@@ -312,7 +313,10 @@ def get_city_from_code(code: str) -> Commune or None:
 # @function_timer
 def get_agent(code_commune: str) -> Agent:
     try:
-        agency = Agency.objects.get(code_commune=code_commune)
+        commune = Commune.objects.get(code_commune=code_commune)
+        agency = Agency.objects.get(id=commune.agency_id)
+        tld = tldextract.extract(agency.website_url)
+        short_url = f"{tld.domain}.{tld.suffix}"
         agent = Agent(
             picture=agency.picture_url,
             name=agency.agent,
@@ -321,18 +325,20 @@ def get_agent(code_commune: str) -> Agent:
             phone_number=agency.phone_number,
             email=agency.email,
             website_url=agency.website_url,
+            short_url=short_url,
         )
 
-    except:
+    except Agency.DoesNotExist:
         agent = Agent(
             picture="https://estimer.com/static/images/icons/crown.svg",
             name="Olivier Pourquier",
             agency="estimer.com",
-            description="""Vous souhaitez obtenir une estimation précise de votre bien ?
-                            Nous vous mettons en relation avec un agent immobilier local, expert sur votre secteur.""",
+            description=f"""Vous représentez une agence et souhaitez obtenir plus de mandats à { commune.nom_commune } ? Réservez votre
+                annonce exclusive sur cette page.""",
             phone_number="06.81.37.36.33",
             email="contact@estimer.com",
-            website_url="Estimer.com",
+            website_url="https://estimer.com",
+            short_url="Estimer.com",
         )
 
     return agent

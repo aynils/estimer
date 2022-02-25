@@ -9,3 +9,8 @@ def home(request):
 def mentions_legales(request):
     context = {}
     return render(request, "estimer/mentions-legales.html", context)
+
+
+def cgv(request):
+    context = {}
+    return render(request, "estimer/cgv.html", context)
