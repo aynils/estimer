@@ -1,8 +1,8 @@
 [
 {
   "model": "agencies.Agency",
+  "pk": 500,
   "fields":{
-  "id": 1,
   "picture_url": "https://estimer.com/static/images/icons/crown.svg",
   "agent": "Nabil Benaboura",
   "name": "Helium Immobilier",

@@ -2,13 +2,23 @@
 {
   "model": "dvf.Commune",
   "fields":{
-  "id": 11990,
   "code_postal": "34080",
   "code_commune": "34172",
   "nom_commune": "Montpellier",
   "code_departement": "34",
   "slug": "montpellier-34080",
-  "agency_id": null
+  "agency": 500
+  }
+},
+  {
+  "model": "dvf.Commune",
+  "fields":{
+  "code_postal": "34430",
+  "code_commune": "34270",
+  "nom_commune": "Saint-Jean-de-Védas",
+  "code_departement": "34",
+  "slug": "saint-jean-de-vedas-34430",
+  "agency": null
   }
 }
 ]
