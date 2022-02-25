@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block headscript %}
-    <title>Estimer.com | Prix du m2 et évolution du marché de l’immobilier en France.</title>
     <link rel="canonical" href="https://estimer.com"/>
     <meta name="description"
           content="Découvrez les prix du m2 et l’évolution du marché de l’immobilier
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
 {% endblock %}
 
+{% block title %} Estimer.com | Prix du m2 et évolution du marché de l’immobilier en France.{% endblock %}
 {% block body %}
     <div class="container-fluid mx-auto bg-primary-blue-100 border-t-1">
         <h1 class="pt-12 md:pt-36  text-center font-light">
@@ -16,7 +16,8 @@
         </h1>
         <p class="text-center mt-4 md:mt-2 px-4">Nous ne collectons pas vos données personnelles.</p>
         <div class="flex items-center justify-center mt-10">
-            <form class="w-11/12 md:w-auto" name="address-form" data-name="Address Form" action="/commune/search" method="POST">
+            <form class="w-11/12 md:w-auto" name="address-form" data-name="Address Form" action="/commune/search"
+                  method="POST">
                 {% csrf_token %}
                 <div class="relative">
                     <span class="m-1 absolute inset-y-0 left-0 flex items-center">
@@ -79,7 +80,8 @@
                     <p class="font-bold text-xl h-5/6 my-auto">2</p>
                 </div>
                 <h3 class="mt-8 ">Découvrez</h3>
-                <p class="mt-5 pb-10 text-center">Découvrez tous les prix des biens vendus à proximité sur les 5 dernières
+                <p class="mt-5 pb-10 text-center">Découvrez tous les prix des biens vendus à proximité sur les 5
+                    dernières
                     années, et estimez votre bien en fonction.</p>
             </div>
             <div class="mt-5 md:block md:mt-8 w-10/12 mx-auto">
@@ -222,7 +224,7 @@
             <div class="mx-auto md:mt-8 md:w-12/12">
                 <img class="rounded-b-xl"
                      alt="city illustration"
-                        src="{% static 'images/illustrations/city_light.svg' %}"
+                     src="{% static 'images/illustrations/city_light.svg' %}"
                 >
             </div>
         </div>
