@@ -208,5 +208,3 @@ STATICFILES_FINDERS = [
 INTERNAL_IPS = ["127.0.0.1"]
 
 TAILWIND_APP_NAME = "src.theme"
-
-FIXTURE_DIRS = [str(APPS_DIR / "fixtures")]
