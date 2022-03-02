@@ -91,6 +91,10 @@ class DvfTestCase(TestCase):
             code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
         )
         self.assertIsInstance(sales, pd.DataFrame)
+        self.assertEqual(len(sales), 1141)
+        self.assertTrue(len(set(sales["id_mutation"])) == len(sales["id_mutation"]))
+        self.assertSetEqual(set(sales["type_local"]), {"Maison", "Appartement"})
+        # self.assertTrue(set(sales["date_mutation"]) >= datetime.date(2021, 1, 1))
 
     def test_get_avg_m2_price_per_year(self):
         ventes = get_simple_sales(
