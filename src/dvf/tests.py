@@ -1,6 +1,17 @@
+import datetime
+from decimal import Decimal
+from typing import Dict
+
+import pandas as pd
 from django.test import TestCase
 
-from src.dvf.data.cities import get_city_from_code, get_city_from_slug, get_agent
+from src.dvf.data.cities import (
+    get_city_from_code,
+    get_city_from_slug,
+    get_agent,
+    get_avg_m2_price_per_year,
+    get_simple_sales,
+)
 from src.dvf.data.classes import Agent
 from src.dvf.models import Commune
 
@@ -32,8 +43,12 @@ AGENCIES = {
 }
 
 
+TODAY = datetime.date.today()
+ONE_YEAR_AGO = datetime.date(year=TODAY.year - 1, month=1, day=1)
+
+
 class DvfTestCase(TestCase):
-    fixtures = ["agencies_agency.json", "dvf_commune.json"]
+    fixtures = ["agencies_agency.json", "dvf_commune.json", "dvf_valeursfoncieres.json"]
 
     def test_commune_by_code_commune(self):
         commune = get_city_from_code(code=COMMUNE["code_commune"])
@@ -70,3 +85,17 @@ class DvfTestCase(TestCase):
         self.assertEqual(agent.email, AGENCIES["Saint-Jean-de-Védas"]["email"])
         self.assertEqual(agent.website_url, AGENCIES["Saint-Jean-de-Védas"]["website_url"])
         self.assertEqual(agent.short_url, AGENCIES["Saint-Jean-de-Védas"]["short_url"])
+
+    def test_get_simple_sales(self):
+        sales = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
+        )
+        self.assertIsInstance(sales, pd.DataFrame)
+
+    def test_get_avg_m2_price_per_year(self):
+        ventes = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
+        )
+        avg_price = get_avg_m2_price_per_year(types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO, ventes=ventes)
+        self.assertIsInstance(avg_price, Dict)
+        self.assertEqual(avg_price[2021], 3187.63)
