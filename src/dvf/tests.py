@@ -96,7 +96,7 @@ class DvfTestCase(TestCase):
         self.assertEqual(len(sales), 1141)
         self.assertTrue(len(set(sales["id_mutation"])) == len(sales["id_mutation"]))
         self.assertSetEqual(set(sales["type_local"]), {"Maison", "Appartement"})
-        self.assertEqual(len(sales["date_mutation"].where(lambda x: x <= ONE_YEAR_AGO).dropna()), 0)
+        self.assertTrue(all(sales["date_mutation"] >= ONE_YEAR_AGO))
 
     def test_get_avg_m2_price_per_year(self):
         ventes = get_simple_sales(
