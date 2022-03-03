@@ -11,6 +11,7 @@ from src.dvf.data.cities import (
     get_agent,
     get_avg_m2_price_per_year,
     get_simple_sales,
+    get_avg_m2_price_rooms,
 )
 from src.dvf.data.classes import Agent
 from src.dvf.models import Commune
@@ -94,7 +95,7 @@ class DvfTestCase(TestCase):
         self.assertEqual(len(sales), 1141)
         self.assertTrue(len(set(sales["id_mutation"])) == len(sales["id_mutation"]))
         self.assertSetEqual(set(sales["type_local"]), {"Maison", "Appartement"})
-        # self.assertTrue(set(sales["date_mutation"]) >= datetime.date(2021, 1, 1))
+        # self.assertTrue(set(sales["date_mutation"]) < ONE_YEAR_AGO)
 
     def test_get_avg_m2_price_per_year(self):
         ventes = get_simple_sales(
@@ -103,3 +104,14 @@ class DvfTestCase(TestCase):
         avg_price = get_avg_m2_price_per_year(types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO, ventes=ventes)
         self.assertIsInstance(avg_price, Dict)
         self.assertEqual(avg_price[2021], 3187.63)
+        self.assertEqual(avg_price, {ONE_YEAR_AGO.year: 3187.63})
+
+    def test_get_avg_m2_price_rooms(self):
+        ventes = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
+        )
+        avg_price_per_room = get_avg_m2_price_rooms(
+            types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO, ventes=ventes
+        )
+        self.assertIsInstance(avg_price_per_room, Dict)
+        self.assertEqual(avg_price_per_room, {1: 3625, 2: 3267, 3: 3043, 4: 2916, 5: 3082, 6: 2836, 7: 3162, 8: 1193})
