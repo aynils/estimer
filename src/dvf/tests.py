@@ -12,6 +12,7 @@ from src.dvf.data.cities import (
     get_avg_m2_price_per_year,
     get_simple_sales,
     get_avg_m2_price_rooms,
+    get_avg_m2_price_street,
 )
 from src.dvf.data.classes import Agent
 from src.dvf.models import Commune
@@ -105,6 +106,7 @@ class DvfTestCase(TestCase):
         self.assertIsInstance(avg_price, Dict)
         self.assertEqual(avg_price[2021], 3187.63)
         self.assertEqual(avg_price, {ONE_YEAR_AGO.year: 3187.63})
+        self.assertEqual(len(avg_price), 1)
 
     def test_get_avg_m2_price_rooms(self):
         ventes = get_simple_sales(
@@ -115,3 +117,22 @@ class DvfTestCase(TestCase):
         )
         self.assertIsInstance(avg_price_per_room, Dict)
         self.assertEqual(avg_price_per_room, {1: 3625, 2: 3267, 3: 3043, 4: 2916, 5: 3082, 6: 2836, 7: 3162, 8: 1193})
+        self.assertEqual(len(avg_price_per_room), 8)
+
+    def test_get_avg_m2_price_street(self):
+        ventes = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
+        )
+        avg_price_per_street = get_avg_m2_price_street(limit=5, ascending=True, ventes=ventes)
+        self.assertIsInstance(avg_price_per_street, Dict)
+        self.assertEqual(
+            avg_price_per_street,
+            {
+                "TSSE ALLEES DU BOIS": 833.33,
+                "RUE DE LA PREFECTURE": 884.15,
+                "AV DE LOUISVILLE": 936.5,
+                "RUE DE LEYDE": 980.39,
+                "ALL DE LA MOSSON": 1030.3,
+            },
+        )
+        self.assertEqual(len(avg_price_per_street), 5)
