@@ -169,3 +169,8 @@ class DvfTestCase(TestCase):
         self.assertIsInstance(city_data.median_m2_price_appartement, MedianM2Price)
         self.assertIsInstance(city_data.median_m2_price_appartement_rooms, MedianM2PriceRoom)
         self.assertEqual(city_data.number_of_sales, 1797)
+        self.assertEqual(len(city_data.most_expensive_streets), 5)
+        self.assertEqual(len(city_data.less_expensive_streets), 5)
+        self.assertIsInstance(city_data.most_expensive_streets, List)
+        self.assertIsInstance(city_data.less_expensive_streets, List)
+        self.assertIsInstance(city_data.neighbourhoods, List)
