@@ -15,6 +15,7 @@ from src.dvf.data.cities import (
     get_avg_m2_price_street,
     get_last_sales,
     get_city_data,
+    get_neighbourhoods_data,
 )
 from src.dvf.data.classes import Agent, MedianM2PriceRoom, CityData, MedianM2Price
 from src.dvf.models import Commune
@@ -53,7 +54,13 @@ FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 5, month=1, day=1)
 
 
 class DvfTestCase(TestCase):
-    fixtures = ["agencies_agency.json", "dvf_commune.json", "dvf_valeursfoncieres.json"]
+    fixtures = [
+        "agencies_agency.json",
+        "dvf_commune.json",
+        "dvf_valeursfoncieres.json",
+        "iris_iris.json",
+        "dvf_mutationiris.json",
+    ]
 
     def test_commune_by_code_commune(self):
         commune = get_city_from_code(code=COMMUNE["code_commune"])
@@ -174,3 +181,18 @@ class DvfTestCase(TestCase):
         self.assertIsInstance(city_data.most_expensive_streets, List)
         self.assertIsInstance(city_data.less_expensive_streets, List)
         self.assertIsInstance(city_data.neighbourhoods, List)
+        self.assertIsInstance(city_data.agent, Agent)
+        self.assertIsInstance(city_data.price_evolution_text, str)
+        self.assertEqual(
+            city_data.price_evolution_text,
+            "Entre 2020 et 2021, les prix de l'immobilier ont augmenté de 0%, atteignant 3185 € en 2021.",
+        )
+
+    def test_get_neighbourhoods_data(self):
+        ventes = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO
+        )
+
+        neighbourhoods_data = get_neighbourhoods_data(code_commune=COMMUNE["code_commune"], mutations=ventes)
+        self.assertIsInstance(neighbourhoods_data, List)
+        self.assertEqual(len(neighbourhoods_data), 1)
