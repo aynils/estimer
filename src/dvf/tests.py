@@ -1,6 +1,6 @@
 import datetime
 from decimal import Decimal
-from typing import Dict
+from typing import Dict, List
 
 import pandas as pd
 from django.test import TestCase
@@ -13,8 +13,10 @@ from src.dvf.data.cities import (
     get_simple_sales,
     get_avg_m2_price_rooms,
     get_avg_m2_price_street,
+    get_last_sales,
+    get_city_data,
 )
-from src.dvf.data.classes import Agent
+from src.dvf.data.classes import Agent, MedianM2PriceRoom, CityData, MedianM2Price
 from src.dvf.models import Commune
 
 COMMUNE = {"code_commune": "34172", "nom_commune": "Montpellier", "slug": "montpellier-34080"}
@@ -47,6 +49,7 @@ AGENCIES = {
 
 TODAY = datetime.date.today()
 ONE_YEAR_AGO = datetime.date(year=TODAY.year - 1, month=1, day=1)
+FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 5, month=1, day=1)
 
 
 class DvfTestCase(TestCase):
@@ -136,3 +139,33 @@ class DvfTestCase(TestCase):
             },
         )
         self.assertEqual(len(avg_price_per_street), 5)
+
+    def test_get_last_sales(self):
+        ventes = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
+        )
+        last_sales = get_last_sales(limit=5, ventes=ventes)
+        self.assertIsInstance(last_sales, List)
+        self.assertEqual(len(last_sales), 5)
+
+    def test_get_city_data(self):
+        city_data = get_city_data(code_commune=COMMUNE["code_commune"])
+        self.assertIsInstance(city_data, CityData)
+        self.assertEqual(
+            city_data.median_m2_prices_years,
+            [MedianM2Price(year=2020, value=3187.27), MedianM2Price(year=2021, value=3185.56)],
+        )
+        self.assertEqual(city_data.median_m2_price_maison, MedianM2Price(year=2021, value=3535))
+        self.assertEqual(
+            city_data.median_m2_price_maison_rooms, MedianM2PriceRoom(one=None, two=3699, three=3857, four=3535)
+        )
+        self.assertEqual(city_data.median_m2_price_appartement, MedianM2Price(year=2021, value=3150))
+        self.assertEqual(
+            city_data.median_m2_price_appartement_rooms, MedianM2PriceRoom(one=3631, two=3223, three=3041, four=2704)
+        )
+        self.assertIsInstance(city_data.median_m2_prices_years, List)
+        self.assertIsInstance(city_data.median_m2_price_maison, MedianM2Price)
+        self.assertIsInstance(city_data.median_m2_price_maison_rooms, MedianM2PriceRoom)
+        self.assertIsInstance(city_data.median_m2_price_appartement, MedianM2Price)
+        self.assertIsInstance(city_data.median_m2_price_appartement_rooms, MedianM2PriceRoom)
+        self.assertEqual(city_data.number_of_sales, 1797)

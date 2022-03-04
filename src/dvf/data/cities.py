@@ -69,7 +69,7 @@ def get_avg_m2_price_street(limit: int, ascending: bool, ventes: pd.DataFrame) -
 
 
 # @function_timer
-def get_last_sales(limit: int, ventes: pd.DataFrame) -> dict:
+def get_last_sales(limit: int, ventes: pd.DataFrame) -> List:
     ordered_sales = ventes.sort_values(by="date_mutation", ascending=False)
     return ordered_sales.head(n=limit).to_dict("records")
 
