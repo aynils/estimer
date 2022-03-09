@@ -18,6 +18,8 @@ from src.dvf.data.cities import (
     get_neighbourhoods_data,
     calculate_bar_heights,
     generate_price_evolution_text,
+    get_iris_code_for_coordinates,
+    get_mutations_for_iris,
 )
 from src.dvf.data.classes import Agent, MedianM2PriceRoom, CityData, MedianM2Price
 from src.dvf.models import Commune
@@ -219,3 +221,13 @@ class DvfTestCase(TestCase):
             price_evolution_text,
             "Entre 2020 et 2021, les prix de l'immobilier ont augmenté de 0%, atteignant 3187 € en 2021.",
         )
+
+    def test_get_iris_code_for_coordinates(self):
+        sales = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
+        )
+        iris_code = get_iris_code_for_coordinates(
+            latitude=float(sales.latitude[0]), longitude=float(sales.longitude[0])
+        )
+        self.assertIsInstance(iris_code, str)
+        self.assertEqual(iris_code, "341721201")
