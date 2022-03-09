@@ -1,0 +1,42 @@
+[
+  {
+    "model":"agencies.Pricing",
+    "pk": 2,
+    "fields":{
+    "name": "Prix 2",
+    "min_population": 1500,
+    "max_population": 2500,
+    "pricing": 15
+    }
+  },
+  {
+    "model":"agencies.Pricing",
+    "pk": 3,
+    "fields":{
+    "name": "Prix 3",
+    "min_population": 2500,
+    "max_population": 3500,
+    "pricing": 25
+    }
+  },
+  {
+    "model":"agencies.Pricing",
+    "pk": 4,
+    "fields":{
+    "name": "Prix 4",
+    "min_population": 3500,
+    "max_population": 999999999,
+    "pricing": 50
+    }
+  },
+  {
+    "model":"agencies.Pricing",
+    "pk": 1,
+    "fields":{
+    "name": "Prix 1",
+    "min_population": 1,
+    "max_population": 1500,
+    "pricing": 5
+    }
+  }
+]
