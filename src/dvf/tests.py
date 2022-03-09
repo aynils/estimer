@@ -16,6 +16,8 @@ from src.dvf.data.cities import (
     get_last_sales,
     get_city_data,
     get_neighbourhoods_data,
+    calculate_bar_heights,
+    generate_price_evolution_text,
 )
 from src.dvf.data.classes import Agent, MedianM2PriceRoom, CityData, MedianM2Price
 from src.dvf.models import Commune
@@ -196,3 +198,24 @@ class DvfTestCase(TestCase):
         neighbourhoods_data = get_neighbourhoods_data(code_commune=COMMUNE["code_commune"], mutations=ventes)
         self.assertIsInstance(neighbourhoods_data, List)
         self.assertEqual(len(neighbourhoods_data), 1)
+
+    def test_calculate_bar_heights(self):
+        ventes = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
+        )
+        avg_price = get_avg_m2_price_per_year(types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO, ventes=ventes)
+        bar_heights = calculate_bar_heights(avg_price)
+        self.assertIsInstance(bar_heights, Dict)
+        self.assertEqual(bar_heights, {"2021": {"height": 145, "value": 3187, "y": 35, "text_y": 25}})
+
+    def test_generate_price_evolution_text(self):
+        ventes = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO
+        )
+        avg_price = get_avg_m2_price_per_year(types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO, ventes=ventes)
+        price_evolution_text = generate_price_evolution_text(avg_price)
+        self.assertIsInstance(price_evolution_text, str)
+        self.assertEqual(
+            price_evolution_text,
+            "Entre 2020 et 2021, les prix de l'immobilier ont augmenté de 0%, atteignant 3187 € en 2021.",
+        )
