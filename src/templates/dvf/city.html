@@ -53,10 +53,10 @@
             <div class="md:flex justify-between py-16">
                 <h2 class=" md:w-3/19 mb-8 md:mb-0"><span class="underlined-blue">Prix au m2</span></h2>
                 <p class=" pb-8 md:w-8/12">
-                    Suite à l'analyse des {{ city_data.number_of_sales }} transactions immobilières à {{ city_name }},
+                    Suite à l'analyse des {{ city_data.number_of_sales|default:'0' }} transactions immobilières à {{ city_name }},
                     en 2021,
-                    nous observons un prix au m2 de {{ city_data.median_m2_price_appartement.value }} €
-                    pour les appartements, et de {{ city_data.median_m2_price_maison.value }} € pour les maisons.
+                    nous observons un prix au m2 de {{ city_data.median_m2_price_appartement.value|default:'0' }} €
+                    pour les appartements, et de {{ city_data.median_m2_price_maison.value|default:'0' }} € pour les maisons.
                 </p>
             </div>
             <div class="md:flex justify-between">
@@ -82,7 +82,7 @@
 
                     <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">
                             {% if city_data.median_m2_price_appartement.value == None %}
-                            <strong class="text-xs ml-5">Donnée indisponible</strong></p>
+                            <strong class="text-xs">Donnée indisponible</strong></p>
                             {% else %}
                             Prix moyen au m2
                             <strong class="text-xl ml-5">
@@ -135,7 +135,7 @@
                             <h3 class=" mt-16">Maison</h3>
                         </div>
                     </div>
-                    <p class="mx-auto w-10/12 md:w-7/12 mt-8 ">
+                    <p class="mx-auto w-10/12 md:w-8/12 mt-8 ">
                         Le prix moyen au m2 pour une maison à {{ city_name }}
                         {% if city_data.median_m2_price_maison.value <= 0 or city_data.median_m2_price_maison.value == None%}
                         est indisponible
