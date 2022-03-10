@@ -38,8 +38,13 @@
     <div id="prix-m2-global" class="md:py-20">
         <h1 class="mt-8 mx-auto text-center md:w-1/2 ">Prix au m2 à {{ city_name }}</h1>
         <p class="mt-6 mx-auto text-center md:w-1/2  mb-14 text-3xl font-bold">
+
             {% with city_data.median_m2_prices_years|last as most_recent_year %}
+                {% if most_recent_year.value == None %}
+                    <p class="text-xs">Le prix au m2 ne peut être estimer le volume de ventes est trop faible</p>
+                {% else %}
                 <span class="underlined-orange">{{ most_recent_year.value|floatformat:"0" }} €</span>
+                {% endif %}
             {% endwith %}
             </p>
     </div>
@@ -65,36 +70,59 @@
                             <h3 class=" mt-16">Appartement</h3>
                         </div>
                     </div>
-                    <p class="mx-auto w-10/12 md:w-7/12 mt-8 ">
-                        Le prix moyen au m2 pour un appartement à {{ city_name }} était
-                        de {{ city_data.median_m2_price_appartement.value }} €
+                    <p class="mx-auto w-10/12 md:w-8/12 mt-8 ">
+                        Le prix moyen au m2 pour un appartement à {{ city_name }}
+                        {% if city_data.median_m2_price_appartement.value >= 0 or city_data.median_m2_price_appartement.value == None %}
+                        est indisponible
+                        {% else %}
+                        était de {{ city_data.median_m2_price_appartement.value}} €
+                        {% endif %}
                         en 2021.
                     </p>
 
-                    <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">Prix
-                        moyen au
-                        m2 <strong class="text-xl ml-5">{{ city_data.median_m2_price_appartement.value }} €</strong></p>
+                    <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">
+                            {% if city_data.median_m2_price_appartement.value == None %}
+                            <strong class="text-xs ml-5">Donnée indisponible</strong></p>
+                            {% else %}
+                            Prix moyen au m2
+                            <strong class="text-xl ml-5">
+                            {{ city_data.median_m2_price_appartement.value }} €
+                            </strong></p>
+                            {% endif %}
+
                     <div class="w-8/12 mx-auto">
+                        {% if city_data.median_m2_price_appartement_rooms.four == None %}
+                        {% else %}
                         <div class="flex justify-between">
                             <p class="">4 pièces</p>
                             <p class="">{{ city_data.median_m2_price_appartement_rooms.four }}
                                 €</p>
                         </div>
+                        {% endif %}
+                        {% if city_data.median_m2_price_appartement_rooms.three == None %}
+                        {% else %}
                         <div class="flex justify-between">
                             <p class="">3 pièces</p>
                             <p class="">{{ city_data.median_m2_price_appartement_rooms.three }}
                                 €</p>
                         </div>
+                        {% endif %}
+                        {% if city_data.median_m2_price_appartement_rooms.two == None %}
+                        {% else %}
                         <div class="flex justify-between">
                             <p class="">2 pièces</p>
                             <p class="">{{ city_data.median_m2_price_appartement_rooms.two }}
                                 €</p>
                         </div>
+                        {% endif %}
+                        {% if city_data.median_m2_price_appartement_rooms.one == None %}
+                        {% else %}
                         <div class="flex justify-between">
                             <p class="">1 pièce</p>
                             <p class="">{{ city_data.median_m2_price_appartement_rooms.one }}
                                 €</p>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="bg-white md:w-10/12 md:mr-5 rounded-xl pb-12 mx-auto mt-12 md:mt-0">
@@ -108,8 +136,12 @@
                         </div>
                     </div>
                     <p class="mx-auto w-10/12 md:w-7/12 mt-8 ">
-                        Le prix moyen au m2 pour une maison à {{ city_name }} était
-                        de {{ city_data.median_m2_price_maison.value }} €
+                        Le prix moyen au m2 pour une maison à {{ city_name }}
+                        {% if city_data.median_m2_price_maison.value <= 0 or city_data.median_m2_price_maison.value == None%}
+                        est indisponible
+                        {% else %}
+                            était de {{ city_data.median_m2_price_maison.value }} €
+                        {% endif %}
                         en 2021.
                     </p>
 
