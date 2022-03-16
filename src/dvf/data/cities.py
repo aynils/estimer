@@ -38,7 +38,6 @@ TODAY = datetime.date.today()
 ONE_YEAR_AGO = datetime.date(year=TODAY.year - 1, month=1, day=1)
 FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 5, month=1, day=1)
 
-DATE_OF_DATA_YEAR = datetime.date.today().year - 1
 
 # @function_timer
 def get_avg_m2_price_per_year(types: Tuple, date_from: datetime.date, ventes: pd.DataFrame) -> dict:
@@ -203,7 +202,7 @@ def get_city_data(code_commune: str) -> CityData:
 
     name_sorted_neighbourhoods = sort_neighbourhoods_by_name(neighbourhoods=price_sorted_neighbourhoods)
 
-    date_of_data_year = DATE_OF_DATA_YEAR
+    date_of_data_year = last_sales[0].date.year if last_sales else None
 
     return CityData(
         median_m2_price_appartement=median_m2_price_appartement,
