@@ -11,8 +11,8 @@ def read_env():
     directory.
     """
     try:
-        if os.path.exists(".env"):
-            with open(".env") as f:
+        if os.path.exists("config/.env"):
+            with open("config/.env") as f:
                 content = f.read()
         elif os.path.exists("config/.env"):
             with open("config/.env") as f:

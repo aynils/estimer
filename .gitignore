@@ -1,6 +1,6 @@
 venv
 .idea
-.env
+config/.env
 .env.local
 .digitalocean
 pre-push

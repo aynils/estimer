@@ -41,7 +41,7 @@
 
             {% with city_data.median_m2_prices_years|last as most_recent_year %}
                 {% if most_recent_year.value == None %}
-                    <p class="text-xs">Le prix au m2 ne peut être estimer le volume de ventes est trop faible</p>
+                    <p class="text-xs">Il n'y a pas eu assez de ventes en {% now 'Y' %} pour estimer le prix au m2.</p>
                 {% else %}
                 <span class="underlined-orange">{{ most_recent_year.value|floatformat:"0" }} €</span>
                 {% endif %}
@@ -73,7 +73,7 @@
                     <p class="mx-auto w-10/12 md:w-8/12 mt-8 ">
                         Le prix moyen au m2 pour un appartement à {{ city_name }}
                         {% if city_data.median_m2_price_appartement.value >= 0 or city_data.median_m2_price_appartement.value == None %}
-                        est indisponible
+                        n'a pas pu être calculé car il n'y a pas eu assez de ventes
                         {% else %}
                         était de {{ city_data.median_m2_price_appartement.value}} €
                         {% endif %}
@@ -91,37 +91,37 @@
                             {% endif %}
 
                     <div class="w-8/12 mx-auto">
-                        {% if city_data.median_m2_price_appartement_rooms.four == None %}
-                        {% else %}
+                        {% if city_data.median_m2_price_appartement_rooms.four != None %}
                         <div class="flex justify-between">
                             <p class="">4 pièces</p>
                             <p class="">{{ city_data.median_m2_price_appartement_rooms.four }}
                                 €</p>
                         </div>
-                        {% endif %}
-                        {% if city_data.median_m2_price_appartement_rooms.three == None %}
                         {% else %}
+                        {% endif %}
+                        {% if city_data.median_m2_price_appartement_rooms.three != None %}
                         <div class="flex justify-between">
                             <p class="">3 pièces</p>
                             <p class="">{{ city_data.median_m2_price_appartement_rooms.three }}
                                 €</p>
                         </div>
-                        {% endif %}
-                        {% if city_data.median_m2_price_appartement_rooms.two == None %}
                         {% else %}
+                        {% endif %}
+                        {% if city_data.median_m2_price_appartement_rooms.two != None %}
                         <div class="flex justify-between">
                             <p class="">2 pièces</p>
                             <p class="">{{ city_data.median_m2_price_appartement_rooms.two }}
                                 €</p>
                         </div>
-                        {% endif %}
-                        {% if city_data.median_m2_price_appartement_rooms.one == None %}
                         {% else %}
+                        {% endif %}
+                        {% if city_data.median_m2_price_appartement_rooms.one != None %}
                         <div class="flex justify-between">
                             <p class="">1 pièce</p>
                             <p class="">{{ city_data.median_m2_price_appartement_rooms.one }}
                                 €</p>
                         </div>
+                        {% else %}
                         {% endif %}
                     </div>
                 </div>
@@ -138,7 +138,7 @@
                     <p class="mx-auto w-10/12 md:w-8/12 mt-8 ">
                         Le prix moyen au m2 pour une maison à {{ city_name }}
                         {% if city_data.median_m2_price_maison.value <= 0 or city_data.median_m2_price_maison.value == None%}
-                        est indisponible
+                        n'a pas pu être calculé.
                         {% else %}
                             était de {{ city_data.median_m2_price_maison.value }} €
                         {% endif %}

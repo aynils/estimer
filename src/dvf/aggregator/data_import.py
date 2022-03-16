@@ -76,7 +76,7 @@ def delete_existing_data(year: int) -> None:
 
 def create_communes():
     print("create communes")
-    rows = ValeursFoncieres.objects.order_by("code_commune", "IRIS").distinct("code_commune").all()
+    rows = ValeursFoncieres.objects.order_by("code_commune").distinct("code_commune").all()
     communes = [
         Commune(
             code_commune=row.code_commune,
