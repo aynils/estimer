@@ -41,3 +41,4 @@ if settings.DEBUG:
     urlpatterns += [path("__reload__/", include("django_browser_reload.urls"))]
 
 handler404 = "src.estimer.views.page_404"
+handler500 = "src.estimer.views.page_500"
