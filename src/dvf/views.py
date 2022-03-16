@@ -38,7 +38,7 @@ def city(request, slug):
 
         else:
             context = {"city_slug": slug}
-            return render(request, "dvf/404.html", context)
+            return render(request, "estimer/404.html", context)
 
     elif request.method == "POST":
         address = request.POST.get("address")
@@ -56,4 +56,4 @@ def city(request, slug):
 
             else:
                 context = {"city_slug": slug}
-                return render(request, "dvf/404.html", context)
+                return render(request, "estimer/404.html", context)

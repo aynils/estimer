@@ -17,8 +17,8 @@ def cgv(request):
 
 
 def page_404(request, exception):
-    return render(request, "dvf/404.html", status=404)
+    return render(request, "estimer/404.html", status=404)
 
 
 def page_500(request):
-    return render(request, "dvf/500.html", status=500)
+    return render(request, "estimer/500.html", status=500)
