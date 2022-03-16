@@ -14,3 +14,11 @@ def mentions_legales(request):
 def cgv(request):
     context = {}
     return render(request, "estimer/cgv.html", context)
+
+
+def page_404(request, exception):
+    return render(request, "dvf/404.html", status=404)
+
+
+def page_500(request):
+    return render(request, "dvf/500.html", status=500)
