@@ -54,7 +54,7 @@
                 <h2 class=" md:w-3/19 mb-8 md:mb-0"><span class="underlined-blue">Prix au m2</span></h2>
                 <p class=" pb-8 md:w-8/12">
                     Suite à l'analyse des {{ city_data.number_of_sales|default:'0' }} transactions immobilières à {{ city_name }},
-                    en 2021,
+                    en {{ city_data.date_of_data_year }}
                     nous observons un prix au m2 de {{ city_data.median_m2_price_appartement.value|default:'0' }} €
                     pour les appartements, et de {{ city_data.median_m2_price_maison.value|default:'0' }} € pour les maisons.
                 </p>
@@ -77,7 +77,7 @@
                         {% else %}
                         était de {{ city_data.median_m2_price_appartement.value}} €
                         {% endif %}
-                        en 2021.
+                        en {{ city_data.date_of_data_year }}.
                     </p>
 
                     <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">
@@ -142,7 +142,7 @@
                         {% else %}
                             était de {{ city_data.median_m2_price_maison.value }} €
                         {% endif %}
-                        en 2021.
+                        en {{ city_data.date_of_data_year }}.
                     </p>
 
                     <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">Prix
