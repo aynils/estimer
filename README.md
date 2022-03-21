@@ -12,8 +12,9 @@ These instructions are tested on a Mac M1. Shouldn't be that different on Linux.
 4. Flak 8 installed: `brew install flake8`
 5. Black installed: `brew install black`
 6. GDAL installed: `brew install gdal`
-6. PROJ installed: `brew install proj`
-6. postgis installed: `brew install postgis`
+7. PROJ installed: `brew install proj`
+8. postgis installed: `brew install postgis`
+9. watchman `brew install watchman`
 
 ## Config
 1. Copy `.env.local.example` and rename it to `.env.local`
@@ -33,6 +34,7 @@ ALTER ROLE localuser SET timezone TO 'UTC';
 Grant privileges to local DB user:
 
 GRANT ALL PRIVILEGES ON DATABASE estimer TO localuser;
+ALTER ROLE localuser SUPERUSER;
 
 ## Setup local env
 1. Create a virtual environment
