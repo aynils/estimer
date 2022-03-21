@@ -33,6 +33,7 @@ ALTER ROLE localuser SET timezone TO 'UTC';
 Grant privileges to local DB user:
 
 GRANT ALL PRIVILEGES ON DATABASE estimer TO localuser;
+ALTER ROLE localuser SUPERUSER;
 
 ## Setup local env
 1. Create a virtual environment

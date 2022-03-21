@@ -23,3 +23,5 @@ py7zr==0.16.2
 SQLAlchemy==1.4.27
 django-tailwind==3.1.0
 tldextract==3.2.0
+pytest-django==4.5.2
+factory-boy==3.2.1  # https://github.com/FactoryBoy/factory_boy
