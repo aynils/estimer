@@ -63,8 +63,9 @@ def get_avg_m2_price_rooms(types: Tuple, date_from: datetime.date, ventes: pd.Da
 def get_avg_m2_price_street(limit: int, ascending: bool, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
         return {}
+    filtered_sales = filter_simple_sales_per_street(ventes=ventes, count_sales_per_street=5)
 
-    average_per_street = ventes.groupby("adresse_nom_voie").mean().round(2)
+    average_per_street = filtered_sales.groupby("adresse_nom_voie").mean().round(2)
     return average_per_street.sort_values(by="prix_m2", ascending=ascending).head(n=limit)["prix_m2"].to_dict()
 
 
@@ -565,3 +566,11 @@ def sort_neighbourhoods_by_name(neighbourhoods: List[NeighbourhoodPolygon]) -> L
     neighbourhoods.sort(key=sort_neighbourhoods)
 
     return neighbourhoods
+
+
+def filter_simple_sales_per_street(ventes: pd.DataFrame, count_sales_per_street: int) -> pd.DataFrame:
+    sales_by_street_count = ventes.groupby("adresse_nom_voie")["id"].agg(["count"])
+    filter_street_count = sales_by_street_count[sales_by_street_count["count"] >= count_sales_per_street]
+    filter_street = list(filter_street_count.index)
+    filter_sales = ventes["adresse_nom_voie"].isin(filter_street)
+    return ventes[filter_sales]

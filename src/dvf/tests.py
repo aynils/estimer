@@ -142,11 +142,11 @@ class DvfTestCase(TestCase):
         self.assertEqual(
             avg_price_per_street,
             {
-                "TSSE ALLEES DU BOIS": 833.33,
-                "RUE DE LA PREFECTURE": 884.15,
-                "AV DE LOUISVILLE": 936.5,
-                "RUE DE LEYDE": 980.39,
                 "ALL DE LA MOSSON": 1030.3,
+                "AV DE LOUISVILLE": 936.5,
+                "RUE DE LA PREFECTURE": 884.15,
+                "RUE DE LEYDE": 980.39,
+                "TSSE ALLEES DU BOIS": 833.33,
             },
         )
         self.assertEqual(len(avg_price_per_street), 5)
@@ -231,3 +231,23 @@ class DvfTestCase(TestCase):
         )
         self.assertIsInstance(iris_code, str)
         self.assertEqual(iris_code, "341721201")
+
+    def test_median_m2_prices_appartement(self):
+        ventes = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO
+        )
+
+        median_m2_prices_appartement = get_avg_m2_price_per_year(
+            types=("Appartement",), date_from=ONE_YEAR_AGO, ventes=ventes
+        )
+        self.assertIsInstance(median_m2_prices_appartement, Dict)
+        self.assertEqual(median_m2_prices_appartement, {"2021": 3150.85})
+
+    def test_median_m2_prices_maison(self):
+        ventes = get_simple_sales(
+            code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO
+        )
+        median_m2_prices_maison = get_avg_m2_price_per_year(types=("Maison",), date_from=ONE_YEAR_AGO, ventes=ventes)
+
+        self.assertIsInstance(median_m2_prices_maison, Dict)
+        self.assertEqual(median_m2_prices_maison, {"2021": 3535.74})
