@@ -19,7 +19,6 @@ from src.dvf.data.cities import (
     calculate_bar_heights,
     generate_price_evolution_text,
     get_iris_code_for_coordinates,
-    get_mutations_for_iris,
 )
 from src.dvf.data.classes import Agent, MedianM2PriceRoom, CityData, MedianM2Price
 from src.dvf.models import Commune
@@ -118,8 +117,8 @@ class DvfTestCase(TestCase):
         )
         avg_price = get_avg_m2_price_per_year(types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO, ventes=ventes)
         self.assertIsInstance(avg_price, Dict)
-        self.assertEqual(avg_price[2021], 3187.63)
-        self.assertEqual(avg_price, {ONE_YEAR_AGO.year: 3187.63})
+        self.assertEqual(avg_price[2021], 3142.86)
+        self.assertEqual(avg_price, {ONE_YEAR_AGO.year: 3142.86})
         self.assertEqual(len(avg_price), 1)
 
     def test_get_avg_m2_price_rooms(self):
@@ -130,7 +129,7 @@ class DvfTestCase(TestCase):
             types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO, ventes=ventes
         )
         self.assertIsInstance(avg_price_per_room, Dict)
-        self.assertEqual(avg_price_per_room, {1: 3625, 2: 3267, 3: 3043, 4: 2916, 5: 3082, 6: 2836, 7: 3162, 8: 1193})
+        self.assertEqual(avg_price_per_room, {1: 3600, 2: 3198, 3: 3009, 4: 2794, 5: 3043, 6: 2702, 7: 2451, 8: 1193})
         self.assertEqual(len(avg_price_per_room), 8)
 
     def test_get_avg_m2_price_street(self):
@@ -142,11 +141,11 @@ class DvfTestCase(TestCase):
         self.assertEqual(
             avg_price_per_street,
             {
-                "ALL DE LA MOSSON": 1030.3,
-                "AV DE LOUISVILLE": 936.5,
-                "RUE DE LA PREFECTURE": 884.15,
-                "RUE DE LEYDE": 980.39,
-                "TSSE ALLEES DU BOIS": 833.33,
+                "RTE DE LODEVE": 2044.45,
+                "RUE CHARLES BORROMEE": 1888.09,
+                "RUE DES CHASSEURS": 2218.51,
+                "RUE FABRI DE PEIRESC": 1500.16,
+                "RUE GUILLAUME JANVIER": 2244.95,
             },
         )
         self.assertEqual(len(avg_price_per_street), 5)
@@ -164,15 +163,15 @@ class DvfTestCase(TestCase):
         self.assertIsInstance(city_data, CityData)
         self.assertEqual(
             city_data.median_m2_prices_years,
-            [MedianM2Price(year=2020, value=3187.27), MedianM2Price(year=2021, value=3185.56)],
+            [MedianM2Price(year=2020, value=3133.7), MedianM2Price(year=2021, value=3141.2)],
         )
-        self.assertEqual(city_data.median_m2_price_maison, MedianM2Price(year=2021, value=3535))
+        self.assertEqual(city_data.median_m2_price_maison, MedianM2Price(year=2021, value=3445))
         self.assertEqual(
-            city_data.median_m2_price_maison_rooms, MedianM2PriceRoom(one=None, two=3699, three=3857, four=3535)
+            city_data.median_m2_price_maison_rooms, MedianM2PriceRoom(one=None, two=3636, three=3616, four=3413)
         )
-        self.assertEqual(city_data.median_m2_price_appartement, MedianM2Price(year=2021, value=3150))
+        self.assertEqual(city_data.median_m2_price_appartement, MedianM2Price(year=2021, value=3120))
         self.assertEqual(
-            city_data.median_m2_price_appartement_rooms, MedianM2PriceRoom(one=3631, two=3223, three=3041, four=2704)
+            city_data.median_m2_price_appartement_rooms, MedianM2PriceRoom(one=3617, two=3171, three=3006, four=2505)
         )
         self.assertIsInstance(city_data.median_m2_prices_years, List)
         self.assertIsInstance(city_data.median_m2_price_maison, MedianM2Price)
@@ -189,7 +188,7 @@ class DvfTestCase(TestCase):
         self.assertIsInstance(city_data.price_evolution_text, str)
         self.assertEqual(
             city_data.price_evolution_text,
-            "Entre 2020 et 2021, les prix de l'immobilier ont augmenté de 0%, atteignant 3185 € en 2021.",
+            "Entre 2020 et 2021, les prix de l'immobilier ont augmenté de 0%, atteignant 3141 € en 2021.",
         )
 
     def test_get_neighbourhoods_data(self):
@@ -208,7 +207,7 @@ class DvfTestCase(TestCase):
         avg_price = get_avg_m2_price_per_year(types=("Maison", "Appartement"), date_from=ONE_YEAR_AGO, ventes=ventes)
         bar_heights = calculate_bar_heights(avg_price)
         self.assertIsInstance(bar_heights, Dict)
-        self.assertEqual(bar_heights, {"2021": {"height": 145, "value": 3187, "y": 35, "text_y": 25}})
+        self.assertEqual(bar_heights, {"2021": {"height": 145, "text_y": 25, "value": 3142, "y": 35}})
 
     def test_generate_price_evolution_text(self):
         ventes = get_simple_sales(
@@ -219,7 +218,7 @@ class DvfTestCase(TestCase):
         self.assertIsInstance(price_evolution_text, str)
         self.assertEqual(
             price_evolution_text,
-            "Entre 2020 et 2021, les prix de l'immobilier ont augmenté de 0%, atteignant 3187 € en 2021.",
+            "Entre 2020 et 2021, les prix de l'immobilier ont augmenté de 0%, atteignant 3142 € en 2021.",
         )
 
     def test_get_iris_code_for_coordinates(self):
@@ -241,13 +240,12 @@ class DvfTestCase(TestCase):
             types=("Appartement",), date_from=ONE_YEAR_AGO, ventes=ventes
         )
         self.assertIsInstance(median_m2_prices_appartement, Dict)
-        self.assertEqual(median_m2_prices_appartement, {"2021": 3150.85})
+        self.assertEqual(median_m2_prices_appartement, {2021: 3120.0})
 
     def test_median_m2_prices_maison(self):
         ventes = get_simple_sales(
             code_commune=COMMUNE["code_commune"], types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO
         )
         median_m2_prices_maison = get_avg_m2_price_per_year(types=("Maison",), date_from=ONE_YEAR_AGO, ventes=ventes)
-
         self.assertIsInstance(median_m2_prices_maison, Dict)
-        self.assertEqual(median_m2_prices_maison, {"2021": 3535.74})
+        self.assertEqual(median_m2_prices_maison, {2021: 3445.36})
