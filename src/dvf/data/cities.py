@@ -38,7 +38,6 @@ TODAY = datetime.date.today()
 ONE_YEAR_AGO = datetime.date(year=TODAY.year - 1, month=1, day=1)
 FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 5, month=1, day=1)
 
-
 # @function_timer
 def get_avg_m2_price_per_year(types: Tuple, date_from: datetime.date, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
@@ -46,7 +45,7 @@ def get_avg_m2_price_per_year(types: Tuple, date_from: datetime.date, ventes: pd
 
     ventes_subset = ventes[(ventes["annee"] >= date_from.year) & (ventes["type_local"].isin(types))]
 
-    return ventes_subset.groupby("annee").mean().round(2)["prix_m2"].to_dict()
+    return ventes_subset.groupby("annee").median().round(2)["prix_m2"].to_dict()
 
 
 # @function_timer
@@ -56,15 +55,16 @@ def get_avg_m2_price_rooms(types: Tuple, date_from: datetime.date, ventes: pd.Da
 
     ventes_subset = ventes[(ventes["annee"] >= date_from.year) & (ventes["type_local"].isin(types))]
 
-    return ventes_subset.groupby("nombre_pieces_principales").mean().round(0)["prix_m2"].astype(int).to_dict()
+    return ventes_subset.groupby("nombre_pieces_principales").median().round(0)["prix_m2"].astype(int).to_dict()
 
 
 # @function_timer
 def get_avg_m2_price_street(limit: int, ascending: bool, ventes: pd.DataFrame) -> dict:
     if ventes.empty:
         return {}
+    filtered_sales = filter_simple_sales_per_street(ventes=ventes, count_sales_per_street=5)
 
-    average_per_street = ventes.groupby("adresse_nom_voie").mean().round(2)
+    average_per_street = filtered_sales.groupby("adresse_nom_voie").mean().round(2)
     return average_per_street.sort_values(by="prix_m2", ascending=ascending).head(n=limit)["prix_m2"].to_dict()
 
 
@@ -565,3 +565,11 @@ def sort_neighbourhoods_by_name(neighbourhoods: List[NeighbourhoodPolygon]) -> L
     neighbourhoods.sort(key=sort_neighbourhoods)
 
     return neighbourhoods
+
+
+def filter_simple_sales_per_street(ventes: pd.DataFrame, count_sales_per_street: int) -> pd.DataFrame:
+    sales_by_street_count = ventes.groupby("adresse_nom_voie")["id"].agg(["count"])
+    filter_street_count = sales_by_street_count[sales_by_street_count["count"] >= count_sales_per_street]
+    filter_street = list(filter_street_count.index)
+    filter_sales = ventes["adresse_nom_voie"].isin(filter_street)
+    return ventes[filter_sales]
