@@ -72,7 +72,7 @@
                     </div>
                     <p class="mx-auto w-10/12 md:w-8/12 mt-8 ">
                         Le prix moyen au m2 pour un appartement à {{ city_name }}
-                        {% if city_data.median_m2_price_appartement.value >= 0 or city_data.median_m2_price_appartement.value == None %}
+                        {% if not city_data.median_m2_price_appartement.value %}
                         n'a pas pu être calculé car il n'y a pas eu assez de ventes
                         {% else %}
                         était de {{ city_data.median_m2_price_appartement.value}} €
@@ -137,8 +137,8 @@
                     </div>
                     <p class="mx-auto w-10/12 md:w-8/12 mt-8 ">
                         Le prix moyen au m2 pour une maison à {{ city_name }}
-                        {% if city_data.median_m2_price_maison.value <= 0 or city_data.median_m2_price_maison.value == None%}
-                        n'a pas pu être calculé.
+                        {% if not city_data.median_m2_price_maison.value%}
+                        n'a pas pu être calculé car il n'y a pas eu assez de vente
                         {% else %}
                             était de {{ city_data.median_m2_price_maison.value }} €
                         {% endif %}

@@ -72,6 +72,7 @@ at `/estimer`
    ```sql
    UPDATE iris_iris SET "geometry_4326" = ST_Transform(geometry,4326)
    ```
+7. Import dvf_mutationiris from DB dump
 
 # Prod setup
 TODO: add prod setup guide
