@@ -38,7 +38,7 @@ class AgenciesTestCase(TestCase):
         self.assertEqual(len(cities_with_population), 1)
         self.assertEqual(cities_with_population[0]["code_postal"], COMMUNE["code_postal"])
         self.assertEqual(cities_with_population[0]["nom_commune"], COMMUNE["nom_commune"])
-        self.assertEqual(cities_with_population[0]["total_population"], 4701.41909758321)
+        self.assertEqual(cities_with_population[0]["total_population"], 10452.00000000002)
 
     def test_add_pricing_to_cities(self):
         cities = get_cities_not_owned_by_agencies(code_departement=COMMUNE["code_departement"])
