@@ -59,15 +59,12 @@
                     en {{ city_data.date_of_data_year }}
                     nous observons un prix au m2 de
                     {% if city_data.median_m2_price_appartement.value %}
-                        {{ city_data.median_m2_price_appartement.value }} € pour les appartements
-                    {% endif %}
+                        {{ city_data.median_m2_price_appartement.value }} € pour les appartements{% endif %}
                     {% if city_data.median_m2_price_appartement.value and city_data.median_m2_price_maison.value %}
                         , et de
                     {% endif %}
                     {% if city_data.median_m2_price_maison.value %}
-                        {{ city_data.median_m2_price_maison.value }} € pour les maisons
-                    {% endif %}
-                    .
+                        {{ city_data.median_m2_price_maison.value }} € pour les maisons{% endif %}.
                 </p>
             </div>
             <div class="md:flex justify-between">
