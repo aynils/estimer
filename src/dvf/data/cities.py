@@ -386,9 +386,9 @@ def generate_price_evolution_text(avg_m2_price: dict) -> str:
     if evolution == 0:
         evolution_text = "sont restés stables"
     elif evolution >= 0:
-        evolution_text = f"ont augmenté de {evolution}"
+        evolution_text = f"ont augmenté de {evolution}%"
     else:
-        evolution_text = f"ont diminué de {abs(evolution)}"
+        evolution_text = f"ont diminué de {abs(evolution)}%"
 
     return (
         f"Entre {max_year - 1} et {max_year}, les prix de l'immobilier {evolution_text}"
