@@ -92,7 +92,7 @@
                     </p>
 
                     <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">
-                        {% if city_data.median_m2_price_appartement.value == None %}
+                        {% if not city_data.median_m2_price_appartement.value %}
                             <strong class="text-xs">Donnée indisponible</strong></p>
                         {% else %}
                             Prix moyen au m2
@@ -100,41 +100,42 @@
                                 {{ city_data.median_m2_price_appartement.value }} €
                             </strong></p>
                         {% endif %}
+                    {% if city_data.median_m2_price_appartement.value %}
+                        <div class="w-8/12 mx-auto">
+                            {% if city_data.median_m2_price_appartement_rooms.four%}
+                                <div class="flex justify-between">
+                                    <p class="">4 pièces</p>
+                                    <p class="">{{ city_data.median_m2_price_appartement_rooms.four }}
+                                        €</p>
+                                </div>
+                            {% else %}
+                            {% endif %}
+                            {% if city_data.median_m2_price_appartement_rooms.three %}
+                                <div class="flex justify-between">
+                                    <p class="">3 pièces</p>
+                                    <p class="">{{ city_data.median_m2_price_appartement_rooms.three }}
+                                        €</p>
+                                </div>
+                            {% else %}
+                            {% endif %}
+                            {% if city_data.median_m2_price_appartement_rooms.two %}
+                                <div class="flex justify-between">
+                                    <p class="">2 pièces</p>
+                                    <p class="">{{ city_data.median_m2_price_appartement_rooms.two }}
+                                        €</p>
+                                </div>
+                            {% else %}
+                            {% endif %}
+                            {% if city_data.median_m2_price_appartement_rooms.one%}
+                                <div class="flex justify-between">
+                                    <p class="">1 pièce</p>
+                                    <p class="">{{ city_data.median_m2_price_appartement_rooms.one }}
+                                        €</p>
+                                </div>
+                            {% else %}
+                            {% endif %}
 
-                    <div class="w-8/12 mx-auto">
-                        {% if city_data.median_m2_price_appartement_rooms.four != None %}
-                            <div class="flex justify-between">
-                                <p class="">4 pièces</p>
-                                <p class="">{{ city_data.median_m2_price_appartement_rooms.four }}
-                                    €</p>
-                            </div>
-                        {% else %}
-                        {% endif %}
-                        {% if city_data.median_m2_price_appartement_rooms.three != None %}
-                            <div class="flex justify-between">
-                                <p class="">3 pièces</p>
-                                <p class="">{{ city_data.median_m2_price_appartement_rooms.three }}
-                                    €</p>
-                            </div>
-                        {% else %}
-                        {% endif %}
-                        {% if city_data.median_m2_price_appartement_rooms.two != None %}
-                            <div class="flex justify-between">
-                                <p class="">2 pièces</p>
-                                <p class="">{{ city_data.median_m2_price_appartement_rooms.two }}
-                                    €</p>
-                            </div>
-                        {% else %}
-                        {% endif %}
-                        {% if city_data.median_m2_price_appartement_rooms.one != None %}
-                            <div class="flex justify-between">
-                                <p class="">1 pièce</p>
-                                <p class="">{{ city_data.median_m2_price_appartement_rooms.one }}
-                                    €</p>
-                            </div>
-                        {% else %}
-                        {% endif %}
-                    </div>
+                        </div>{% endif %}
                 </div>
                 <div class="bg-white md:w-10/12 md:mr-5 rounded-xl pb-12 mx-auto mt-12 md:mt-0">
                     <div class="flex">
@@ -159,28 +160,38 @@
                     <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">Prix
                         moyen au
                         m2 <strong class="text-xl ml-5">{{ city_data.median_m2_price_maison.value }} €</strong></p>
-                    <div class="w-8/12 mx-auto">
-                        <div class="flex justify-between">
-                            <p class="">4 pièces</p>
-                            <p class="">{{ city_data.median_m2_price_maison_rooms.four }}
-                                €</p>
+                    {% if city_data.median_m2_price_maison.value %}
+                        <div class="w-8/12 mx-auto">
+                            {% if city_data.median_m2_price_maison_rooms.four %}
+                                <div class="flex justify-between">
+                                    <p class="">4 pièces</p>
+                                    <p class="">{{ city_data.median_m2_price_maison_rooms.four }}
+                                        €</p>
+                                </div>
+                            {% endif %}
+                            {% if city_data.median_m2_price_maison_rooms.three %}
+                            <div class="flex justify-between">
+                                <p class="">3 pièces</p>
+                                <p class="">{{ city_data.median_m2_price_maison_rooms.three }}
+                                    €</p>
+                            </div>
+                            {% endif %}
+                            {% if city_data.median_m2_price_maison_rooms.two %}
+                            <div class="flex justify-between">
+                                <p class="">2 pièces</p>
+                                <p class="">{{ city_data.median_m2_price_maison_rooms.two }}
+                                    €</p>
+                            </div>
+                            {% endif %}
+                            {% if city_data.median_m2_price_maison_rooms.one %}
+                            <div class="flex justify-between">
+                                <p class="">1 pièce</p>
+                                <p class="">{{ city_data.median_m2_price_maison_rooms.one }}
+                                    €</p>
+                            </div>
+                            {% endif %}
                         </div>
-                        <div class="flex justify-between">
-                            <p class="">3 pièces</p>
-                            <p class="">{{ city_data.median_m2_price_maison_rooms.three }}
-                                €</p>
-                        </div>
-                        <div class="flex justify-between">
-                            <p class="">2 pièces</p>
-                            <p class="">{{ city_data.median_m2_price_maison_rooms.two }}
-                                €</p>
-                        </div>
-                        <div class="flex justify-between">
-                            <p class="">1 pièce</p>
-                            <p class="">{{ city_data.median_m2_price_maison_rooms.one }}
-                                €</p>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
 
             </div>
