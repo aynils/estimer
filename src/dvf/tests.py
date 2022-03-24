@@ -188,7 +188,7 @@ class DvfTestCase(TestCase):
         self.assertIsInstance(city_data.price_evolution_text, str)
         self.assertEqual(
             city_data.price_evolution_text,
-            "Entre 2020 et 2021, les prix de l'immobilier ont augmenté de 0%, atteignant 3141 € en 2021.",
+            "Entre 2020 et 2021, les prix de l'immobilier sont restés stables, atteignant 3141 € en 2021.",
         )
 
     def test_get_neighbourhoods_data(self):
@@ -218,7 +218,7 @@ class DvfTestCase(TestCase):
         self.assertIsInstance(price_evolution_text, str)
         self.assertEqual(
             price_evolution_text,
-            "Entre 2020 et 2021, les prix de l'immobilier ont augmenté de 0%, atteignant 3142 € en 2021.",
+            "Entre 2020 et 2021, les prix de l'immobilier sont restés stables, atteignant 3142 € en 2021.",
         )
 
     def test_get_iris_code_for_coordinates(self):
