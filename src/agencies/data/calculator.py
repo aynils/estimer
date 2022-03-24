@@ -21,7 +21,8 @@ def add_population_to_cities(cities: List):
     code_communes = [city.get("code_commune") for city in cities]
     population = (
         PopulationStat.objects.filter(code_commune__in=code_communes)
-        .values("code_commune", "total_population")
+        .values("code_commune")
+        .order_by("code_commune")
         .annotate(population=Sum("total_population"))
     )
     population = {city.get("code_commune"): city for city in population}
