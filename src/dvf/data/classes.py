@@ -116,6 +116,7 @@ class CityData:
     neighbourhoods: List[NeighbourhoodPolygon]
     most_expensive_neighbourhood: NeighbourhoodPolygon
     less_expensive_neighbourhood: NeighbourhoodPolygon
+    date_of_data_year: int
 
 
 @dataclass

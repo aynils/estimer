@@ -64,7 +64,7 @@ at `/estimer`
    python manage.py shell
    ```
    ```python
-   from iris.aggregator.data_import import import_data
+   from src.iris.aggregator.data_import import import_data
    import_data(2021)
    ```
 6. Fill `geometry_4326` column in your database

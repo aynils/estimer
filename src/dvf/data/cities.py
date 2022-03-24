@@ -202,6 +202,8 @@ def get_city_data(code_commune: str) -> CityData:
 
     name_sorted_neighbourhoods = sort_neighbourhoods_by_name(neighbourhoods=price_sorted_neighbourhoods)
 
+    date_of_data_year = last_sales[0].date.year if last_sales else None
+
     return CityData(
         median_m2_price_appartement=median_m2_price_appartement,
         median_m2_price_appartement_rooms=median_m2_prices_rooms_appartement,
@@ -218,6 +220,7 @@ def get_city_data(code_commune: str) -> CityData:
         neighbourhoods=name_sorted_neighbourhoods,
         most_expensive_neighbourhood=most_expensive_neighbourhood,
         less_expensive_neighbourhood=less_expensive_neighbourhood,
+        date_of_data_year=date_of_data_year,
     )
 
 

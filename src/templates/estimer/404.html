@@ -1,21 +1,29 @@
 {%  extends 'layout/base.html' %}
-
+{% load static %}
 {% block headscript %}
     <title>Estimer.com - 404</title>
 {% endblock %}
 
 {% block body %}
-<div class="section">
-<div class="w-container">
-    <div class="div-block-3">
-        <h1 class="heading">Désolé, nous n'avons pas pu trouver de données pour cette addresse.</h1>
-        <br/>
-        <button
-                class="w-button"
-                style="margin-top: 40px"
-                onclick="location.href='/';"
-        >Retourner vers la page d'accueil</button>
+        <div class="bg-secondary-blue-darkest w-10/12 md:w-7/12 mx-auto rounded-xl mt-12 md:mt-24">
+        <div class="md:flex">
+            <div class="p-5">
+                <h3 class="text-white p-5">Désolé, nous n'avons pas pu trouver de données pour cette addresse.</h3>
+                <div class="mt-5 text-center md:text-left md:p-5">
+                    <a href="{% url 'home' %}">
+                        <button class="btn-secondary">
+                            Retourner vers la page d'accueil
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-auto">
+                <img
+                        src="{% static 'images/illustrations/houses_question.svg' %}" style="width:1000px;"
+                        alt="houses asking  illustration"
+                >
+            </div>
+        </div>
     </div>
-</div>
-</div>
 {% endblock %}

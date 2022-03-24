@@ -2,7 +2,7 @@ import logging
 
 from django.contrib.gis.utils import LayerMapping
 
-from iris.models import IRIS
+from src.iris.models import IRIS
 
 import requests
 import os.path

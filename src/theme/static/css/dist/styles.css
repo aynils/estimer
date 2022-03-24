@@ -979,6 +979,10 @@ a:hover{
   margin-top: 0.5rem;
 }
 
+.mt-auto{
+  margin-top: auto;
+}
+
 .mb-4{
   margin-bottom: 1rem;
 }
@@ -993,10 +997,6 @@ a:hover{
 
 .ml-5{
   margin-left: 1.25rem;
-}
-
-.mt-auto{
-  margin-top: auto;
 }
 
 .mt-3{
@@ -1804,12 +1804,12 @@ a:hover{
     padding: 0.5rem;
   }
 
-  .md\:p-0{
-    padding: 0px;
-  }
-
   .md\:p-5{
     padding: 1.25rem;
+  }
+
+  .md\:p-0{
+    padding: 0px;
   }
 
   .md\:p-12{

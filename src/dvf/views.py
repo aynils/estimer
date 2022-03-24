@@ -33,8 +33,10 @@ def city(request, slug):
                 "neighbourhoods": json.dumps(neighbourhoods, cls=DjangoJSONEncoder),
                 "closeby_cities": closeby_cities,
             }
-
-            return render(request, "dvf/city.html", context)
+            if context["city_data"].number_of_sales <= 0:
+                return render(request, "dvf/404.html", context)
+            else:
+                return render(request, "dvf/city.html", context)
 
         else:
             context = {"city_slug": slug}
