@@ -382,14 +382,16 @@ def generate_price_evolution_text(avg_m2_price: dict) -> str:
         or max_year_price
     )
 
-    evolution = int((max_year_price / (last_year_price or 1)) * 100 - 100)
-    if evolution >= 0:
-        evolution_text = f"augmenté de {evolution}"
+    evolution = round((max_year_price / (last_year_price or 1)) * 100 - 100)
+    if evolution == 0:
+        evolution_text = "sont restés stables"
+    elif evolution >= 0:
+        evolution_text = f"ont augmenté de {evolution}"
     else:
-        evolution_text = f"diminué de {abs(evolution)}"
+        evolution_text = f"ont diminué de {abs(evolution)}"
 
     return (
-        f"Entre {max_year - 1} et {max_year}, les prix de l'immobilier ont {evolution_text}%"
+        f"Entre {max_year - 1} et {max_year}, les prix de l'immobilier {evolution_text}%"
         f", atteignant {max_year_price} € en {max_year}."
     )
 

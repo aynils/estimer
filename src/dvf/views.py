@@ -34,7 +34,7 @@ def city(request, slug):
                 "closeby_cities": closeby_cities,
             }
             if context["city_data"].number_of_sales <= 0:
-                return render(request, "dvf/404.html", context)
+                return render(request, "estimer/404.html", context)
             else:
                 return render(request, "dvf/city.html", context)
 

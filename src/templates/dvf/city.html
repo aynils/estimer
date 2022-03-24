@@ -6,12 +6,12 @@
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
-        const city_name = '{{ city_name }}'
-        const price_evolution_text = '{{ city_data.price_evolution_text }}'
-        const chart_b64_svg = '{{ city_data.chart_b64_svg }}'
+        const city_name = '{{ city_name }}';
+        const price_evolution_text = '{{ city_data.price_evolution_text }}';
+        const chart_b64_svg = '{{ city_data.chart_b64_svg }}';
     </script>
-    <script src="{% static 'js/faq.js' %}" ></script>
-    <script src="{% static 'js/city.js' %}" ></script>
+    <script src="{% static 'js/faq.js' %}"></script>
+    <script src="{% static 'js/city.js' %}"></script>
 {% endblock %}
 {% block title %} {{ title }} {% endblock %}
 {% block body %}
@@ -25,7 +25,8 @@
             </p>
             <div class="md:w-4/12 md:ml-10 md:mb-0 mb-4">
                 <p>{{ city_data.agent.name|default:"" }}</p>
-                <a target="_blank" href="{{ city_data.agent.website_url|default:"#" }}">{{ city_data.agent.short_url|default:"" }}</a>
+                <a target="_blank"
+                   href="{{ city_data.agent.website_url|default:"#" }}">{{ city_data.agent.short_url|default:"" }}</a>
                 <p>{{ city_data.agent.phone_number|default:"" }}</p>
             </div>
             <a href="mailto:{{ city_data.agent.email }}" class="w-40">
@@ -43,20 +44,30 @@
                 {% if most_recent_year.value == None %}
                     <p class="text-xs">Il n'y a pas eu assez de ventes en {% now 'Y' %} pour estimer le prix au m2.</p>
                 {% else %}
-                <span class="underlined-orange">{{ most_recent_year.value|floatformat:"0" }} €</span>
+                    <span class="underlined-orange">{{ most_recent_year.value|floatformat:"0" }} €</span>
                 {% endif %}
             {% endwith %}
-            </p>
+        </p>
     </div>
     <div id="prix-m2-detail" class=" bg-primary-blue-100 pb-16">
         <div class="w-10/12 md:w-8/12 mx-auto">
             <div class="md:flex justify-between py-16">
                 <h2 class=" md:w-3/19 mb-8 md:mb-0"><span class="underlined-blue">Prix au m2</span></h2>
                 <p class=" pb-8 md:w-8/12">
-                    Suite à l'analyse des {{ city_data.number_of_sales|default:'0' }} transactions immobilières à {{ city_name }},
+                    Suite à l'analyse des {{ city_data.number_of_sales|default:'0' }} transactions immobilières
+                    à {{ city_name }},
                     en {{ city_data.date_of_data_year }}
-                    nous observons un prix au m2 de {{ city_data.median_m2_price_appartement.value|default:'0' }} €
-                    pour les appartements, et de {{ city_data.median_m2_price_maison.value|default:'0' }} € pour les maisons.
+                    nous observons un prix au m2 de
+                    {% if city_data.median_m2_price_appartement.value %}
+                        {{ city_data.median_m2_price_appartement.value }} € pour les appartements
+                    {% endif %}
+                    {% if city_data.median_m2_price_appartement.value and city_data.median_m2_price_maison.value %}
+                        , et de
+                    {% endif %}
+                    {% if city_data.median_m2_price_maison.value %}
+                        {{ city_data.median_m2_price_maison.value }} € pour les maisons
+                    {% endif %}
+                    .
                 </p>
             </div>
             <div class="md:flex justify-between">
@@ -73,54 +84,54 @@
                     <p class="mx-auto w-10/12 md:w-8/12 mt-8 ">
                         Le prix moyen au m2 pour un appartement à {{ city_name }}
                         {% if not city_data.median_m2_price_appartement.value %}
-                        n'a pas pu être calculé car il n'y a pas eu assez de ventes
+                            n'a pas pu être calculé car il n'y a pas eu assez de ventes
                         {% else %}
-                        était de {{ city_data.median_m2_price_appartement.value}} €
+                            était de {{ city_data.median_m2_price_appartement.value }} €
                         {% endif %}
                         en {{ city_data.date_of_data_year }}.
                     </p>
 
                     <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">
-                            {% if city_data.median_m2_price_appartement.value == None %}
+                        {% if city_data.median_m2_price_appartement.value == None %}
                             <strong class="text-xs">Donnée indisponible</strong></p>
-                            {% else %}
+                        {% else %}
                             Prix moyen au m2
                             <strong class="text-xl ml-5">
-                            {{ city_data.median_m2_price_appartement.value }} €
+                                {{ city_data.median_m2_price_appartement.value }} €
                             </strong></p>
-                            {% endif %}
+                        {% endif %}
 
                     <div class="w-8/12 mx-auto">
                         {% if city_data.median_m2_price_appartement_rooms.four != None %}
-                        <div class="flex justify-between">
-                            <p class="">4 pièces</p>
-                            <p class="">{{ city_data.median_m2_price_appartement_rooms.four }}
-                                €</p>
-                        </div>
+                            <div class="flex justify-between">
+                                <p class="">4 pièces</p>
+                                <p class="">{{ city_data.median_m2_price_appartement_rooms.four }}
+                                    €</p>
+                            </div>
                         {% else %}
                         {% endif %}
                         {% if city_data.median_m2_price_appartement_rooms.three != None %}
-                        <div class="flex justify-between">
-                            <p class="">3 pièces</p>
-                            <p class="">{{ city_data.median_m2_price_appartement_rooms.three }}
-                                €</p>
-                        </div>
+                            <div class="flex justify-between">
+                                <p class="">3 pièces</p>
+                                <p class="">{{ city_data.median_m2_price_appartement_rooms.three }}
+                                    €</p>
+                            </div>
                         {% else %}
                         {% endif %}
                         {% if city_data.median_m2_price_appartement_rooms.two != None %}
-                        <div class="flex justify-between">
-                            <p class="">2 pièces</p>
-                            <p class="">{{ city_data.median_m2_price_appartement_rooms.two }}
-                                €</p>
-                        </div>
+                            <div class="flex justify-between">
+                                <p class="">2 pièces</p>
+                                <p class="">{{ city_data.median_m2_price_appartement_rooms.two }}
+                                    €</p>
+                            </div>
                         {% else %}
                         {% endif %}
                         {% if city_data.median_m2_price_appartement_rooms.one != None %}
-                        <div class="flex justify-between">
-                            <p class="">1 pièce</p>
-                            <p class="">{{ city_data.median_m2_price_appartement_rooms.one }}
-                                €</p>
-                        </div>
+                            <div class="flex justify-between">
+                                <p class="">1 pièce</p>
+                                <p class="">{{ city_data.median_m2_price_appartement_rooms.one }}
+                                    €</p>
+                            </div>
                         {% else %}
                         {% endif %}
                     </div>
@@ -137,8 +148,8 @@
                     </div>
                     <p class="mx-auto w-10/12 md:w-8/12 mt-8 ">
                         Le prix moyen au m2 pour une maison à {{ city_name }}
-                        {% if not city_data.median_m2_price_maison.value%}
-                        n'a pas pu être calculé car il n'y a pas eu assez de vente
+                        {% if not city_data.median_m2_price_maison.value %}
+                            n'a pas pu être calculé car il n'y a pas eu assez de vente
                         {% else %}
                             était de {{ city_data.median_m2_price_maison.value }} €
                         {% endif %}
