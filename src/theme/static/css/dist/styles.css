@@ -1119,6 +1119,10 @@ a:hover{
   max-height: 0.5rem;
 }
 
+.max-h-4{
+  max-height: 1rem;
+}
+
 .w-11\/12{
   width: 91.666667%;
 }

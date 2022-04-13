@@ -324,7 +324,7 @@
                 <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
                     <summary itemprop="name">Quel est le prix de l'immobilier à {{ city_name }} ?</summary>
                 </p>
-                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="max-h-2">
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                     <p itemprop="text" class="p-3 text-xs">
                         Le prix de l'immobilier à {{ city_name }} est en moyenne de
                         {% for price_year in city_data.median_m2_prices_years %}
@@ -344,7 +344,7 @@
                     <summary itemprop="name">Quelle est l'évolution du prix de l'immobilier à {{ city_name }} ?</summary>
                 </p>
 
-                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="max-h-2">
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" >
                     <p itemprop="text" class="p-3 text-xs">
                         Le prix de l'immobilier a évolué positivement sur les 5 dernières années. Il est passé de
                         {% for price_year in city_data.median_m2_prices_years %}
@@ -369,7 +369,7 @@
                     <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
                         <summary itemprop="name">Quel est le quartier le plus cher à {{ city_name }} ?</summary>
                     </p>
-                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="max-h-2">
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" >
                         <p itemprop="text" class="p-3 text-xs">
                             Le quartier le plus cher à {{ city_name }}
                             est {{ city_data.most_expensive_neighbourhood.properties.nom_iris }} avec un prix de
@@ -384,7 +384,7 @@
                     <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
                         <summary itemprop="name">Quel est le quartier le moins cher à {{ city_name }} ?</summary>
                     </p>
-                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="max-h-2">
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" >
                         <p itemprop="text" class="p-3 text-xs">
                             Le Quartier le moins cher à {{ city_name }}
                             est {{ city_data.less_expensive_neighbourhood.properties.nom_iris }} avec un prix de
