@@ -7,7 +7,6 @@
            dans votre ville, puis obtenez l’estimation de votre maison ou appartement."/>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="{% static 'js/agency.js' %}"></script>
-    <script src="{% static 'js/faq.js' %}"></script>
     <!-- Counter fail XSS -->
     {{ cities_pricing |json_script:'cities_pricing' }}
 
@@ -268,58 +267,47 @@
     </div>
     <div class="mt-12 text-center">
         <h2 class="text-secondary-blue-darkest md:mt-24"><span class="underlined-orange">Questions fréquentes</span></h2>
-        <ul class="flex flex-col mt-12 w-11/12 md:w-9/12 mx-auto md:text-left">
-            <li class="bg-white my-2" x-data="accordion(1)">
-                <p @click="handleClick()"
-                   class="flex justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span>Est-ce que je serai la seule agence immobilière qui représentera ma commune ?</span>
-                    <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
-
+        <ul itemscope itemtype="https://schema.org/FAQPage" class="flex flex-col mt-12 w-11/12 md:w-9/12 mx-auto md:text-left">
+            <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2" >
+                <p class="flex justify-between items-center font-semibold p-3 cursor-pointer">
+                    <span itemprop="name">Est-ce que je serai la seule agence immobilière qui représentera ma commune ?</span>
                 </p>
-                <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
-                    <p class="p-3 text-secondary-blue-darkest text-xs">
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="overflow max-h-2">
+                    <p itemprop="text" class="p-3 text-secondary-blue-darkest text-xs">
                         Oui ! La particularité de notre offre est que vous êtes la seule agence à représenter votre
                         commune pour un maximum de visibilité et de notoriété.
                     </p>
                 </div>
             </li>
             <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
-            <li class="bg-white my-2" x-data="accordion(2)">
-                <p @click="handleClick()"
-                   class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span>Est-ce que je peux arrêter mon abonnement à tout moment ?</span>
-                    <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
-
+            <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                    <span itemprop="name">Est-ce que je peux arrêter mon abonnement à tout moment ?</span>
                 </p>
-                <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
-                    <p class="p-3 text-secondary-blue-darkest text-xs">
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="overflow max-h-2">
+                    <p itemprop="text" class="p-3 text-secondary-blue-darkest text-xs">
                         Oui ! Votre abonnement est sans engagement donc vous pouvez le résilier quand vous le souhaitez.
                     </p>
                 </div>
             </li>
             <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
-            <li class="bg-white my-2" x-data="accordion(3)">
-                <p @click="handleClick()"
-                   class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span>Offrez vous un tarif annuel ?</span>
-                    <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
-
+            <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                    <span itemprop="name">Offrez vous un tarif annuel ?</span>
                 </p>
-                <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
-                    <p class="p-3 text-secondary-blue-darkest text-xs">
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="overflow max-h-2">
+                    <p itemprop="text" class="p-3 text-secondary-blue-darkest text-xs">
                         Oui ! Nous proposons 20% de réduction sur nos abonnements si vous choisissez un plan annuel.
                     </p>
                 </div>
             </li>
             <li class="mt-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
-            <li class="bg-white my-2" x-data="accordion(4)">
-                <p @click="handleClick()"
-                   class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span>Est-ce qu’il est possible de représenter plusieurs communes sur Estimer.com ?</span>
-                    <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
+            <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                    <span itemprop="name">Est-ce qu’il est possible de représenter plusieurs communes sur Estimer.com ?</span>
                 </p>
-                <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
-                    <p class="p-3 text-secondary-blue-darkest text-xs">
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="overflow max-h-2">
+                    <p itemprop="text" class="p-3 text-secondary-blue-darkest text-xs">
                         Oui ! Vous pouvez représenter autant de communes que vous souhaitez.
                         La seule condition est de disposer d'une réelle expertise et présence sur les communes
                         sélectionnées.
