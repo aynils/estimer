@@ -320,8 +320,9 @@
         <h2 class=""><span class="underlined-orange">Questions fréquentes</span></h2>
         <ul itemscope itemtype="https://schema.org/FAQPage" class="flex flex-col mt-12 w-11/12 md:w-9/12 mx-auto md:text-left">
             <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                <details>
                 <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span itemprop="name">Quel est le prix de l'immobilier à {{ city_name }} ?</span>
+                    <summary itemprop="name">Quel est le prix de l'immobilier à {{ city_name }} ?</summary>
                 </p>
                 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="max-h-2">
                     <p itemprop="text" class="p-3 text-xs">
@@ -334,12 +335,15 @@
                         € au m2.
                     </p>
                 </div>
+                </details>
             </li>
             <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                <details>
                 <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span itemprop="name">Quelle est l'évolution du prix de l'immobilier à {{ city_name }} ?</span>
+                    <summary itemprop="name">Quelle est l'évolution du prix de l'immobilier à {{ city_name }} ?</summary>
                 </p>
+
                 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="max-h-2">
                     <p itemprop="text" class="p-3 text-xs">
                         Le prix de l'immobilier a évolué positivement sur les 5 dernières années. Il est passé de
@@ -356,12 +360,14 @@
                         € au m2.
                     </p>
                 </div>
+                </details>
             </li>
             <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             {% if city_data.neighbourhoods|length > 1 %}
                 <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2" >
+                   <details>
                     <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                        <span itemprop="name">Quel est le quartier le plus cher à {{ city_name }} ?</span>
+                        <summary itemprop="name">Quel est le quartier le plus cher à {{ city_name }} ?</summary>
                     </p>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="max-h-2">
                         <p itemprop="text" class="p-3 text-xs">
@@ -370,11 +376,13 @@
                             {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }} au m2.
                         </p>
                     </div>
+                   </details>
                 </li>
                 <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
                 <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                    <details>
                     <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                        <span itemprop="name">Quel est le quartier le moins cher à {{ city_name }} ?</span>
+                        <summary itemprop="name">Quel est le quartier le moins cher à {{ city_name }} ?</summary>
                     </p>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" class="max-h-2">
                         <p itemprop="text" class="p-3 text-xs">
@@ -383,6 +391,7 @@
                             {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }} au m2.
                         </p>
                     </div>
+                    </details>
                 </li>
                 <li class="mt-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             {% endif %}
