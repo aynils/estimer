@@ -979,10 +979,6 @@ a:hover{
   margin-top: 0.5rem;
 }
 
-.mt-auto{
-  margin-top: auto;
-}
-
 .mb-4{
   margin-bottom: 1rem;
 }
@@ -997,6 +993,10 @@ a:hover{
 
 .ml-5{
   margin-left: 1.25rem;
+}
+
+.mt-auto{
+  margin-top: auto;
 }
 
 .mt-3{
@@ -1115,8 +1115,12 @@ a:hover{
   height: 60%;
 }
 
-.max-h-0{
-  max-height: 0px;
+.max-h-2{
+  max-height: 0.5rem;
+}
+
+.max-h-4{
+  max-height: 1rem;
 }
 
 .w-11\/12{
@@ -1226,10 +1230,6 @@ a:hover{
 
 .overflow-auto{
   overflow: auto;
-}
-
-.overflow-hidden{
-  overflow: hidden;
 }
 
 .rounded-xl{
@@ -1536,22 +1536,12 @@ a:hover{
   outline-style: solid;
 }
 
-.transition-all{
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .transition{
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-}
-
-.duration-500{
-  transition-duration: 500ms;
 }
 
 .focus\:bg-white:focus{
@@ -1804,12 +1794,12 @@ a:hover{
     padding: 0.5rem;
   }
 
-  .md\:p-5{
-    padding: 1.25rem;
-  }
-
   .md\:p-0{
     padding: 0px;
+  }
+
+  .md\:p-5{
+    padding: 1.25rem;
   }
 
   .md\:p-12{

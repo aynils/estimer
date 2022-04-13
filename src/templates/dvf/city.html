@@ -10,7 +10,6 @@
         const price_evolution_text = '{{ city_data.price_evolution_text }}';
         const chart_b64_svg = '{{ city_data.chart_b64_svg }}';
     </script>
-    <script src="{% static 'js/faq.js' %}"></script>
     <script src="{% static 'js/city.js' %}"></script>
 {% endblock %}
 {% block title %} {{ title }} {% endblock %}
@@ -319,16 +318,14 @@
 
     <div id="faq" class="mt-12 text-center">
         <h2 class=""><span class="underlined-orange">Questions fréquentes</span></h2>
-        <ul class="flex flex-col mt-12 w-11/12 md:w-9/12 mx-auto md:text-left">
-            <li class="bg-white my-2" x-data="accordion(1)">
-                <p @click="handleClick()"
-                   class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span>Quel est le prix de l'immobilier à {{ city_name }} ?</span>
-                    <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
-
+        <ul itemscope itemtype="https://schema.org/FAQPage" class="flex flex-col mt-12 w-11/12 md:w-9/12 mx-auto md:text-left">
+            <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                <details>
+                <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                    <summary itemprop="name">Quel est le prix de l'immobilier à {{ city_name }} ?</summary>
                 </p>
-                <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
-                    <p class="p-3 text-xs">
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <p itemprop="text" class="p-3 text-xs">
                         Le prix de l'immobilier à {{ city_name }} est en moyenne de
                         {% for price_year in city_data.median_m2_prices_years %}
                             {% if price_year.year == 2021 %}
@@ -338,17 +335,17 @@
                         € au m2.
                     </p>
                 </div>
+                </details>
             </li>
             <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
-            <li class="bg-white my-2" x-data="accordion(2)">
-                <p @click="handleClick()"
-                   class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <span>Quelle est l'évolution du prix de l'immobilier à {{ city_name }} ?</span>
-                    <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
-
+            <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                <details>
+                <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                    <summary itemprop="name">Quelle est l'évolution du prix de l'immobilier à {{ city_name }} ?</summary>
                 </p>
-                <div x-ref="tab" :style="handleToggle()" class="overflow-hidden max-h-0 duration-500 transition-all">
-                    <p class="p-3 text-xs">
+
+                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" >
+                    <p itemprop="text" class="p-3 text-xs">
                         Le prix de l'immobilier a évolué positivement sur les 5 dernières années. Il est passé de
                         {% for price_year in city_data.median_m2_prices_years %}
                             {% if price_year.year == 2017 %}
@@ -363,40 +360,38 @@
                         € au m2.
                     </p>
                 </div>
+                </details>
             </li>
             <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             {% if city_data.neighbourhoods|length > 1 %}
-                <li class="bg-white my-2" x-data="accordion(3)">
-                    <p @click="handleClick()"
-                       class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                        <span>Quel est le quartier le plus cher à {{ city_name }} ?</span>
-                        <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
-
+                <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2" >
+                   <details>
+                    <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                        <summary itemprop="name">Quel est le quartier le plus cher à {{ city_name }} ?</summary>
                     </p>
-                    <div x-ref="tab" :style="handleToggle()"
-                         class="overflow-hidden max-h-0 duration-500 transition-all">
-                        <p class="p-3 text-xs">
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" >
+                        <p itemprop="text" class="p-3 text-xs">
                             Le quartier le plus cher à {{ city_name }}
                             est {{ city_data.most_expensive_neighbourhood.properties.nom_iris }} avec un prix de
                             {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }} au m2.
                         </p>
                     </div>
+                   </details>
                 </li>
                 <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
-                <li class="bg-white my-2" x-data="accordion(4)">
-                    <p @click="handleClick()"
-                       class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                        <span>Quel est le quartier le moins cher à {{ city_name }} ?</span>
-                        <img src="{% static '/images/icons/carret_down.svg' %}" alt="caret pointing down">
+                <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                    <details>
+                    <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                        <summary itemprop="name">Quel est le quartier le moins cher à {{ city_name }} ?</summary>
                     </p>
-                    <div x-ref="tab" :style="handleToggle()"
-                         class="overflow-hidden max-h-0 duration-500 transition-all">
-                        <p class="p-3 text-xs">
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" >
+                        <p itemprop="text" class="p-3 text-xs">
                             Le Quartier le moins cher à {{ city_name }}
                             est {{ city_data.less_expensive_neighbourhood.properties.nom_iris }} avec un prix de
                             {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }} au m2.
                         </p>
                     </div>
+                    </details>
                 </li>
                 <li class="mt-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             {% endif %}
