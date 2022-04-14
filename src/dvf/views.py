@@ -34,13 +34,14 @@ def city(request, slug):
                 "closeby_cities": closeby_cities,
             }
             if context["city_data"].number_of_sales <= 0:
-                return render(request, "estimer/404.html", context)
+                return render(request, "estimer/404.html", status=404)
             else:
                 return render(request, "dvf/city.html", context)
 
+
         else:
             context = {"city_slug": slug}
-            return render(request, "estimer/404.html", context)
+            return render(request, "estimer/404.html", context, status=404)
 
     elif request.method == "POST":
         address = request.POST.get("address")
@@ -58,4 +59,4 @@ def city(request, slug):
 
             else:
                 context = {"city_slug": slug}
-                return render(request, "estimer/404.html", context)
+                return render(request, "estimer/404.html", context, status=404)
