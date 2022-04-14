@@ -1456,6 +1456,12 @@ a:hover{
   letter-spacing: 0;
 }
 
+.text-2xl{
+  font-size: 2rem;
+  line-height: 2.563rem;
+  letter-spacing: 0;
+}
+
 .font-semibold{
   font-weight: 600;
 }
@@ -1839,6 +1845,12 @@ a:hover{
   .md\:text-2xl{
     font-size: 2rem;
     line-height: 2.563rem;
+    letter-spacing: 0;
+  }
+
+  .md\:text-xl{
+    font-size: 1.5rem;
+    line-height: 1.938rem;
     letter-spacing: 0;
   }
 }
