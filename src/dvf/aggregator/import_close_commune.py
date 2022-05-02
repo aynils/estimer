@@ -2,17 +2,16 @@ import requests
 import pandas as pd
 from pathlib import Path
 
+from src.dvf.models import CommuneVoisine
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 CSV_DIR = BASE_DIR / 'dvf/aggregator'
+path_csv_out_file = CSV_DIR / 'commune_voisine.csv'
 
 
 def scrap_close_commune():
-    path_csv_code_postal = CSV_DIR / 'estimer_public_dvf_commune.csv'  # Code Postal récupérer de la BDD Estimer.com (
-    # dvf_commune)
-    print(path_csv_code_postal)
+    path_csv_code_postal = CSV_DIR / 'liste_code_postal_estimer.csv'  # Code Postal récupérer de la BDD Estimer.com
     code_postal_df = pd.read_csv(path_csv_code_postal, usecols=["code_postal"])
-
-    voisin = {}
     for codepostal in code_postal_df['code_postal']:
         if codepostal <= 9999:
             cp = '0' + str(codepostal)
@@ -24,27 +23,16 @@ def scrap_close_commune():
         r = requests.get(myurl)
         if (r.json()) is not None:
             a = r.json()
+            commune_voisines = []
+            if type(a) == list:
+                for i in range(len(a)):
+                    commune_voisine = CommuneVoisine(code_postal_a=cp, code_postal_b=a[i]['code_postal'], distance=a[i]['distance'])
+                    commune_voisines.append(commune_voisine)
+            else:
+                filtered_json = {commune.get('code_postal'): commune.get('distance') for commune in a.values()}
+                for key, value in filtered_json.items():
+                    if key or value:
+                        commune_voisine = CommuneVoisine(code_postal_a=cp, code_postal_b=key, distance=value)
+                        commune_voisines.append(commune_voisine)
 
-            lst = []
-
-            for i in a:
-                if type(i) is str:
-                    b = str(i)
-                    lst.append([a[b]['nom_commune'], a[b]['code_postal'], a[b]['distance']])
-                else:
-                    lst.append([i['nom_commune'], i['code_postal'], i['distance']])
-
-                y = 10
-                for i in range(0, len(lst) - y):
-                    lst.pop()
-            print(lst)
-            voisin[cp] = lst
-
-    file_csv = open('commune_voisine.csv', 'w')
-    for key, value in voisin.items():
-        file_csv.write(str(key) + ';' + str(value) + '\n')
-    file_csv.close()
-
-
-def import_data():
-    scrap_close_commune()
+            CommuneVoisine.objects.bulk_create(commune_voisines)

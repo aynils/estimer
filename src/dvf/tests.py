@@ -5,6 +5,7 @@ from typing import Dict, List
 import pandas as pd
 from django.test import TestCase
 
+from src.dvf.aggregator.import_close_commune import scrap_close_commune
 from src.dvf.data.cities import (
     get_city_from_code,
     get_city_from_slug,
@@ -49,7 +50,6 @@ AGENCIES = {
         "short_url": "heliumimmobilier.com",
     },
 }
-
 
 TODAY = datetime.date.today()
 ONE_YEAR_AGO = datetime.date(year=TODAY.year - 1, month=1, day=1)
@@ -249,3 +249,8 @@ class DvfTestCase(TestCase):
         median_m2_prices_maison = get_avg_m2_price_per_year(types=("Maison",), date_from=ONE_YEAR_AGO, ventes=ventes)
         self.assertIsInstance(median_m2_prices_maison, Dict)
         self.assertEqual(median_m2_prices_maison, {2021: 3445.36})
+
+
+class TestScrapCloseCommune(TestCase):
+    def test_scrap_close_commune(self):
+        scrap_close_commune()
