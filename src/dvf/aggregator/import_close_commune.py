@@ -10,7 +10,7 @@ path_csv_out_file = CSV_DIR / 'commune_voisine.csv'
 
 
 def scrap_close_commune():
-    path_csv_code_postal = CSV_DIR / 'liste_code_postal_test.csv'  # Code Postal récupérer de la BDD Estimer.com
+    path_csv_code_postal = CSV_DIR / 'liste_code_postal_estimer.csv'  # Code Postal récupérer de la BDD Estimer.com
     code_postal_df = pd.read_csv(path_csv_code_postal, usecols=["code_postal"])
     for codepostal in code_postal_df['code_postal']:
         if codepostal <= 9999:
