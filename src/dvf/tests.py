@@ -250,7 +250,3 @@ class DvfTestCase(TestCase):
         self.assertIsInstance(median_m2_prices_maison, Dict)
         self.assertEqual(median_m2_prices_maison, {2021: 3445.36})
 
-
-class TestScrapCloseCommune(TestCase):
-    def test_scrap_close_commune(self):
-        scrap_close_commune()
