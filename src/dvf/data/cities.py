@@ -489,8 +489,13 @@ def generate_chart_b64_svg(bar_heights: dict, place_name: str) -> str:
 
 # @function_timer
 def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
-    code_postal_cities = CommuneVoisine.objects.filter(code_postal_a=code_postal).order_by("distance")[:10].all()
-    closed_cities = Commune.objects.filter(code_postal__in=code_postal_cities.values('code_postal_b'))[0:20].all()
+
+    code_postal_cities = CommuneVoisine.objects.filter(code_postal_a=code_postal).order_by("distance")[:5]
+    closed_cities = Commune.objects.filter(code_postal__in=code_postal_cities.values_list('code_postal_b'))[:20]
+
+    if len(closed_cities) < 20:
+        code_postal_cities = CommuneVoisine.objects.filter(code_postal_a=code_postal).order_by("distance")[:7]
+        closed_cities = Commune.objects.filter(code_postal__in=code_postal_cities.values_list('code_postal_b'))[:20]
 
     return [
         ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(closed_cities)
