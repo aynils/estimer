@@ -123,3 +123,10 @@ class CityData:
 class ClosebyCity:
     nom_commune: str
     slug: str
+
+
+@dataclass
+class CommuneData:
+    commune_name: str
+    chart_b64_svg: str
+    price_evolution_text: str

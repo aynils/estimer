@@ -214,6 +214,7 @@
                             x-on:change="selectIris"
                     >
                         <option disabled selected>-- Quartier --</option>
+                         <option value="{{ code_commune }}">Tous</option>
                         {% for neighbourhood in city_data.neighbourhoods %}
                             <option value="{{ neighbourhood.properties.code_iris }}"
                                     onclick="">{{ neighbourhood.properties.nom_iris }}</option>

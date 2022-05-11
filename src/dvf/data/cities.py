@@ -25,6 +25,7 @@ from src.dvf.data.classes import (
     NeighbourhoodPolygon,
     Neighbourhood,
     PolygonColor,
+    CommuneData,
 )
 from src.dvf.models import Commune, ValeursFoncieres, MutationIris
 from src.helpers.cache import cached_function
@@ -578,3 +579,26 @@ def filter_simple_sales_per_street(ventes: pd.DataFrame, count_sales_per_street:
     filter_street = list(filter_street_count.index)
     filter_sales = ventes["adresse_nom_voie"].isin(filter_street)
     return ventes[filter_sales]
+
+
+def get_data_for_code_commune(code_commune: str):
+
+    commune = Commune.objects.get(code_commune=code_commune)
+
+    ventes = get_simple_sales(code_commune=code_commune, types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO)
+
+    avg_m2_price = get_avg_m2_price_per_year(
+        types=("Maison", "Appartement"), date_from=FIVE_YEARS_AGO, ventes=ventes
+    ).items()
+
+    bar_heights = calculate_bar_heights(avg_m2_price=dict(avg_m2_price))
+
+    price_evolution_text = generate_price_evolution_text(dict(avg_m2_price))
+
+    commune_name = commune.nom_commune
+
+    chart_b64_svg = generate_chart_b64_svg(bar_heights=bar_heights, place_name=commune_name)
+
+    return CommuneData(
+        commune_name=commune_name, chart_b64_svg=chart_b64_svg, price_evolution_text=price_evolution_text
+    )

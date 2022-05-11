@@ -1,5 +1,6 @@
 import json
 
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import requests
 import dataclasses
@@ -25,6 +26,7 @@ def city(request, slug):
             # neighbourhoods = city_data.neighbourhoods
             context = {
                 "slug": slug,
+                "code_commune": commune.code_commune,
                 "city_name": commune.nom_commune,
                 "city_data": city_data,
                 "title": f"Prix m2 {commune.nom_commune} ({commune.code_departement}) "
@@ -59,3 +61,15 @@ def city(request, slug):
             else:
                 context = {"city_slug": slug}
                 return render(request, "estimer/404.html", context)
+
+
+def get_data_for_code_commune(request) -> JsonResponse:
+    code_commune = request.GET.get("code_commune")
+    commune_data = get_data_for_code_commune(code_commune=code_commune)
+    data = {
+        "code_commune": code_commune,
+        "price_evolution_text": commune_data.price_evolution_text,
+        "chart_b64_svg": commune_data.chart_b64_svg,
+        "code_commune_name": commune_data.commune_name,
+    }
+    return JsonResponse(data)
