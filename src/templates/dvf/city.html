@@ -92,13 +92,14 @@
                             <strong class="text-xs">Donnée indisponible</strong></p>
                         {% else %}
                             Prix moyen au m2
+                            <br>
                             <strong class="text-xl ml-5">
                                 {{ city_data.median_m2_price_appartement.value }} €
                             </strong></p>
                         {% endif %}
                     {% if city_data.median_m2_price_appartement.value %}
                         <div class="w-8/12 mx-auto">
-                            {% if city_data.median_m2_price_appartement_rooms.four%}
+                            {% if city_data.median_m2_price_appartement_rooms.four %}
                                 <div class="flex justify-between">
                                     <p class="">4 pièces</p>
                                     <p class="">{{ city_data.median_m2_price_appartement_rooms.four }}
@@ -122,7 +123,7 @@
                                 </div>
                             {% else %}
                             {% endif %}
-                            {% if city_data.median_m2_price_appartement_rooms.one%}
+                            {% if city_data.median_m2_price_appartement_rooms.one %}
                                 <div class="flex justify-between">
                                     <p class="">1 pièce</p>
                                     <p class="">{{ city_data.median_m2_price_appartement_rooms.one }}
@@ -153,9 +154,10 @@
                         en {{ city_data.date_of_data_year }}.
                     </p>
 
-                    <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">Prix
+                    <p class="bg-secondary-blue-darkest w-9/12 rounded-xl p-3 text-center text-white mx-auto my-8">
+                        Prix
                         moyen au
-                        m2 <strong class="text-xl ml-5">{{ city_data.median_m2_price_maison.value }} €</strong></p>
+                        m2  <br><strong class="text-xl ml-5">{{ city_data.median_m2_price_maison.value }} €</strong></p>
                     {% if city_data.median_m2_price_maison.value %}
                         <div class="w-8/12 mx-auto">
                             {% if city_data.median_m2_price_maison_rooms.four %}
@@ -166,25 +168,25 @@
                                 </div>
                             {% endif %}
                             {% if city_data.median_m2_price_maison_rooms.three %}
-                            <div class="flex justify-between">
-                                <p class="">3 pièces</p>
-                                <p class="">{{ city_data.median_m2_price_maison_rooms.three }}
-                                    €</p>
-                            </div>
+                                <div class="flex justify-between">
+                                    <p class="">3 pièces</p>
+                                    <p class="">{{ city_data.median_m2_price_maison_rooms.three }}
+                                        €</p>
+                                </div>
                             {% endif %}
                             {% if city_data.median_m2_price_maison_rooms.two %}
-                            <div class="flex justify-between">
-                                <p class="">2 pièces</p>
-                                <p class="">{{ city_data.median_m2_price_maison_rooms.two }}
-                                    €</p>
-                            </div>
+                                <div class="flex justify-between">
+                                    <p class="">2 pièces</p>
+                                    <p class="">{{ city_data.median_m2_price_maison_rooms.two }}
+                                        €</p>
+                                </div>
                             {% endif %}
                             {% if city_data.median_m2_price_maison_rooms.one %}
-                            <div class="flex justify-between">
-                                <p class="">1 pièce</p>
-                                <p class="">{{ city_data.median_m2_price_maison_rooms.one }}
-                                    €</p>
-                            </div>
+                                <div class="flex justify-between">
+                                    <p class="">1 pièce</p>
+                                    <p class="">{{ city_data.median_m2_price_maison_rooms.one }}
+                                        €</p>
+                                </div>
                             {% endif %}
                         </div>
                     {% endif %}
@@ -295,7 +297,7 @@
         </div>
         <div class="flex text-center">
             <div class="text-center mx-auto md:w-6/12">s
-                {% for city in closeby_cities|slice:":10" %}
+                {% for city in closeby_cities|slice:":15" %}
                     <a class="mx-auto text-white"
                        href="{% url 'city' slug=city.slug %}">
                         <p class="font-semibold leading-8">{{ city.nom_commune }}</p>
@@ -305,7 +307,7 @@
             </div>
             <div class="hidden md:flex mx-auto rounded-full mt-5 w-[2px] h-[400px] bg-secondary-blue-lightest"></div>
             <div class="hidden md:block mt-8 md:w-6/12">
-                {% for city in closeby_cities|slice:"10:20" %}
+                {% for city in closeby_cities|slice:"15:30" %}
                     <a class="mx-auto text-white"
                        href="{% url 'city' slug=city.slug %}">
                         <p class="font-semibold leading-loose">{{ city.nom_commune }}</p>
@@ -318,79 +320,81 @@
 
     <div id="faq" class="mt-12 text-center">
         <h2 class=""><span class="underlined-orange">Questions fréquentes</span></h2>
-        <ul itemscope itemtype="https://schema.org/FAQPage" class="flex flex-col mt-12 w-11/12 md:w-9/12 mx-auto md:text-left">
+        <ul itemscope itemtype="https://schema.org/FAQPage"
+            class="flex flex-col mt-12 w-11/12 md:w-9/12 mx-auto md:text-left">
             <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
                 <details>
-                <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <summary itemprop="name">Quel est le prix de l'immobilier à {{ city_name }} ?</summary>
-                </p>
-                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                    <p itemprop="text" class="p-3 text-xs">
-                        Le prix de l'immobilier à {{ city_name }} est en moyenne de
-                        {% for price_year in city_data.median_m2_prices_years %}
+                    <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                        <summary itemprop="name">Quel est le prix de l'immobilier à {{ city_name }} ?</summary>
+                    </p>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text" class="p-3 text-xs">
+                            Le prix de l'immobilier à {{ city_name }} est en moyenne de
+                            {% for price_year in city_data.median_m2_prices_years %}
+                                {% if price_year.year == 2021 %}
+                                    {{ price_year.value|floatformat:"0" }}
+                                {% endif %}
+                            {% endfor %}
+                            € au m2.
+                        </p>
+                    </div>
+                </details>
+            </li>
+            <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
+            <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                <details>
+                    <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                        <summary itemprop="name">Quelle est l'évolution du prix de l'immobilier à {{ city_name }} ?
+                        </summary>
+                    </p>
+
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text" class="p-3 text-xs">
+                            Le prix de l'immobilier a évolué positivement sur les 5 dernières années. Il est passé de
+                            {% for price_year in city_data.median_m2_prices_years %}
+                                {% if price_year.year == 2017 %}
+                                    {{ price_year.value|floatformat:"0" }}
+                                {% endif %}
+                            {% endfor %}
+                            € à {% for price_year in city_data.median_m2_prices_years %}
                             {% if price_year.year == 2021 %}
                                 {{ price_year.value|floatformat:"0" }}
                             {% endif %}
                         {% endfor %}
-                        € au m2.
-                    </p>
-                </div>
-                </details>
-            </li>
-            <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
-            <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
-                <details>
-                <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                    <summary itemprop="name">Quelle est l'évolution du prix de l'immobilier à {{ city_name }} ?</summary>
-                </p>
-
-                <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" >
-                    <p itemprop="text" class="p-3 text-xs">
-                        Le prix de l'immobilier a évolué positivement sur les 5 dernières années. Il est passé de
-                        {% for price_year in city_data.median_m2_prices_years %}
-                            {% if price_year.year == 2017 %}
-                                {{ price_year.value|floatformat:"0" }}
-                            {% endif %}
-                        {% endfor %}
-                        € à {% for price_year in city_data.median_m2_prices_years %}
-                        {% if price_year.year == 2021 %}
-                            {{ price_year.value|floatformat:"0" }}
-                        {% endif %}
-                    {% endfor %}
-                        € au m2.
-                    </p>
-                </div>
+                            € au m2.
+                        </p>
+                    </div>
                 </details>
             </li>
             <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
             {% if city_data.neighbourhoods|length > 1 %}
-                <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2" >
-                   <details>
-                    <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                        <summary itemprop="name">Quel est le quartier le plus cher à {{ city_name }} ?</summary>
-                    </p>
-                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" >
-                        <p itemprop="text" class="p-3 text-xs">
-                            Le quartier le plus cher à {{ city_name }}
-                            est {{ city_data.most_expensive_neighbourhood.properties.nom_iris }} avec un prix de
-                            {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }} au m2.
+                <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
+                    <details>
+                        <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                            <summary itemprop="name">Quel est le quartier le plus cher à {{ city_name }} ?</summary>
                         </p>
-                    </div>
-                   </details>
+                        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                            <p itemprop="text" class="p-3 text-xs">
+                                Le quartier le plus cher à {{ city_name }}
+                                est {{ city_data.most_expensive_neighbourhood.properties.nom_iris }} avec un prix de
+                                {{ city_data.most_expensive_neighbourhood.properties.average_m2_price }} au m2.
+                            </p>
+                        </div>
+                    </details>
                 </li>
                 <li class="my-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>
                 <li itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" class="bg-white my-2">
                     <details>
-                    <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
-                        <summary itemprop="name">Quel est le quartier le moins cher à {{ city_name }} ?</summary>
-                    </p>
-                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" >
-                        <p itemprop="text" class="p-3 text-xs">
-                            Le Quartier le moins cher à {{ city_name }}
-                            est {{ city_data.less_expensive_neighbourhood.properties.nom_iris }} avec un prix de
-                            {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }} au m2.
+                        <p class="flex flex-row justify-between items-center font-semibold p-3 cursor-pointer">
+                            <summary itemprop="name">Quel est le quartier le moins cher à {{ city_name }} ?</summary>
                         </p>
-                    </div>
+                        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                            <p itemprop="text" class="p-3 text-xs">
+                                Le Quartier le moins cher à {{ city_name }}
+                                est {{ city_data.less_expensive_neighbourhood.properties.nom_iris }} avec un prix de
+                                {{ city_data.less_expensive_neighbourhood.properties.average_m2_price }} au m2.
+                            </p>
+                        </div>
                     </details>
                 </li>
                 <li class="mt-2 w-full h-px bg-secondary-blue-lightest mx-auto"></li>

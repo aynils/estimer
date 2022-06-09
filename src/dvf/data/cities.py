@@ -268,11 +268,11 @@ def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) 
 
     queryset = (
         ValeursFoncieres.objects.filter(code_commune=code_commune)
-            .filter(type_local__in=types)
-            .filter(date_mutation__gt=date_from)
-            .filter(longitude__isnull=False)
-            .filter(latitude__isnull=False)
-            .values_list(*columns)
+        .filter(type_local__in=types)
+        .filter(date_mutation__gt=date_from)
+        .filter(longitude__isnull=False)
+        .filter(latitude__isnull=False)
+        .values_list(*columns)
     )
 
     mutations = pd.DataFrame.from_records(queryset, columns=columns)
@@ -284,7 +284,7 @@ def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) 
 def cleanup_mutations(mutations: pd.DataFrame) -> pd.DataFrame:
     unique_mutations = mutations.drop_duplicates(subset="id_mutation", keep=False)
     unique_mutations["prix_m2"] = (
-            unique_mutations["valeur_fonciere"] / unique_mutations["surface_reelle_bati"]
+        unique_mutations["valeur_fonciere"] / unique_mutations["surface_reelle_bati"]
     ).astype("float")
     unique_mutations["annee"] = pd.DatetimeIndex(unique_mutations["date_mutation"]).year
     unique_mutations = unique_mutations.round({"prix_m2": 2})
@@ -491,18 +491,15 @@ def generate_chart_b64_svg(bar_heights: dict, place_name: str) -> str:
 def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
 
     close_by_city_list = []
-    code_postal_cities = CommuneVoisine.objects.filter(code_postal_a=code_postal).order_by("distance")[:10]
-    for code in code_postal_cities:
-        if len(close_by_city_list) >= 21:
+    code_postal_cities = CommuneVoisine.objects.filter(code_postal_a=code_postal).order_by("distance")[:30]
+    for code_postal in code_postal_cities:
+        if len(close_by_city_list) >= 31:
             break
         else:
-            close_cities = Commune.objects.filter(code_postal=code.code_postal_b)
+            close_cities = Commune.objects.filter(code_postal=code_postal.code_postal_b)
             close_by_city_list.extend(close_cities)
 
-
-    return [
-        ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(close_by_city_list)
-    ]
+    return [ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(close_by_city_list)]
 
 
 # @function_timer
