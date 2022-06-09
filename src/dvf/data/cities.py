@@ -26,7 +26,7 @@ from src.dvf.data.classes import (
     Neighbourhood,
     PolygonColor,
 )
-from src.dvf.models import Commune, ValeursFoncieres, MutationIris
+from src.dvf.models import Commune, ValeursFoncieres, MutationIris, CommuneVoisine
 from src.helpers.cache import cached_function
 from src.iris.models import IRIS
 
@@ -37,6 +37,7 @@ from src.helpers.timer import function_timer, Timer
 TODAY = datetime.date.today()
 ONE_YEAR_AGO = datetime.date(year=TODAY.year - 1, month=1, day=1)
 FIVE_YEARS_AGO = datetime.date(year=TODAY.year - 5, month=1, day=1)
+
 
 # @function_timer
 def get_avg_m2_price_per_year(types: Tuple, date_from: datetime.date, ventes: pd.DataFrame) -> dict:
@@ -267,11 +268,11 @@ def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) 
 
     queryset = (
         ValeursFoncieres.objects.filter(code_commune=code_commune)
-        .filter(type_local__in=types)
-        .filter(date_mutation__gt=date_from)
-        .filter(longitude__isnull=False)
-        .filter(latitude__isnull=False)
-        .values_list(*columns)
+            .filter(type_local__in=types)
+            .filter(date_mutation__gt=date_from)
+            .filter(longitude__isnull=False)
+            .filter(latitude__isnull=False)
+            .values_list(*columns)
     )
 
     mutations = pd.DataFrame.from_records(queryset, columns=columns)
@@ -283,7 +284,7 @@ def get_simple_sales(code_commune: str, types: Tuple, date_from: datetime.date) 
 def cleanup_mutations(mutations: pd.DataFrame) -> pd.DataFrame:
     unique_mutations = mutations.drop_duplicates(subset="id_mutation", keep=False)
     unique_mutations["prix_m2"] = (
-        unique_mutations["valeur_fonciere"] / unique_mutations["surface_reelle_bati"]
+            unique_mutations["valeur_fonciere"] / unique_mutations["surface_reelle_bati"]
     ).astype("float")
     unique_mutations["annee"] = pd.DatetimeIndex(unique_mutations["date_mutation"]).year
     unique_mutations = unique_mutations.round({"prix_m2": 2})
@@ -336,7 +337,7 @@ def get_agent(code_commune: str) -> Agent:
             picture="https://estimer.com/static/images/icons/crown.svg",
             name="Olivier Pourquier",
             agency="estimer.com",
-            description=f"""Vous représentez une agence et souhaitez obtenir plus de mandats à { commune.nom_commune } ? Réservez votre
+            description=f"""Vous représentez une agence et souhaitez obtenir plus de mandats à {commune.nom_commune} ? Réservez votre
                 annonce exclusive sur cette page.""",
             phone_number="06.81.37.36.33",
             email="contact@estimer.com",
@@ -488,10 +489,19 @@ def generate_chart_b64_svg(bar_heights: dict, place_name: str) -> str:
 
 # @function_timer
 def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
-    cities_under = Commune.objects.filter(code_postal__lt=code_postal).order_by("-code_postal")[:10].all()
-    cities_over = Commune.objects.filter(code_postal__gt=code_postal).order_by("code_postal")[:10].all()
+
+    close_by_city_list = []
+    code_postal_cities = CommuneVoisine.objects.filter(code_postal_a=code_postal).order_by("distance")[:10]
+    for code in code_postal_cities:
+        if len(close_by_city_list) >= 21:
+            break
+        else:
+            close_cities = Commune.objects.filter(code_postal=code.code_postal_b)
+            close_by_city_list.extend(close_cities)
+
+
     return [
-        ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(cities_under) + list(cities_over)
+        ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(close_by_city_list)
     ]
 
 

@@ -92,3 +92,12 @@ class MutationIris(models.Model):
 
     class Meta:
         indexes = [models.Index(fields=["id_mutation"]), models.Index(fields=["code_iris"])]
+
+
+class CommuneVoisine(models.Model):
+    code_postal_a = models.CharField(max_length=255, null=False)
+    code_postal_b = models.CharField(max_length=255, null=False)
+    distance = models.FloatField(null=False)
+
+    class Meta:
+        indexes = [models.Index(fields=["code_postal_a"])]
