@@ -489,19 +489,20 @@ def generate_chart_b64_svg(bar_heights: dict, place_name: str) -> str:
 
 # @function_timer
 def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
-
+    a = True
     close_by_city_list = []
     code_postal_cities = CommuneVoisine.objects.filter(code_postal_a=code_postal).order_by("distance")[:30]
     if not code_postal_cities:
-        code_postal_cities = CommuneVoisine.objects.filter(
-            code_postal_a__let=str(int(code_postal) + 100),
-            code_postal_a__get=str(int(code_postal) - 100),
-        ).order_by("distance")[:30]
+        a = False
+        code_postal_cities = CommuneVoisine.objects.filter(code_postal_b=code_postal).order_by("distance")[:30]
     for code_postal in code_postal_cities:
         if len(close_by_city_list) >= 31:
             break
         else:
-            close_cities = Commune.objects.filter(code_postal=code_postal.code_postal_b)
+            if a:
+                close_cities = Commune.objects.filter(code_postal=code_postal.code_postal_b)
+            else:
+                close_cities = Commune.objects.filter(code_postal=code_postal.code_postal_a)
             close_by_city_list.extend(close_cities)
 
     return [ClosebyCity(nom_commune=city.nom_commune, slug=city.slug) for city in list(close_by_city_list)]
