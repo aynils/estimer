@@ -492,6 +492,11 @@ def get_closeby_cities(code_postal: str) -> List[ClosebyCity]:
 
     close_by_city_list = []
     code_postal_cities = CommuneVoisine.objects.filter(code_postal_a=code_postal).order_by("distance")[:30]
+    if not code_postal_cities:
+        code_postal_cities = CommuneVoisine.objects.filter(
+            code_postal_a__let=str(int(code_postal) + 100),
+            code_postal_a__get=str(int(code_postal) - 100),
+        ).order_by("distance")[:30]
     for code_postal in code_postal_cities:
         if len(close_by_city_list) >= 31:
             break
